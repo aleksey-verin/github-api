@@ -19,7 +19,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+a:hover {
+  color: #747bff;
+}
 
+p {
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
   /* display: flex;
@@ -78,7 +85,7 @@ input:focus-visible {
     background-color: #242424;
   }
   a:hover {
-    /* color: #747bff; */
+    color: #747bff;
   }
   button {
     background-color: #1a1a1a;
