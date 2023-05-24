@@ -12,11 +12,11 @@ const MainPage: FC<MainPageProps> = () => {
   return (
     <MainContent>
       <form className="search">
-        <label htmlFor="search">Поиск по другим репозиториям</label>
+        <label htmlFor="search">Search through all repositories on github:</label>
         <input id="search" type="text" placeholder="Enter request.." />
       </form>
       <section className="user-repositories">
-        <div className="user-repositories__title">Список ваших репозиториев:</div>
+        <div className="user-repositories__title">List of your repositories:</div>
         {isLoading && <div>Loading..</div>}
         {isError && <div>Sorry, error..</div>}
         <div className="user-repositories__list">

@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import * as dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 
 interface RepoItemProps {
   repo: string;
@@ -17,14 +19,14 @@ const RepoItem: FC<RepoItemProps> = ({ repo, author, score, language, pushed_at 
       <div className="repo-item__title">
         <div>{repo}</div>
         <div>
-          <a href="#">More details..</a>
+          <Link to={`${ROUTES.publicRoutes.searchPage}/${repo}`}>More details..</Link>
         </div>
       </div>
       <div className="repo-item__content">
         <p>{`Author: ${author}`}</p>
-        <p>{`Stars: ${score}`}</p>
         <p>{`Last commit: ${viewedDate}`}</p>
-        <p>{`Language: ${language}`}</p>
+        <p>{`Main language: ${language}`}</p>
+        <p>{`Stars: ${score}`}</p>
       </div>
       <div className="repo-item__link"></div>
     </div>

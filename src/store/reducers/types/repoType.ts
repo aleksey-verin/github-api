@@ -116,3 +116,7 @@ export interface Permissions {
   triage: boolean;
   pull: boolean;
 }
+
+export interface Languages {
+  [key: string]: number;
+}
