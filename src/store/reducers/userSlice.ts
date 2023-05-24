@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { RepositoriesType, RepositoryItem } from './types/repoType';
+import { RepositoryItem } from './types/repoType';
 
 interface initialStateTypes {
   user: string;
