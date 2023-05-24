@@ -27,7 +27,7 @@ const MainPage: FC<MainPageProps> = () => {
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
 
-  const [searchValue, setSearchValue] = useState<string>(defaultValue);
+  const [searchValue, setSearchValue] = useState<string>(search);
   const debouncedValue = useDebounce<string>(searchValue, 2000);
   // const [searchRequest, setSearchRequest] = useState<string>(defaultValue); // заменить на стор
 
