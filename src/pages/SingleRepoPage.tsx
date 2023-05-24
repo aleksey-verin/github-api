@@ -7,17 +7,26 @@ import dayjs from 'dayjs';
 import { useAppDispatch } from '../hooks/redux';
 import { getRepoLanguages, selectorRepoLanguagesSlice } from '../store/reducers/repoLanguagesSlice';
 import { getViewedLanguages } from '../utils/helpers';
+import { selectorSearchReposSlice } from '../store/reducers/searchReposSlice';
 
 interface SingleRepoPageProps {}
 
 const SingleRepoPage: FC<SingleRepoPageProps> = () => {
   const dispatch = useAppDispatch();
-  const { id: repo } = useParams();
+  const { id } = useParams();
   const { userRepos, isLoading, isError, isSuccess } = useSelector(selectorUserSlice);
-  const currentRepo = useMemo(
-    () => userRepos.find((item) => item.name === repo),
-    [repo, userRepos]
+  const { resultsRepos } = useSelector(selectorSearchReposSlice);
+
+  const currentUserRepo = useMemo(
+    () => userRepos.find((item) => item.id === Number(id)),
+    [id, userRepos]
   );
+  const currentSearchRepo = useMemo(
+    () => resultsRepos?.items.find((item) => item.id === Number(id)),
+    [id, resultsRepos]
+  );
+
+  const currentRepo = currentUserRepo || currentSearchRepo;
   const {
     languages,
     isLoading: isLoadingLanguages,

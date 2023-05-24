@@ -1,4 +1,4 @@
-export interface RepositoriesType {
+export interface SearchRepositoriesType {
   total_count: number;
   incomplete_results: boolean;
   items: RepositoryItem[];

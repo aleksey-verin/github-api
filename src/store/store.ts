@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // import themeSlice from './reducers/themeSlice';
 import userSlice from './reducers/userSlice';
 import repoLanguagesSlice from './reducers/repoLanguagesSlice';
+import searchReposSlice from './reducers/searchReposSlice';
 // import { storage, storageSetItem } from '../utils/storage';
 
 export const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
   // commentsSlice,
   // themeSlice,
   userSlice,
-  repoLanguagesSlice
+  repoLanguagesSlice,
+  searchReposSlice
 });
 
 export const store = configureStore({

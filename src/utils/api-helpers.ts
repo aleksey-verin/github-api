@@ -1,12 +1,10 @@
-export const getPostsUrl = (userId: string | void): URL => {
-  const _url = new URL('https://jsonplaceholder.typicode.com/posts');
-  if (userId === 'none') return _url;
-  if (userId) {
-    _url.searchParams.append('userId', userId);
-  }
+export const getSearchUrl = (searchValue: string): URL | void => {
+  const _url = new URL('https://api.github.com/search/repositories');
+  if (!searchValue) return;
+  _url.searchParams.append('q', searchValue);
   return _url;
 };
 
-export const getCommentsUrl = (postId: string | number): string => {
-  return `https://jsonplaceholder.typicode.com/posts/${postId}/comments`;
-};
+// export const getCommentsUrl = (postId: string | number): string => {
+//   return `https://jsonplaceholder.typicode.com/posts/${postId}/comments`;
+// };
