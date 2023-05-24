@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 
