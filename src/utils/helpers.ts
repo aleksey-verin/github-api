@@ -21,3 +21,17 @@ export function getViewedLanguages(obj: Languages): string {
 
   return percentages.join(', ');
 }
+
+export function getNumberOfPages(total: number, per_page: number): number {
+  return Math.ceil(total / per_page);
+}
+
+export function getPaginationArray(numberOfPages: number): Array<number> {
+  // if (!numberOfPages) return;
+  const viewedNumbers = numberOfPages < 10 ? numberOfPages : 10;
+  const listOfNumbers = [];
+  for (let i = 1; i <= viewedNumbers; i++) {
+    listOfNumbers.push(i);
+  }
+  return listOfNumbers;
+}

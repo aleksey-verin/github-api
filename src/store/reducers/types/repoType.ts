@@ -120,3 +120,16 @@ export interface Permissions {
 export interface Languages {
   [key: string]: number;
 }
+
+export interface UserAuth {
+  displayName: string;
+  email: string;
+  oauthAccessToken: string;
+  photoUrl: string;
+  screenName: string;
+}
+
+export interface ParamsSearch {
+  per_page: number;
+  page: number;
+}

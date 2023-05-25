@@ -20,7 +20,7 @@ const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, push
       <div className="repo-item__title">
         <div>{repo}</div>
         <div>
-          <Link to={`${ROUTES.publicRoutes.searchPage}/${path}`}>More details..</Link>
+          <Link to={`${ROUTES.searchPage}/${path}`}>More details..</Link>
         </div>
       </div>
       <div className="repo-item__content">

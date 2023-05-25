@@ -1,5 +1,7 @@
 export const storage = {
-  theme: 'posts-app-theme'
+  isAuth: 'github-api-app-isAuth',
+  userAuth: 'github-api-app-userAuth',
+  theme: 'github-api-app-theme'
 };
 
 export const storageGetItem = (storageItem: string) => {

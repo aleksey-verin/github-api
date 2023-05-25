@@ -35,12 +35,16 @@ header {
       }
     }
   }
-  & .logo {
+  & .header-logo {
     flex: 0 0 100px;
   }
-  & .user {
+  & .header-user {
     flex: 1 1 auto;
     text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
   }
 }
 footer {
@@ -64,9 +68,14 @@ main {
 
 .search {
   display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
   margin-bottom: 20px;
+  & input {
+    flex: 1 0 auto;
+  }
 }
 .user-repositories {
   &__title {

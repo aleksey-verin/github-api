@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import MainContent from '../components/ui/MainContent';
 import RepoItem from '../components/search/RepoItem';
 import { useSelector } from 'react-redux';
@@ -9,8 +9,11 @@ import {
   clearSearch,
   getResultsRepos,
   selectorSearchReposSlice,
+  setParamsPage,
   setSearch
 } from '../store/reducers/searchReposSlice';
+import { selectorUserAuth } from '../store/reducers/userAuthSlice';
+import { getPaginationArray } from '../utils/helpers';
 
 const defaultValue = '';
 
@@ -19,9 +22,12 @@ interface MainPageProps {}
 const MainPage: FC<MainPageProps> = () => {
   const dispatch = useAppDispatch();
   const { userRepos, isLoading, isError } = useSelector(selectorUserSlice);
+  const { user } = useSelector(selectorUserAuth);
   const {
     search,
     resultsRepos,
+    params,
+    numberOfPages,
     isLoading: searchIsLoading,
     isSuccess: searchIsSuccess,
     isError: searchIsError
@@ -42,7 +48,7 @@ const MainPage: FC<MainPageProps> = () => {
   const handleSubmitSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchValue === search) return;
-    dispatch(getResultsRepos(searchValue));
+    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken, params }));
     // console.log(searchValue);
     dispatch(setSearch(searchValue));
     // setSearchRequest(searchValue);
@@ -51,7 +57,9 @@ const MainPage: FC<MainPageProps> = () => {
   useEffect(() => {
     if (!debouncedValue) return;
     if (searchValue === search) return;
-    dispatch(getResultsRepos(debouncedValue));
+    dispatch(
+      getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
+    );
     // console.log(debouncedValue);
     dispatch(setSearch(debouncedValue));
     // setSearchRequest(debouncedValue);
@@ -62,6 +70,19 @@ const MainPage: FC<MainPageProps> = () => {
     dispatch(clearSearch());
     // setSearchRequest(defaultValue);
   };
+
+  const handlePaginationClick = (page: number) => {
+    dispatch(setParamsPage(page));
+    dispatch(
+      getResultsRepos({
+        searchValue,
+        oAuthToken: user?.oauthAccessToken,
+        params: { page: page, per_page: params.per_page }
+      })
+    );
+  };
+
+  const numbersForPagination = useMemo(() => getPaginationArray(numberOfPages), [numberOfPages]);
 
   return (
     <MainContent>
@@ -84,19 +105,21 @@ const MainPage: FC<MainPageProps> = () => {
           {isLoading && <div>Loading..</div>}
           {isError && <div>Sorry, error..</div>}
           <div className="user-repositories__list">
-            {userRepos.map(
-              ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
-                <RepoItem
-                  key={id}
-                  path={id}
-                  repo={name}
-                  author={login}
-                  score={stargazers_count}
-                  language={language}
-                  pushed_at={pushed_at}
-                />
-              )
-            )}
+            {user
+              ? userRepos.map(
+                  ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
+                    <RepoItem
+                      key={id}
+                      path={id}
+                      repo={name}
+                      author={login}
+                      score={stargazers_count}
+                      language={language}
+                      pushed_at={pushed_at}
+                    />
+                  )
+                )
+              : 'Please log in to the app in order to see your own repositories'}
           </div>
         </section>
       ) : (
@@ -123,6 +146,28 @@ const MainPage: FC<MainPageProps> = () => {
                     />
                   )
                 )}
+              </div>
+              <div>
+                <button
+                  disabled={params.page === 1}
+                  onClick={() => handlePaginationClick(params.page - 1)}>
+                  Back
+                </button>
+                {numbersForPagination.map((item) => (
+                  <button
+                    onClick={() => handlePaginationClick(item)}
+                    style={item === params.page ? { backgroundColor: 'lightblue' } : {}}
+                    disabled={item === params.page}
+                    key={item}>
+                    {item}
+                  </button>
+                ))}
+                {numberOfPages > 10 ? <button>...</button> : null}
+                <button
+                  onClick={() => handlePaginationClick(params.page + 1)}
+                  disabled={params.page === numberOfPages}>
+                  Forward
+                </button>
               </div>
             </>
           )}

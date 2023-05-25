@@ -3,15 +3,19 @@ import AppRouter from './pages/AppRouter';
 import './App.css';
 import { useAppDispatch } from './hooks/redux';
 import { useEffect } from 'react';
-import { getUserRepos, selectorUserSlice } from './store/reducers/userSlice';
+import { getUserRepos } from './store/reducers/userSlice';
 import { useSelector } from 'react-redux';
+import { selectorUserAuth } from './store/reducers/userAuthSlice';
 
 function App() {
   const dispatch = useAppDispatch();
-  const { user } = useSelector(selectorUserSlice);
+  // const { user } = useSelector(selectorUserSlice);
+  const { user } = useSelector(selectorUserAuth);
 
   useEffect(() => {
-    dispatch(getUserRepos(user));
+    if (user) {
+      dispatch(getUserRepos(user.screenName));
+    }
   }, [dispatch, user]);
 
   return (
