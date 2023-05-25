@@ -78,13 +78,13 @@ main {
   flex-direction: column;
   box-sizing: border-box;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .repo-item__title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   padding: 10px 20px;
 }
 .repo-item__title div:first-child {
@@ -114,24 +114,24 @@ main {
 .single-repo {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .single-repo__name {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
   height: 50px;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 .single-repo__name div {
   height: 100%;
   display: flex;
   align-items: center;
   padding: 0 20px;
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 .single-repo__name div:nth-child(odd) {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .single-repo__name div:last-child {
   border-right: none;
@@ -141,24 +141,25 @@ main {
   grid-template-columns: 4fr 2fr;
   height: 150px;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 .single-repo__languages {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  height: 50px;
+  min-height: 50px;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 .single-repo__languages div {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 .single-repo__languages div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .single-repo__description {
   display: grid;
@@ -174,13 +175,13 @@ main {
   box-sizing: border-box;
 }
 .single-repo__description div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .author-info {
   height: 100%;
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 .author-info__commit {
   display: grid;
@@ -188,7 +189,7 @@ main {
   height: 50px;
   align-items: center;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 .author-info__commit div {
   height: 100%;
@@ -197,8 +198,8 @@ main {
   padding: 0 20px;
 }
 .author-info__commit div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .author-info__name {
   display: grid;
@@ -206,7 +207,7 @@ main {
   height: 50px;
   align-items: center;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 .author-info__name div {
   height: 100%;
@@ -215,8 +216,8 @@ main {
   padding: 0 20px;
 }
 .author-info__name div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .author-info__link {
   display: grid;
@@ -232,8 +233,8 @@ main {
   padding: 0 20px;
 }
 .author-info__link div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .author-photo {
   display: grid;
@@ -247,8 +248,8 @@ main {
   padding: 0 20px;
 }
 .author-photo div:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.02);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .author-photo__photo {
   display: flex;

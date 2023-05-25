@@ -87,7 +87,8 @@ input:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  button,
+  input {
     background-color: #1a1a1a;
   }
 }
