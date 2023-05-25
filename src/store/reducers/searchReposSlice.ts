@@ -30,36 +30,39 @@ const initialState = {
 
 export const getResultsRepos = createAsyncThunk<
   SearchRepositoriesType,
-  { searchValue: string; oAuthToken: string | undefined; params: ParamsSearch },
+  { searchValue: string; oAuthToken: string | undefined; params?: ParamsSearch },
   {
     dispatch: AppDispatch;
     state: IRootState;
   }
->('getResultsRepos', async ({ searchValue, oAuthToken, params }, thunkAPI) => {
-  try {
-    const url = getSearchUrl(searchValue, params);
-    const headersList = {
-      Accept: '*/*',
-      Authorization: `Bearer ${oAuthToken}`
-    };
-    console.log(url);
-    if (!url) return;
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: oAuthToken ? headersList : {}
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      const error = await response.json();
-      return thunkAPI.rejectWithValue(error?.message);
+>(
+  'getResultsRepos',
+  async ({ searchValue, oAuthToken, params = initialState.params }, thunkAPI) => {
+    try {
+      const url = getSearchUrl(searchValue, params);
+      const headersList = {
+        Accept: '*/*',
+        Authorization: `Bearer ${oAuthToken}`
+      };
+      console.log(url);
+      if (!url) return;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: oAuthToken ? headersList : {}
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        const error = await response.json();
+        return thunkAPI.rejectWithValue(error?.message);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
-  } catch (error) {
-    console.log(error);
-    return thunkAPI.rejectWithValue(error);
   }
-});
+);
 
 export const searchReposSlice = createSlice({
   name: 'searchReposSlice',
@@ -74,6 +77,11 @@ export const searchReposSlice = createSlice({
     },
     setParamsPage: (state, { payload }: PayloadAction<number>) => {
       state.params.page = payload;
+      // state.params.page = initialState.params.page;
+    },
+    resetParamsPage: (state) => {
+      state.params.page = initialState.params.page;
+      // state.params.page = initialState.params.page;
     }
   },
   extraReducers: (builder) => {
@@ -87,6 +95,7 @@ export const searchReposSlice = createSlice({
       (state, { payload }: PayloadAction<SearchRepositoriesType>) => {
         state.resultsRepos = payload;
         state.numberOfPages = getNumberOfPages(payload.total_count, state.params.per_page);
+        // state.params.page = initialState.params.page;
         state.isLoading = false;
         state.isSuccess = true;
       }
@@ -99,5 +108,5 @@ export const searchReposSlice = createSlice({
 });
 
 export const selectorSearchReposSlice = (state: IRootState) => state.searchReposSlice;
-export const { setSearch, clearSearch, setParamsPage } = searchReposSlice.actions;
+export const { setSearch, clearSearch, setParamsPage, resetParamsPage } = searchReposSlice.actions;
 export default searchReposSlice.reducer;

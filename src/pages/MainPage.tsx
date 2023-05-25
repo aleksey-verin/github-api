@@ -8,6 +8,7 @@ import { useAppDispatch } from '../hooks/redux';
 import {
   clearSearch,
   getResultsRepos,
+  resetParamsPage,
   selectorSearchReposSlice,
   setParamsPage,
   setSearch
@@ -28,8 +29,8 @@ const MainPage: FC<MainPageProps> = () => {
     resultsRepos,
     params,
     numberOfPages,
-    isLoading: searchIsLoading,
-    isSuccess: searchIsSuccess,
+    // isLoading: searchIsLoading,
+    // isSuccess: searchIsSuccess,
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
 
@@ -48,7 +49,8 @@ const MainPage: FC<MainPageProps> = () => {
   const handleSubmitSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchValue === search) return;
-    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken, params }));
+    dispatch(resetParamsPage());
+    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken }));
     // console.log(searchValue);
     dispatch(setSearch(searchValue));
     // setSearchRequest(searchValue);
@@ -57,9 +59,8 @@ const MainPage: FC<MainPageProps> = () => {
   useEffect(() => {
     if (!debouncedValue) return;
     if (searchValue === search) return;
-    dispatch(
-      getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
-    );
+    dispatch(resetParamsPage());
+    dispatch(getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken }));
     // console.log(debouncedValue);
     dispatch(setSearch(debouncedValue));
     // setSearchRequest(debouncedValue);
@@ -82,7 +83,10 @@ const MainPage: FC<MainPageProps> = () => {
     );
   };
 
-  const numbersForPagination = useMemo(() => getPaginationArray(numberOfPages), [numberOfPages]);
+  const numbersForPagination = useMemo(
+    () => getPaginationArray(numberOfPages, params.page),
+    [numberOfPages, params]
+  );
 
   return (
     <MainContent>
@@ -124,53 +128,56 @@ const MainPage: FC<MainPageProps> = () => {
         </section>
       ) : (
         <section className="user-repositories">
-          {searchIsLoading && <div>Loading..</div>}
+          {/* {searchIsLoading && <div>Loading..</div>} */}
           {searchIsError && <div>Sorry, error..</div>}
-          {searchIsSuccess && (
-            <>
-              <div className="user-repositories__title">
-                {`As a result of the search, ${resultsRepos?.total_count} repositories were found:`}
-              </div>
+          {/* {searchIsSuccess && ( */}
+          <>
+            <div className="user-repositories__title">
+              <span>{resultsRepos?.total_count}</span> repositories were found for the query{' '}
+              <span>{search}</span>:
+              {/* {`${resultsRepos?.total_count} repositories were found for the query "${search}":`} */}
+            </div>
 
-              <div className="user-repositories__list">
-                {resultsRepos?.items.map(
-                  ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
-                    <RepoItem
-                      key={id}
-                      path={id}
-                      repo={name}
-                      author={login}
-                      score={stargazers_count}
-                      language={language}
-                      pushed_at={pushed_at}
-                    />
-                  )
-                )}
-              </div>
-              <div>
+            <div className="user-repositories__list">
+              {resultsRepos?.items.map(
+                ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
+                  <RepoItem
+                    key={id}
+                    path={id}
+                    repo={name}
+                    author={login}
+                    score={stargazers_count}
+                    language={language}
+                    pushed_at={pushed_at}
+                  />
+                )
+              )}
+            </div>
+
+            <div className="pagination">
+              <button
+                disabled={params.page === 1}
+                onClick={() => handlePaginationClick(params.page - 1)}>
+                Back
+              </button>
+              {numbersForPagination.map((item) => (
                 <button
-                  disabled={params.page === 1}
-                  onClick={() => handlePaginationClick(params.page - 1)}>
-                  Back
+                  onClick={() => handlePaginationClick(item)}
+                  className={item === params.page ? 'active' : ''}
+                  disabled={item === params.page}
+                  key={item}>
+                  {item}
                 </button>
-                {numbersForPagination.map((item) => (
-                  <button
-                    onClick={() => handlePaginationClick(item)}
-                    style={item === params.page ? { backgroundColor: 'lightblue' } : {}}
-                    disabled={item === params.page}
-                    key={item}>
-                    {item}
-                  </button>
-                ))}
-                {numberOfPages > 10 ? <button>...</button> : null}
-                <button
-                  onClick={() => handlePaginationClick(params.page + 1)}
-                  disabled={params.page === numberOfPages}>
-                  Forward
-                </button>
-              </div>
-            </>
-          )}
+              ))}
+              {/* {numberOfPages > 10 ? <button>...</button> : null} */}
+              <button
+                onClick={() => handlePaginationClick(params.page + 1)}
+                disabled={params.page === numberOfPages}>
+                Next
+              </button>
+            </div>
+          </>
+          {/* )} */}
         </section>
       )}
     </MainContent>

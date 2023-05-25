@@ -48,7 +48,7 @@ const SingleRepoPage: FC<SingleRepoPageProps> = () => {
     <MainContent>
       {isLoading && <div>Loading..</div>}
       {isError && <div>Sorry, there is Error</div>}
-      {isSuccess && (
+      {(isSuccess || currentRepo) && (
         <>
           <div className="single-title">
             Details info for repository named <span>{currentRepo?.name}</span>

@@ -71,13 +71,21 @@ main {
   flex: 1 0 auto;
 }
 
+.user-repositories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .user-repositories__title {
-  margin-bottom: 10px;
+  font-size: 18px;
+}
+.user-repositories__title span {
+  font-weight: 700;
 }
 .user-repositories__list {
   width: 1200px;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
@@ -269,4 +277,14 @@ main {
   width: 100px;
   height: 100px;
   border-radius: 8px;
+}
+
+.pagination {
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+}
+.pagination button.active {
+  color: #5e66f9;
+  background-color: rgba(73, 82, 255, 0.123);
 }/*# sourceMappingURL=App.css.map */

@@ -78,14 +78,20 @@ main {
   }
 }
 .user-repositories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   &__title {
-    // font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    & span {
+      font-weight: 700;
+    }
+    // margin-bottom: 10px;
   }
   &__list {
     width: 1200px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
   }
 }
@@ -285,6 +291,26 @@ main {
         height: 100px;
         border-radius: 8px;
       }
+    }
+  }
+}
+
+// ========== pagination =========
+
+.pagination {
+  // width: 100%;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+  & button {
+    // &:hover {
+    //   color: rgba(255, 255, 255, 0.7);
+    // }
+    &.active {
+      color: #5e66f9;
+      background-color: rgba(73, 82, 255, 0.123);
+      // border-right: 2px solid rgba(0, 0, 0, 0.3);
+      // outline: 10px auto -webkit-focus-ring-color;
     }
   }
 }

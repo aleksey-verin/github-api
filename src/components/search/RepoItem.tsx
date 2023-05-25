@@ -2,6 +2,7 @@ import { FC } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
+import { getShortString } from '../../utils/helpers';
 
 interface RepoItemProps {
   path: number;
@@ -14,11 +15,11 @@ interface RepoItemProps {
 
 const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, pushed_at }) => {
   const viewedDate = dayjs(pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
-
+  const viewedRepoName = getShortString(repo, 25);
   return (
     <div className="repo-item">
       <div className="repo-item__title">
-        <div>{repo}</div>
+        <div>{viewedRepoName}</div>
         <div>
           <Link to={`${ROUTES.searchPage}/${path}`}>More details..</Link>
         </div>

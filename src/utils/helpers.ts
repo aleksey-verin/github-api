@@ -26,12 +26,36 @@ export function getNumberOfPages(total: number, per_page: number): number {
   return Math.ceil(total / per_page);
 }
 
-export function getPaginationArray(numberOfPages: number): Array<number> {
+export function getPaginationArray(numberOfPages: number, currentPage: number): Array<number> {
   // if (!numberOfPages) return;
-  const viewedNumbers = numberOfPages < 10 ? numberOfPages : 10;
+  console.log(numberOfPages, currentPage);
+  const maxAmount = 9;
+  const halfOfMaxAmount = Math.floor(maxAmount / 2);
   const listOfNumbers = [];
-  for (let i = 1; i <= viewedNumbers; i++) {
-    listOfNumbers.push(i);
+
+  if (numberOfPages <= maxAmount) {
+    for (let i = 1; i <= numberOfPages; i++) {
+      listOfNumbers.push(i);
+    }
+  }
+  if (numberOfPages > maxAmount) {
+    if (currentPage <= halfOfMaxAmount) {
+      for (let i = 1; i <= maxAmount; i++) {
+        listOfNumbers.push(i);
+      }
+    } else if (currentPage > numberOfPages - halfOfMaxAmount) {
+      for (let i = numberOfPages - maxAmount + 1; i <= numberOfPages; i++) {
+        listOfNumbers.push(i);
+      }
+    } else {
+      for (let i = currentPage - halfOfMaxAmount; i <= currentPage + halfOfMaxAmount; i++) {
+        listOfNumbers.push(i);
+      }
+    }
   }
   return listOfNumbers;
+}
+
+export function getShortString(name: string, amount: number): string {
+  return name.length >= amount ? `${name.slice(0, 20)}..` : name;
 }
