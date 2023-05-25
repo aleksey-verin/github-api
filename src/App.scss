@@ -45,6 +45,13 @@ header {
     align-items: center;
     justify-content: flex-end;
     gap: 20px;
+    & button {
+      background-color: #2d3172;
+      color: #fff;
+      & a:hover {
+        color: inherit;
+      }
+    }
   }
 }
 footer {
@@ -303,6 +310,7 @@ main {
   display: flex;
   gap: 20px;
   & button {
+    min-width: 60px;
     // &:hover {
     //   color: rgba(255, 255, 255, 0.7);
     // }

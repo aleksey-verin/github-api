@@ -40,6 +40,13 @@ header .header-user {
   justify-content: flex-end;
   gap: 20px;
 }
+header .header-user button {
+  background-color: #2d3172;
+  color: #fff;
+}
+header .header-user button a:hover {
+  color: inherit;
+}
 
 footer {
   flex: 0 0 64px;
@@ -283,6 +290,9 @@ main {
   justify-content: center;
   display: flex;
   gap: 20px;
+}
+.pagination button {
+  min-width: 60px;
 }
 .pagination button.active {
   color: #5e66f9;

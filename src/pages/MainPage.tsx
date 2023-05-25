@@ -29,7 +29,7 @@ const MainPage: FC<MainPageProps> = () => {
     resultsRepos,
     params,
     numberOfPages,
-    // isLoading: searchIsLoading,
+    isLoading: searchIsLoading,
     // isSuccess: searchIsSuccess,
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
@@ -96,6 +96,7 @@ const MainPage: FC<MainPageProps> = () => {
           value={searchValue}
           id="search"
           type="text"
+          autoComplete="false"
           placeholder="Enter request.."
           onChange={handleInputValue}
         />
@@ -156,7 +157,7 @@ const MainPage: FC<MainPageProps> = () => {
 
             <div className="pagination">
               <button
-                disabled={params.page === 1}
+                disabled={params.page === 1 || searchIsLoading}
                 onClick={() => handlePaginationClick(params.page - 1)}>
                 Back
               </button>
@@ -164,7 +165,7 @@ const MainPage: FC<MainPageProps> = () => {
                 <button
                   onClick={() => handlePaginationClick(item)}
                   className={item === params.page ? 'active' : ''}
-                  disabled={item === params.page}
+                  disabled={item === params.page || searchIsLoading}
                   key={item}>
                   {item}
                 </button>
@@ -172,7 +173,7 @@ const MainPage: FC<MainPageProps> = () => {
               {/* {numberOfPages > 10 ? <button>...</button> : null} */}
               <button
                 onClick={() => handlePaginationClick(params.page + 1)}
-                disabled={params.page === numberOfPages}>
+                disabled={params.page === numberOfPages || searchIsLoading}>
                 Next
               </button>
             </div>
