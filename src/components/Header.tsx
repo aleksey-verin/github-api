@@ -21,8 +21,8 @@ const Header: FC<HeaderProps> = () => {
     <header>
       <div className="header-logo">LOGO</div>
       <nav>
-        <NavLink to={ROUTES.aboutPage}>About</NavLink>
         <NavLink to={ROUTES.searchPage}>Search</NavLink>
+        <NavLink to={ROUTES.aboutPage}>About</NavLink>
         <NavLink to={ROUTES.settingsPage}>Settings</NavLink>
       </nav>
       <div className="header-user">

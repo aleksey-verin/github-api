@@ -1,6 +1,11 @@
 export const storage = {
   isAuth: 'github-api-app-isAuth',
   userAuth: 'github-api-app-userAuth',
+  searchValue: 'github-api-app-searchValue',
+  searchResults: 'github-api-app-searchResults',
+  searchParamsPerPage: 'github-api-app-searchParamsPerPage',
+  searchParamsPage: 'github-api-app-searchParamsPage',
+  searchPages: 'github-api-app-searchPages',
   theme: 'github-api-app-theme'
 };
 

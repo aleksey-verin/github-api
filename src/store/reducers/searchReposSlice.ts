@@ -4,6 +4,7 @@ import { AppDispatch, IRootState } from '../store';
 import { ParamsSearch, SearchRepositoriesType } from './types/repoType';
 import { getSearchUrl } from '../../utils/api-helpers';
 import { getNumberOfPages } from '../../utils/helpers';
+import { storage, storageGetItem } from '../../utils/storage';
 
 interface initialStateTypes {
   search: string;
@@ -15,14 +16,24 @@ interface initialStateTypes {
   isError: boolean;
 }
 
-const initialState = {
+const defaultValues = {
   search: '',
   resultsRepos: null,
   params: {
     per_page: 9,
     page: 1
   },
-  numberOfPages: 0,
+  numberOfPages: 0
+};
+
+const initialState = {
+  search: storageGetItem(storage.searchValue) ?? defaultValues.search,
+  resultsRepos: storageGetItem(storage.searchResults) ?? defaultValues.resultsRepos,
+  params: {
+    per_page: storageGetItem(storage.searchParamsPerPage) ?? defaultValues.params.per_page,
+    page: storageGetItem(storage.searchParamsPage) ?? defaultValues.params.page
+  },
+  numberOfPages: storageGetItem(storage.searchPages) ?? defaultValues.numberOfPages,
   isLoading: false,
   isSuccess: false,
   isError: false
@@ -72,15 +83,15 @@ export const searchReposSlice = createSlice({
       state.search = payload;
     },
     clearSearch: (state) => {
-      state.search = initialState.search;
-      state.resultsRepos = initialState.resultsRepos;
+      state.search = defaultValues.search;
+      state.resultsRepos = defaultValues.resultsRepos;
     },
     setParamsPage: (state, { payload }: PayloadAction<number>) => {
       state.params.page = payload;
       // state.params.page = initialState.params.page;
     },
     resetParamsPage: (state) => {
-      state.params.page = initialState.params.page;
+      state.params.page = defaultValues.params.page;
       // state.params.page = initialState.params.page;
     }
   },
