@@ -46,8 +46,6 @@ const SingleRepoPage: FC = () => {
     };
   }, [currentRepo, dispatch]);
 
-  console.log(currentRepo);
-  console.log(languages, viewedLanguages);
   const viewedDate = dayjs(currentRepo?.pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
 
   return (
