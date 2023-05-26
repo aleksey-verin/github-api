@@ -1,25 +1,18 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-// import postsSlice from './reducers/postsSlice';
-// import usersSlice from './reducers/usersSlice';
-// import commentsSlice from './reducers/commentsSlice';
-// import themeSlice from './reducers/themeSlice';
-import userSlice from './reducers/userSlice';
+import userReposSlice from './reducers/userReposSlice';
 import repoLanguagesSlice from './reducers/repoLanguagesSlice';
 import searchReposSlice from './reducers/searchReposSlice';
 import userAuthSlice from './reducers/userAuthSlice';
+import userSettingsSlice from './reducers/userSettingsSlice';
 import { storage, storageSetItem } from '../utils/storage';
-// import { storage, storageSetItem } from '../utils/storage';
 
 export const rootReducer = combineReducers({
-  // postsSlice,
-  // usersSlice,
-  // commentsSlice,
-  // themeSlice,
-  userSlice,
+  userReposSlice,
   repoLanguagesSlice,
   searchReposSlice,
-  userAuthSlice
+  userAuthSlice,
+  userSettingsSlice
 });
 
 export const store = configureStore({

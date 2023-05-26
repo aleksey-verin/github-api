@@ -2,7 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import MainContent from '../components/ui/MainContent';
 import RepoItem from '../components/search/RepoItem';
 import { useSelector } from 'react-redux';
-import { selectorUserSlice } from '../store/reducers/userSlice';
+import { selectorUserSlice } from '../store/reducers/userReposSlice';
 import useDebounce from '../hooks/useDebounce';
 import { useAppDispatch } from '../hooks/redux';
 import {
@@ -15,6 +15,7 @@ import {
 } from '../store/reducers/searchReposSlice';
 import { selectorUserAuth } from '../store/reducers/userAuthSlice';
 import { getPaginationArray } from '../utils/helpers';
+import { selectorUserSettingsSlice } from '../store/reducers/userSettingsSlice';
 
 const defaultValue = '';
 
@@ -33,9 +34,10 @@ const MainPage: FC<MainPageProps> = () => {
     // isSuccess: searchIsSuccess,
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
+  const { searchDebounce } = useSelector(selectorUserSettingsSlice);
 
   const [searchValue, setSearchValue] = useState<string>(search);
-  const debouncedValue = useDebounce<string>(searchValue, 2000);
+  const debouncedValue = useDebounce<string>(searchValue, searchDebounce);
   // const [searchRequest, setSearchRequest] = useState<string>(defaultValue); // заменить на стор
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +138,6 @@ const MainPage: FC<MainPageProps> = () => {
             <div className="user-repositories__title">
               <span>{resultsRepos?.total_count}</span> repositories were found for the query{' '}
               <span>{search}</span>:
-              {/* {`${resultsRepos?.total_count} repositories were found for the query "${search}":`} */}
             </div>
 
             <div className="user-repositories__list">

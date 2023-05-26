@@ -4,7 +4,6 @@ import { AppDispatch, IRootState } from '../store';
 import { RepositoryItem } from './types/repoType';
 
 interface initialStateTypes {
-  user: string;
   userRepos: RepositoryItem[];
   isLoading: boolean;
   isSuccess: boolean;
@@ -12,7 +11,6 @@ interface initialStateTypes {
 }
 
 const initialState = {
-  user: 'aleksey-verin',
   userRepos: [],
   isLoading: false,
   isSuccess: false,
@@ -43,8 +41,8 @@ export const getUserRepos = createAsyncThunk<
   }
 });
 
-export const userSlice = createSlice({
-  name: 'userSlice',
+export const userReposSlice = createSlice({
+  name: 'userReposSlice',
   initialState: initialState as initialStateTypes,
   reducers: {},
   extraReducers: (builder) => {
@@ -68,6 +66,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const selectorUserSlice = (state: IRootState) => state.userSlice;
+export const selectorUserSlice = (state: IRootState) => state.userReposSlice;
 
-export default userSlice.reducer;
+export default userReposSlice.reducer;

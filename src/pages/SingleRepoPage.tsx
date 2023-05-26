@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { selectorUserSlice } from '../store/reducers/userSlice';
+import { selectorUserSlice } from '../store/reducers/userReposSlice';
 import MainContent from '../components/ui/MainContent';
 import dayjs from 'dayjs';
 import { useAppDispatch } from '../hooks/redux';
