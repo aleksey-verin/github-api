@@ -6,16 +6,6 @@ import { getSearchUrl } from '../../utils/api-helpers';
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';
 
-interface initialStateTypes {
-  search: string;
-  resultsRepos: SearchRepositoriesType | null;
-  params: ParamsSearch;
-  numberOfPages: number;
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-}
-
 const defaultValues = {
   search: '',
   resultsRepos: null,
@@ -25,6 +15,16 @@ const defaultValues = {
   },
   numberOfPages: 0
 };
+
+interface initialStateTypes {
+  search: string;
+  resultsRepos: SearchRepositoriesType | null;
+  params: ParamsSearch;
+  numberOfPages: number;
+  isLoading: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+}
 
 const initialState = {
   search: storageGetItem(storage.searchValue) ?? defaultValues.search,
@@ -85,14 +85,20 @@ export const searchReposSlice = createSlice({
     clearSearch: (state) => {
       state.search = defaultValues.search;
       state.resultsRepos = defaultValues.resultsRepos;
+      state.numberOfPages = defaultValues.numberOfPages;
+      state.params.page = defaultValues.params.page;
     },
     setParamsPage: (state, { payload }: PayloadAction<number>) => {
       state.params.page = payload;
-      // state.params.page = initialState.params.page;
     },
     resetParamsPage: (state) => {
       state.params.page = defaultValues.params.page;
-      // state.params.page = initialState.params.page;
+    },
+    setParamsPerPage: (state, { payload }: PayloadAction<number>) => {
+      state.params.per_page = payload;
+    },
+    resetParamsPerPage: (state) => {
+      state.params.per_page = defaultValues.params.per_page;
     }
   },
   extraReducers: (builder) => {
@@ -119,5 +125,12 @@ export const searchReposSlice = createSlice({
 });
 
 export const selectorSearchReposSlice = (state: IRootState) => state.searchReposSlice;
-export const { setSearch, clearSearch, setParamsPage, resetParamsPage } = searchReposSlice.actions;
+export const {
+  setSearch,
+  clearSearch,
+  setParamsPage,
+  resetParamsPage,
+  setParamsPerPage,
+  resetParamsPerPage
+} = searchReposSlice.actions;
 export default searchReposSlice.reducer;

@@ -35,6 +35,7 @@ const MainPage: FC<MainPageProps> = () => {
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
   const { searchDebounce } = useSelector(selectorUserSettingsSlice);
+  // const { per_page } = params;
 
   const [searchValue, setSearchValue] = useState<string>(search);
   const debouncedValue = useDebounce<string>(searchValue, searchDebounce);
@@ -52,17 +53,25 @@ const MainPage: FC<MainPageProps> = () => {
     e.preventDefault();
     if (searchValue === search) return;
     dispatch(resetParamsPage());
-    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken }));
+    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken, params }));
     // console.log(searchValue);
     dispatch(setSearch(searchValue));
     // setSearchRequest(searchValue);
   };
 
+  // useEffect(() => {
+  //   dispatch(
+  //     getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
+  //   );
+  // }, [per_page]);
+
   useEffect(() => {
     if (!debouncedValue) return;
     if (searchValue === search) return;
     dispatch(resetParamsPage());
-    dispatch(getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken }));
+    dispatch(
+      getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
+    );
     // console.log(debouncedValue);
     dispatch(setSearch(debouncedValue));
     // setSearchRequest(debouncedValue);
@@ -89,6 +98,8 @@ const MainPage: FC<MainPageProps> = () => {
     () => getPaginationArray(numberOfPages, params.page),
     [numberOfPages, params]
   );
+
+  console.log(`MainPage param.pre_page ${params.per_page}`);
 
   return (
     <MainContent>
