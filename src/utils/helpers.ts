@@ -12,6 +12,8 @@ export function extractPath(input: string): string {
 }
 
 export function getViewedLanguages(obj: Languages): string {
+  if (!Object.keys(obj).length) return 'There is no languages';
+
   const total = Object.values(obj).reduce((sum, value) => sum + value, 0);
 
   const percentages = Object.entries(obj).map(([key, value]) => {

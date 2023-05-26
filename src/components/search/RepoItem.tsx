@@ -15,6 +15,7 @@ interface RepoItemProps {
 
 const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, pushed_at }) => {
   const viewedDate = dayjs(pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
+  const viewedLanguage = language ? language : 'There is no data';
   const viewedRepoName = getShortString(repo, 25);
   return (
     <div className="repo-item">
@@ -27,7 +28,7 @@ const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, push
       <div className="repo-item__content">
         <p>{`Author: ${author}`}</p>
         <p>{`Last commit: ${viewedDate}`}</p>
-        <p>{`Main language: ${language}`}</p>
+        <p>{`Main language: ${viewedLanguage}`}</p>
         <p>{`Stars: ${score}`}</p>
       </div>
       <div className="repo-item__link"></div>

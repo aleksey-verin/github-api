@@ -6,6 +6,7 @@ import MainContent from '../../components/ui/MainContent';
 import dayjs from 'dayjs';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import {
+  clearLanguage,
   getRepoLanguages,
   selectorRepoLanguagesSlice
 } from '../../store/reducers/repoLanguagesSlice';
@@ -31,7 +32,6 @@ const SingleRepoPage: FC = () => {
   const {
     languages,
     isLoading: isLoadingLanguages,
-    isSuccess: isSuccessLanguages,
     isError: IsErrorLanguages
   } = useSelector(selectorRepoLanguagesSlice);
 
@@ -39,10 +39,15 @@ const SingleRepoPage: FC = () => {
 
   useEffect(() => {
     if (!currentRepo) return;
+    if (!currentRepo.language) return;
     dispatch(getRepoLanguages(currentRepo.languages_url));
+    return () => {
+      dispatch(clearLanguage());
+    };
   }, [currentRepo, dispatch]);
 
   console.log(currentRepo);
+  console.log(languages, viewedLanguages);
   const viewedDate = dayjs(currentRepo?.pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
 
   return (
@@ -92,13 +97,13 @@ const SingleRepoPage: FC = () => {
               <div>
                 {isLoadingLanguages && 'Загрузка..'}
                 {IsErrorLanguages && 'Ошибка при загрузке данных'}
-                {isSuccessLanguages && viewedLanguages}
+                {viewedLanguages}
               </div>
             </div>
             <div className="single-repo__description">
               <div>Description:</div>
               <div>
-                {currentRepo?.description ? currentRepo?.description : 'There is not description'}.
+                {currentRepo?.description ? currentRepo?.description : 'There is no description'}.
               </div>
             </div>
           </div>

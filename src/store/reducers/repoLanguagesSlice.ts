@@ -43,7 +43,11 @@ export const getRepoLanguages = createAsyncThunk<
 export const repoLanguagesSlice = createSlice({
   name: 'repoLanguagesSlice',
   initialState: initialState as initialStateTypes,
-  reducers: {},
+  reducers: {
+    clearLanguage: (state) => {
+      state.languages = initialState.languages;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getRepoLanguages.pending, (state) => {
       state.isLoading = true;
@@ -63,5 +67,5 @@ export const repoLanguagesSlice = createSlice({
 });
 
 export const selectorRepoLanguagesSlice = (state: IRootState) => state.repoLanguagesSlice;
-
+export const { clearLanguage } = repoLanguagesSlice.actions;
 export default repoLanguagesSlice.reducer;
