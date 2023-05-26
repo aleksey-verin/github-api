@@ -29,8 +29,6 @@ export function getNumberOfPages(total: number, per_page: number): number {
 }
 
 export function getPaginationArray(numberOfPages: number, currentPage: number): Array<number> {
-  // if (!numberOfPages) return;
-  console.log(numberOfPages, currentPage);
   const maxAmount = 9;
   const halfOfMaxAmount = Math.floor(maxAmount / 2);
   const listOfNumbers = [];

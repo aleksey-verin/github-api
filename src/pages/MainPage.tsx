@@ -94,8 +94,6 @@ const MainPage: FC = () => {
     [numberOfPages, params]
   );
 
-  console.log(`MainPage param.pre_page ${params.per_page}`);
-
   return (
     <MainContent>
       <form onSubmit={handleSubmitSearch} className="search">
