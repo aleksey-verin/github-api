@@ -43,8 +43,8 @@ const FormDebounce: FC<FormDebounceProps> = () => {
         disabled={debounceInputDisabled}
         type="number"
         placeholder="value for debounce"
-        step={500}
-        min={0}
+        step={100}
+        min={300}
         max={10000}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setDebounceInputValue(Number(e.target.value))
