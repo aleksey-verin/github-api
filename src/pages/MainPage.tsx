@@ -4,7 +4,7 @@ import RepoItem from '../components/search/RepoItem';
 import { useSelector } from 'react-redux';
 import { selectorUserSlice } from '../store/reducers/userReposSlice';
 import useDebounce from '../hooks/useDebounce';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import {
   clearSearch,
   getResultsRepos,
@@ -19,9 +19,7 @@ import { selectorUserSettingsSlice } from '../store/reducers/userSettingsSlice';
 
 const defaultValue = '';
 
-interface MainPageProps {}
-
-const MainPage: FC<MainPageProps> = () => {
+const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const { userRepos, isLoading, isError } = useSelector(selectorUserSlice);
   const { user } = useSelector(selectorUserAuth);
@@ -31,15 +29,12 @@ const MainPage: FC<MainPageProps> = () => {
     params,
     numberOfPages,
     isLoading: searchIsLoading,
-    // isSuccess: searchIsSuccess,
     isError: searchIsError
   } = useSelector(selectorSearchReposSlice);
   const { searchDebounce } = useSelector(selectorUserSettingsSlice);
-  // const { per_page } = params;
 
   const [searchValue, setSearchValue] = useState<string>(search);
   const debouncedValue = useDebounce<string>(searchValue, searchDebounce);
-  // const [searchRequest, setSearchRequest] = useState<string>(defaultValue); // заменить на стор
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -60,16 +55,8 @@ const MainPage: FC<MainPageProps> = () => {
         params: { page: 1, per_page: params.per_page }
       })
     );
-    // console.log(searchValue);
     dispatch(setSearch(searchValue));
-    // setSearchRequest(searchValue);
   };
-
-  // useEffect(() => {
-  //   dispatch(
-  //     getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
-  //   );
-  // }, [per_page]);
 
   useEffect(() => {
     if (!debouncedValue) return;
@@ -82,18 +69,16 @@ const MainPage: FC<MainPageProps> = () => {
         params: { page: 1, per_page: params.per_page }
       })
     );
-    // console.log(debouncedValue);
     dispatch(setSearch(debouncedValue));
-    // setSearchRequest(debouncedValue);
   }, [debouncedValue]);
 
   const handleReset = () => {
     setSearchValue(defaultValue);
     dispatch(clearSearch());
-    // setSearchRequest(defaultValue);
   };
 
   const handlePaginationClick = (page: number) => {
+    if (searchIsLoading) return;
     dispatch(setParamsPage(page));
     dispatch(
       getResultsRepos({
@@ -155,9 +140,7 @@ const MainPage: FC<MainPageProps> = () => {
         </section>
       ) : (
         <section className="user-repositories">
-          {/* {searchIsLoading && <div>Loading..</div>} */}
           {searchIsError && <div>Sorry, error..</div>}
-          {/* {searchIsSuccess && ( */}
           <>
             <div className="user-repositories__title">
               <span>{resultsRepos?.total_count}</span> repositories were found for the query{' '}
@@ -182,7 +165,7 @@ const MainPage: FC<MainPageProps> = () => {
 
             <div className="pagination">
               <button
-                disabled={params.page === 1 || searchIsLoading}
+                disabled={params.page === 1}
                 onClick={() => handlePaginationClick(params.page - 1)}>
                 Back
               </button>
@@ -190,20 +173,18 @@ const MainPage: FC<MainPageProps> = () => {
                 <button
                   onClick={() => handlePaginationClick(item)}
                   className={item === params.page ? 'active' : ''}
-                  disabled={item === params.page || searchIsLoading}
+                  disabled={item === params.page}
                   key={item}>
                   {item}
                 </button>
               ))}
-              {/* {numberOfPages > 10 ? <button>...</button> : null} */}
               <button
                 onClick={() => handlePaginationClick(params.page + 1)}
-                disabled={params.page === numberOfPages || searchIsLoading}>
+                disabled={params.page === numberOfPages}>
                 Next
               </button>
             </div>
           </>
-          {/* )} */}
         </section>
       )}
     </MainContent>

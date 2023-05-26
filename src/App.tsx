@@ -1,7 +1,7 @@
 import Wrapper from './components/ui/Wrapper';
-import AppRouter from './pages/AppRouter';
+import AppRouter from './components/AppRouter';
 import './App.css';
-import { useAppDispatch } from './hooks/redux';
+import { useAppDispatch } from './hooks/useAppDispatch';
 import { useEffect } from 'react';
 import { getUserRepos } from './store/reducers/userReposSlice';
 import { useSelector } from 'react-redux';

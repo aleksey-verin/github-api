@@ -1,17 +1,18 @@
 import { FC, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { selectorUserSlice } from '../store/reducers/userReposSlice';
-import MainContent from '../components/ui/MainContent';
+import { selectorUserSlice } from '../../store/reducers/userReposSlice';
+import MainContent from '../../components/ui/MainContent';
 import dayjs from 'dayjs';
-import { useAppDispatch } from '../hooks/redux';
-import { getRepoLanguages, selectorRepoLanguagesSlice } from '../store/reducers/repoLanguagesSlice';
-import { getViewedLanguages } from '../utils/helpers';
-import { selectorSearchReposSlice } from '../store/reducers/searchReposSlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import {
+  getRepoLanguages,
+  selectorRepoLanguagesSlice
+} from '../../store/reducers/repoLanguagesSlice';
+import { getViewedLanguages } from '../../utils/helpers';
+import { selectorSearchReposSlice } from '../../store/reducers/searchReposSlice';
 
-interface SingleRepoPageProps {}
-
-const SingleRepoPage: FC<SingleRepoPageProps> = () => {
+const SingleRepoPage: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { userRepos, isLoading, isError, isSuccess } = useSelector(selectorUserSlice);

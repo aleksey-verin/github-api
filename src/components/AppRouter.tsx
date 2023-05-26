@@ -1,29 +1,26 @@
 import { FC } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import MainPage from './MainPage';
+import Header from './Header';
+import Footer from './Footer';
+import MainPage from '../pages/MainPage';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../routes/routes';
-import AboutPage from './AboutPage';
-import SettingsPage from './SettingsPage';
-import LoginPage from './LoginPage';
-import SingleRepoPage from './SingleRepoPage';
+import AboutPage from '../pages/AboutPage';
+import SettingsPage from '../pages/SettingsPage';
+import LoginPage from '../pages/LoginPage';
+import SingleRepoPage from '../pages/mainPage/SingleRepoPage';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth } from '../store/reducers/userAuthSlice';
 
-interface AppRouterProps {}
-
-const AppRouter: FC<AppRouterProps> = () => {
+const AppRouter: FC = () => {
   const { isAuth } = useSelector(selectorUserAuth);
-  // const isAuth = true;
 
   return (
     <HashRouter>
       <Header />
       <Routes>
-        <Route element={<AboutPage />} path={ROUTES.aboutPage} />
         <Route element={<MainPage />} path={ROUTES.searchPage} />
         <Route element={<SingleRepoPage />} path={ROUTES.searchSinglePage} />
+        <Route element={<AboutPage />} path={ROUTES.aboutPage} />
         <Route element={<SettingsPage />} path={ROUTES.settingsPage} />
         <Route path="*" element={<Navigate replace to={ROUTES.searchPage} />} />
         {!isAuth && <Route element={<LoginPage />} path={ROUTES.loginPage} />}

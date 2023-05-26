@@ -4,14 +4,11 @@ import { ROUTES } from '../routes/routes';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuthSlice';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 
-interface HeaderProps {}
-
-const Header: FC<HeaderProps> = () => {
+const Header: FC = () => {
   const dispatch = useAppDispatch();
   const { isAuth, user } = useSelector(selectorUserAuth);
-  // const isAuth = true;
 
   const handleLogOut = () => {
     dispatch(userAuth(userSign.out));

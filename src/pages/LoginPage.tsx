@@ -2,7 +2,7 @@ import { FC } from 'react';
 import MainContent from '../components/ui/MainContent';
 // import { signInWithPopup } from 'firebase/auth';
 // import { auth, provider } from '../utils/fireBaseConfig';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuthSlice';
 
