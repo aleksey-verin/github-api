@@ -59,10 +59,12 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-button:disabled {
+button:disabled,
+input:disabled {
   cursor: inherit;
 }
-button:disabled:hover {
+button:disabled:hover,
+input:disabled:hover {
   /* background-color: #646cff; */
   border: 1px solid rgba(0, 0, 0, 0.05);
   /* color: blue; */

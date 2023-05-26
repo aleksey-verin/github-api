@@ -23,8 +23,9 @@ const FormDebounce: FC<FormDebounceProps> = () => {
 
   const handleSaveDebounce = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(setSearchDebounce(debounceInputValue));
     setDebounceInputDisabled(true);
+    if (debounceInputValue === searchDebounce) return;
+    dispatch(setSearchDebounce(debounceInputValue));
   };
 
   useEffect(() => {
@@ -34,11 +35,10 @@ const FormDebounce: FC<FormDebounceProps> = () => {
   }, [debounceInputDisabled]);
 
   return (
-    <form onSubmit={handleSaveDebounce} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+    <form onSubmit={handleSaveDebounce}>
       <label htmlFor="debounce">The speed of sending a search request (debounce) (ms)</label>
       <input
         id="debounce"
-        style={{ width: 200 }}
         ref={inputDebounce}
         disabled={debounceInputDisabled}
         type="number"
@@ -52,13 +52,11 @@ const FormDebounce: FC<FormDebounceProps> = () => {
         value={debounceInputValue}
       />
       {debounceInputDisabled ? (
-        <button style={{ width: 100 }} type="button" onClick={handleEditDebounce}>
+        <button type="button" onClick={handleEditDebounce}>
           Edit
         </button>
       ) : (
-        <button style={{ width: 100 }} type="submit">
-          Save
-        </button>
+        <button type="submit">Save</button>
       )}
     </form>
   );

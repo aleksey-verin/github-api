@@ -30,6 +30,8 @@ const FormPerPage: FC<FormPerPageProps> = () => {
 
   const handleSaveDebounce = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setPerPageInputDisabled(true);
+    if (perPageInputValue === per_page) return;
     dispatch(setParamsPerPage(perPageInputValue));
     console.log(perPageInputValue);
     if (search) {
@@ -42,7 +44,6 @@ const FormPerPage: FC<FormPerPageProps> = () => {
         })
       );
     }
-    setPerPageInputDisabled(true);
   };
 
   useEffect(() => {
@@ -52,11 +53,10 @@ const FormPerPage: FC<FormPerPageProps> = () => {
   }, [perPageInputDisabled]);
 
   return (
-    <form onSubmit={handleSaveDebounce} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+    <form onSubmit={handleSaveDebounce}>
       <label htmlFor="per_page">Number of items on the search page (pcs.)</label>
       <input
         id="per_page"
-        style={{ width: 200 }}
         ref={inputDebounce}
         disabled={perPageInputDisabled}
         type="number"
@@ -70,13 +70,11 @@ const FormPerPage: FC<FormPerPageProps> = () => {
         value={perPageInputValue}
       />
       {perPageInputDisabled ? (
-        <button style={{ width: 100 }} type="button" onClick={handleEditDebounce}>
+        <button type="button" onClick={handleEditDebounce}>
           Edit
         </button>
       ) : (
-        <button style={{ width: 100 }} type="submit">
-          Save
-        </button>
+        <button type="submit">Save</button>
       )}
     </form>
   );

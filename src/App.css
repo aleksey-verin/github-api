@@ -66,6 +66,11 @@ main {
   max-width: 1200px;
 }
 
+@media (prefers-color-scheme: dark) {
+  header {
+    background-color: #1a1a1a;
+  }
+}
 .search {
   display: flex;
   width: 100%;
@@ -128,6 +133,14 @@ main {
   margin-bottom: 0;
 }
 
+@media (prefers-color-scheme: dark) {
+  .repo-item {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .repo-item__title {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
 .single-title {
   margin-bottom: 20px;
 }
@@ -297,4 +310,30 @@ main {
 .pagination button.active {
   color: #5e66f9;
   background-color: rgba(73, 82, 255, 0.123);
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+.settings form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.settings form label {
+  flex: 0 0 450px;
+  text-align: end;
+}
+.settings form input {
+  flex: 0 1 200px;
+  min-width: 70px;
+}
+.settings form button {
+  min-width: 100px;
 }/*# sourceMappingURL=App.css.map */

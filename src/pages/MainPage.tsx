@@ -53,7 +53,13 @@ const MainPage: FC<MainPageProps> = () => {
     e.preventDefault();
     if (searchValue === search) return;
     dispatch(resetParamsPage());
-    dispatch(getResultsRepos({ searchValue, oAuthToken: user?.oauthAccessToken, params }));
+    dispatch(
+      getResultsRepos({
+        searchValue,
+        oAuthToken: user?.oauthAccessToken,
+        params: { page: 1, per_page: params.per_page }
+      })
+    );
     // console.log(searchValue);
     dispatch(setSearch(searchValue));
     // setSearchRequest(searchValue);
@@ -70,7 +76,11 @@ const MainPage: FC<MainPageProps> = () => {
     if (searchValue === search) return;
     dispatch(resetParamsPage());
     dispatch(
-      getResultsRepos({ searchValue: debouncedValue, oAuthToken: user?.oauthAccessToken, params })
+      getResultsRepos({
+        searchValue: debouncedValue,
+        oAuthToken: user?.oauthAccessToken,
+        params: { page: 1, per_page: params.per_page }
+      })
     );
     // console.log(debouncedValue);
     dispatch(setSearch(debouncedValue));
