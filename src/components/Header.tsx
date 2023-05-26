@@ -32,9 +32,9 @@ const Header: FC<HeaderProps> = () => {
             <button onClick={handleLogOut}>Log Out</button>
           </>
         ) : (
-          <button>
-            <Link to={ROUTES.loginPage}>Log In</Link>
-          </button>
+          <Link to={ROUTES.loginPage}>
+            <button>Log In</button>
+          </Link>
         )}
       </div>
     </header>

@@ -129,25 +129,28 @@ const MainPage: FC<MainPageProps> = () => {
       </form>
       {!search ? (
         <section className="user-repositories">
-          <div className="user-repositories__title">List of your repositories:</div>
+          <div className="user-repositories__title">
+            {user
+              ? 'List of your repositories:'
+              : 'Please log in to the app in order to see your own repositories'}
+          </div>
           {isLoading && <div>Loading..</div>}
           {isError && <div>Sorry, error..</div>}
           <div className="user-repositories__list">
-            {user
-              ? userRepos.map(
-                  ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
-                    <RepoItem
-                      key={id}
-                      path={id}
-                      repo={name}
-                      author={login}
-                      score={stargazers_count}
-                      language={language}
-                      pushed_at={pushed_at}
-                    />
-                  )
+            {user &&
+              userRepos.map(
+                ({ id, name, owner: { login }, stargazers_count, language, pushed_at }) => (
+                  <RepoItem
+                    key={id}
+                    path={id}
+                    repo={name}
+                    author={login}
+                    score={stargazers_count}
+                    language={language}
+                    pushed_at={pushed_at}
+                  />
                 )
-              : 'Please log in to the app in order to see your own repositories'}
+              )}
           </div>
         </section>
       ) : (
