@@ -10,7 +10,6 @@ import {
   getRepoLanguages,
   selectorRepoLanguagesSlice
 } from '../../store/reducers/repoLanguagesSlice';
-import { getViewedLanguages } from '../../utils/helpers';
 import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
 // import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 // import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';

@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import { getShortString } from '../../utils/helpers';
-import { OwnerCommon } from '../../store/reducers/types/repoType';
 
 interface RepoItemProps {
   path: number | string;
