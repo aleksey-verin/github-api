@@ -1,4 +1,10 @@
-import { ParamsSearch } from '../store/reducers/types/repoType';
+import {
+  ParamsSearch,
+  RepositoryItem,
+  RepositorySearchCommonItem,
+  SearchRepositoriesType
+} from '../store/reducers/types/repoType';
+import { ResponseSearch } from '../store/reducers/types/reposGraphQlTypes';
 
 export const getSearchUrl = (searchValue: string, params: ParamsSearch): URL | void => {
   const _url = new URL('https://api.github.com/search/repositories');
@@ -9,6 +15,62 @@ export const getSearchUrl = (searchValue: string, params: ParamsSearch): URL | v
   return _url;
 };
 
-// export const getCommentsUrl = (postId: string | number): string => {
-//   return `https://jsonplaceholder.typicode.com/posts/${postId}/comments`;
-// };
+export const getCommentsUrl = (postId: string | number): string => {
+  return `https://jsonplaceholder.typicode.com/posts/${postId}/comments`;
+};
+
+export function transformGraphQlData(response: ResponseSearch): RepositorySearchCommonItem[] {
+  const resultsRepos = response.search.edges.map(({ node }) => ({
+    id: node.id,
+    name: node.name,
+    owner: {
+      login: node.owner.login,
+      html_url: node.owner.url,
+      avatar_url: node.owner.avatarUrl
+    },
+    description: node.description,
+    languageMain: node.languages.edges.length
+      ? node.languages.edges[0].node.name
+      : 'There is no information',
+    languages: node.languages,
+    pushedAt: node.pushedAt,
+    stargazerCount: node.stargazerCount
+  }));
+  return resultsRepos;
+}
+
+export function transformRESTData(response: SearchRepositoriesType): RepositorySearchCommonItem[] {
+  const resultsRepos = response.items.map((item) => ({
+    id: item.id,
+    name: item.name,
+    languageMain: item.language ? item.language : 'There is no information',
+    languages: item.languages_url,
+    pushedAt: item.pushed_at,
+    stargazerCount: item.stargazers_count,
+    description: item.description,
+    owner: {
+      login: item.owner.login,
+      html_url: item.owner.html_url,
+      avatar_url: item.owner.avatar_url
+    }
+  }));
+  return resultsRepos;
+}
+
+export function transformUserReposData(response: RepositoryItem[]): RepositorySearchCommonItem[] {
+  const resultsRepos = response.map((item) => ({
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    owner: {
+      login: item.owner.login,
+      html_url: item.owner.html_url,
+      avatar_url: item.owner.avatar_url
+    },
+    languageMain: item.language ? item.language : 'There is no information',
+    languages: item.languages_url,
+    pushedAt: item.pushed_at,
+    stargazerCount: item.stargazers_count
+  }));
+  return resultsRepos;
+}

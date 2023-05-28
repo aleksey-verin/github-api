@@ -6,7 +6,7 @@ import {
   resetParamsPage,
   selectorSearchReposSlice,
   setParamsPerPage
-} from '../../store/reducers/searchReposSlice';
+} from '../../store/reducers/searchRestReposSlice';
 import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
 
 interface FormPerPageProps {}

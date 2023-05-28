@@ -67,6 +67,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
   width: 100%;
   align-self: center;
   max-width: 1200px;
@@ -86,7 +87,6 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 20px;
   & input {
     flex: 1 0 auto;
   }
@@ -361,9 +361,15 @@ main {
     & input {
       flex: 0 1 200px;
       min-width: 70px;
+      box-sizing: border-box;
+    }
+    & select {
+      flex: 0 1 200px;
+      min-width: 70px;
+      box-sizing: border-box;
     }
     & button {
-      min-width: 100px;
+      flex: 0 0 100px;
     }
   }
 }

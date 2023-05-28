@@ -1,24 +1,26 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { Languages } from './types/repoType';
+import { LanguagesObject } from './types/repoType';
+import { getViewedLanguages } from '../../utils/helpers';
+// import { Languages } from './types/repoType';
 
 interface initialStateTypes {
-  languages: Languages;
+  languages: string;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
 }
 
 const initialState = {
-  languages: {},
+  languages: '',
   isLoading: false,
   isSuccess: false,
   isError: false
 };
 
 export const getRepoLanguages = createAsyncThunk<
-  Languages,
+  LanguagesObject,
   string,
   {
     dispatch: AppDispatch;
@@ -54,11 +56,14 @@ export const repoLanguagesSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
     });
-    builder.addCase(getRepoLanguages.fulfilled, (state, { payload }: PayloadAction<Languages>) => {
-      state.languages = payload;
-      state.isLoading = false;
-      state.isSuccess = true;
-    });
+    builder.addCase(
+      getRepoLanguages.fulfilled,
+      (state, { payload }: PayloadAction<LanguagesObject>) => {
+        state.languages = getViewedLanguages(payload);
+        state.isLoading = false;
+        state.isSuccess = true;
+      }
+    );
     builder.addCase(getRepoLanguages.rejected, (state) => {
       state.isLoading = false;
       state.isError = true;

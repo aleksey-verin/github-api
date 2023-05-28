@@ -1,10 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { RepositoryItem } from './types/repoType';
+import { RepositoryItem, RepositorySearchCommonItem } from './types/repoType';
+import { transformUserReposData } from '../../utils/api-helpers';
 
 interface initialStateTypes {
-  userRepos: RepositoryItem[];
+  userRepos: RepositorySearchCommonItem[];
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
@@ -18,23 +19,22 @@ const initialState = {
 };
 
 export const getUserRepos = createAsyncThunk<
-  RepositoryItem[],
+  RepositorySearchCommonItem[],
   string,
   {
     dispatch: AppDispatch;
     state: IRootState;
   }
 >('getUserRepos', async (user, thunkAPI) => {
-  const url = `https://api.github.com/users/${user}/repos`;
   try {
+    const url = `https://api.github.com/users/${user}/repos`;
     const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      const error = await response.json();
-      return thunkAPI.rejectWithValue(error?.message);
-    }
+    const data = (await response.json()) as RepositoryItem[];
+    // if (response.ok) {
+    return transformUserReposData(data);
+    // } else {
+    //   return thunkAPI.rejectWithValue('Error');
+    // }
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);
@@ -53,7 +53,7 @@ export const userReposSlice = createSlice({
     });
     builder.addCase(
       getUserRepos.fulfilled,
-      (state, { payload }: PayloadAction<RepositoryItem[]>) => {
+      (state, { payload }: PayloadAction<RepositorySearchCommonItem[]>) => {
         state.userRepos = payload;
         state.isLoading = false;
         state.isSuccess = true;

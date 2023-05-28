@@ -60,11 +60,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 button:disabled,
-input:disabled {
+input:disabled,
+select:disabled {
   cursor: inherit;
+  color: rgba(0, 0, 0, 0.498);
 }
 button:disabled:hover,
-input:disabled:hover {
+input:disabled:hover,
+select:disabled:hover {
   /* background-color: #646cff; */
   border: 1px solid rgba(0, 0, 0, 0.05);
   /* color: blue; */
@@ -86,6 +89,25 @@ input:hover {
 }
 input:focus,
 input:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+select {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+select:hover {
+  border-color: #646cff;
+}
+select:focus,
+select:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 

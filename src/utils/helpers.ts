@@ -1,4 +1,4 @@
-import { Languages } from '../store/reducers/types/repoType';
+import { LanguagesObject } from '../store/reducers/types/repoType';
 
 export function extractPath(input: string): string {
   const regex = /^(\/[^/]+)(\/.*)?$/;
@@ -11,8 +11,9 @@ export function extractPath(input: string): string {
   return input;
 }
 
-export function getViewedLanguages(obj: Languages): string {
-  if (!Object.keys(obj).length) return 'There is no languages';
+export function getViewedLanguages(obj: LanguagesObject): string {
+  console.log(obj);
+  // if (!Object.keys(obj).length) return 'There is no languages';
 
   const total = Object.values(obj).reduce((sum, value) => sum + value, 0);
 

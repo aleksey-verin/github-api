@@ -1,15 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IRootState } from '../store';
 import { storage, storageGetItem } from '../../utils/storage';
+import { RequestTypes } from './types/repoType';
 
 interface initialStateTypes {
   isThemeLight: boolean;
   searchDebounce: number;
+  requestType: RequestTypes;
 }
 
 const initialState = {
   isThemeLight: storageGetItem(storage.theme) || false,
-  searchDebounce: 2000
+  searchDebounce: 2000,
+  requestType: RequestTypes.REST
 };
 
 export const userSettingsSlice = createSlice({
@@ -24,10 +27,14 @@ export const userSettingsSlice = createSlice({
     },
     setSearchDebounce: (state, { payload }: PayloadAction<number>) => {
       state.searchDebounce = payload;
+    },
+    setRequestType: (state, { payload }: PayloadAction<RequestTypes>) => {
+      state.requestType = payload;
     }
   }
 });
 
 export const selectorUserSettingsSlice = (state: IRootState) => state.userSettingsSlice;
-export const { setThemeLight, setThemeDark, setSearchDebounce } = userSettingsSlice.actions;
+export const { setThemeLight, setThemeDark, setSearchDebounce, setRequestType } =
+  userSettingsSlice.actions;
 export default userSettingsSlice.reducer;

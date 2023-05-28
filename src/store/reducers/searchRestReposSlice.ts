@@ -1,14 +1,14 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { ParamsSearch, SearchRepositoriesType } from './types/repoType';
-import { getSearchUrl } from '../../utils/api-helpers';
+import { ParamsSearch, RepositorySearchCommonItem, SearchRepositoriesType } from './types/repoType';
+import { getSearchUrl, transformRESTData } from '../../utils/api-helpers';
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';
 
 const defaultValues = {
-  search: '',
   resultsRepos: null,
+  totalCountRepos: null,
   params: {
     per_page: 9,
     page: 1
@@ -17,8 +17,8 @@ const defaultValues = {
 };
 
 interface initialStateTypes {
-  search: string;
-  resultsRepos: SearchRepositoriesType | null;
+  resultsRepos: RepositorySearchCommonItem[] | null;
+  totalCountRepos: number;
   params: ParamsSearch;
   numberOfPages: number;
   isLoading: boolean;
@@ -27,7 +27,6 @@ interface initialStateTypes {
 }
 
 const initialState = {
-  search: storageGetItem(storage.searchValue) ?? defaultValues.search,
   resultsRepos: storageGetItem(storage.searchResults) ?? defaultValues.resultsRepos,
   params: {
     per_page: storageGetItem(storage.searchParamsPerPage) ?? defaultValues.params.per_page,
@@ -61,12 +60,11 @@ export const getResultsRepos = createAsyncThunk<
         method: 'GET',
         headers: oAuthToken ? headersList : {}
       });
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         return data;
       } else {
-        const error = await response.json();
-        return thunkAPI.rejectWithValue(error?.message);
+        return thunkAPI.rejectWithValue(data?.message);
       }
     } catch (error) {
       console.log(error);
@@ -75,15 +73,11 @@ export const getResultsRepos = createAsyncThunk<
   }
 );
 
-export const searchReposSlice = createSlice({
-  name: 'searchReposSlice',
+export const searchRestReposSlice = createSlice({
+  name: 'searchRestReposSlice',
   initialState: initialState as initialStateTypes,
   reducers: {
-    setSearch: (state, { payload }: PayloadAction<string>) => {
-      state.search = payload;
-    },
-    clearSearch: (state) => {
-      state.search = defaultValues.search;
+    clearSearchData: (state) => {
       state.resultsRepos = defaultValues.resultsRepos;
       state.numberOfPages = defaultValues.numberOfPages;
       state.params.page = defaultValues.params.page;
@@ -110,9 +104,9 @@ export const searchReposSlice = createSlice({
     builder.addCase(
       getResultsRepos.fulfilled,
       (state, { payload }: PayloadAction<SearchRepositoriesType>) => {
-        state.resultsRepos = payload;
+        state.resultsRepos = transformRESTData(payload);
+        state.totalCountRepos = payload.total_count;
         state.numberOfPages = getNumberOfPages(payload.total_count, state.params.per_page);
-        // state.params.page = initialState.params.page;
         state.isLoading = false;
         state.isSuccess = true;
       }
@@ -124,13 +118,12 @@ export const searchReposSlice = createSlice({
   }
 });
 
-export const selectorSearchReposSlice = (state: IRootState) => state.searchReposSlice;
+export const selectorSearchReposSlice = (state: IRootState) => state.searchRestReposSlice;
 export const {
-  setSearch,
-  clearSearch,
+  clearSearchData,
   setParamsPage,
   resetParamsPage,
   setParamsPerPage,
   resetParamsPerPage
-} = searchReposSlice.actions;
-export default searchReposSlice.reducer;
+} = searchRestReposSlice.actions;
+export default searchRestReposSlice.reducer;

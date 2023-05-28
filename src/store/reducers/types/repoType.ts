@@ -1,3 +1,5 @@
+import { LanguagesGraph } from './reposGraphQlTypes';
+
 export interface SearchRepositoriesType {
   total_count: number;
   incomplete_results: boolean;
@@ -58,7 +60,7 @@ export interface RepositoryItem {
   ssh_url: string;
   clone_url: string;
   svn_url: string;
-  homepage: any;
+  homepage: string;
   size: number;
   stargazers_count: number;
   watchers_count: number;
@@ -70,15 +72,15 @@ export interface RepositoryItem {
   has_pages: boolean;
   has_discussions: boolean;
   forks_count: number;
-  mirror_url: any;
+  mirror_url: string;
   archived: boolean;
   disabled: boolean;
   open_issues_count: number;
-  license: any;
+  license: string;
   allow_forking: boolean;
   is_template: boolean;
   web_commit_signoff_required: boolean;
-  topics: any[];
+  topics: string[];
   visibility: string;
   forks: number;
   open_issues: number;
@@ -117,7 +119,7 @@ export interface Permissions {
   pull: boolean;
 }
 
-export interface Languages {
+export interface LanguagesObject {
   [key: string]: number;
 }
 
@@ -132,4 +134,41 @@ export interface UserAuth {
 export interface ParamsSearch {
   per_page: number;
   page: number;
+}
+
+export enum RequestTypes {
+  REST = 'REST',
+  GraphQl = 'GraphQL'
+}
+
+export interface RepositorySearchCommonItem {
+  id: string | number;
+  name: string;
+  owner: OwnerCommon;
+  pushedAt: string;
+  stargazerCount: number;
+  description?: string;
+  languageMain: string;
+  languages: LanguagesObject | LanguagesGraph | string;
+}
+
+export interface OwnerCommon {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  // id: number;
+  // node_id: string;
+  // gravatar_id: string;
+  // url: string;
+  // followers_url: string;
+  // following_url: string;
+  // gists_url: string;
+  // starred_url: string;
+  // subscriptions_url: string;
+  // organizations_url: string;
+  // repos_url: string;
+  // events_url: string;
+  // received_events_url: string;
+  // type: string;
+  // site_admin: boolean;
 }

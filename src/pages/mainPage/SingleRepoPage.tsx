@@ -11,20 +11,24 @@ import {
   selectorRepoLanguagesSlice
 } from '../../store/reducers/repoLanguagesSlice';
 import { getViewedLanguages } from '../../utils/helpers';
-import { selectorSearchReposSlice } from '../../store/reducers/searchReposSlice';
+import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
+// import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
+// import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
 
 const SingleRepoPage: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { userRepos, isLoading, isError, isSuccess } = useSelector(selectorUserSlice);
   const { resultsRepos } = useSelector(selectorSearchReposSlice);
+  // const { resultsReposGraphQl } = useSelector(selectorSearchGraphQlReposSlice);
+  // const { requestType } = useSelector(selectorUserSettingsSlice);
 
   const currentUserRepo = useMemo(
     () => userRepos.find((item) => item.id === Number(id)),
     [id, userRepos]
   );
   const currentSearchRepo = useMemo(
-    () => resultsRepos?.items.find((item) => item.id === Number(id)),
+    () => resultsRepos?.find((item) => item.id === Number(id)),
     [id, resultsRepos]
   );
 
@@ -35,18 +39,22 @@ const SingleRepoPage: FC = () => {
     isError: IsErrorLanguages
   } = useSelector(selectorRepoLanguagesSlice);
 
-  const viewedLanguages = getViewedLanguages(languages);
+  // const viewedLanguages = getViewedLanguages(languages);
 
   useEffect(() => {
     if (!currentRepo) return;
-    if (!currentRepo.language) return;
-    dispatch(getRepoLanguages(currentRepo.languages_url));
-    return () => {
-      dispatch(clearLanguage());
-    };
+    if (currentRepo.languageMain === 'There is no information') return;
+    if (typeof currentRepo.languages === 'string') {
+      dispatch(getRepoLanguages(currentRepo.languages));
+      return () => {
+        dispatch(clearLanguage());
+      };
+    }
   }, [currentRepo, dispatch]);
 
-  const viewedDate = dayjs(currentRepo?.pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
+  const viewedDate = dayjs(currentRepo?.pushedAt).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
+
+  console.log(languages);
 
   return (
     <MainContent>
@@ -62,7 +70,7 @@ const SingleRepoPage: FC = () => {
               <div>Name:</div>
               <div>{currentRepo?.name}</div>
               <div>Stars:</div>
-              <div>{currentRepo?.stargazers_count}</div>
+              <div>{currentRepo?.stargazerCount}</div>
             </div>
             <div className="single-repo__author author">
               <div className="author-info">
@@ -95,7 +103,7 @@ const SingleRepoPage: FC = () => {
               <div>
                 {isLoadingLanguages && 'Загрузка..'}
                 {IsErrorLanguages && 'Ошибка при загрузке данных'}
-                {viewedLanguages}
+                {languages ? languages : 'There is no languages'}
               </div>
             </div>
             <div className="single-repo__description">
