@@ -8,15 +8,16 @@ import {
   setParamsPerPage
 } from '../../store/reducers/searchRestReposSlice';
 import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
+import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
 
 interface FormPerPageProps {}
 
 const FormPerPage: FC<FormPerPageProps> = () => {
   const dispatch = useAppDispatch();
   const {
-    search,
     params: { per_page }
   } = useSelector(selectorSearchReposSlice);
+  const { search } = useSelector(selectorSearchValue);
   const { user } = useSelector(selectorUserAuth);
 
   const [perPageInputDisabled, setPerPageInputDisabled] = useState(true);
