@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userReposSlice from './reducers/userReposSlice';
-import repoLanguagesSlice from './reducers/repoLanguagesSlice';
 import searchRestReposSlice from './reducers/searchRestReposSlice';
 import searchGraphQlReposSlice from './reducers/searchGraphQlReposSlice';
 import searchValueSlice from './reducers/searchValueSlice';
@@ -11,7 +10,6 @@ import { storage, storageSetItem } from '../utils/storage';
 
 export const rootReducer = combineReducers({
   userReposSlice,
-  repoLanguagesSlice,
   searchRestReposSlice,
   userAuthSlice,
   userSettingsSlice,

@@ -90,6 +90,12 @@ main {
   & input {
     flex: 1 0 auto;
   }
+  &-button-send {
+    width: 175px;
+    display: flex;
+    padding-left: 32px;
+    gap: 5px;
+  }
 }
 .user-repositories {
   display: flex;
@@ -97,6 +103,7 @@ main {
   gap: 20px;
   &__title {
     font-size: 18px;
+    height: 27px;
     & span {
       font-weight: 700;
     }
@@ -337,6 +344,19 @@ main {
       // outline: 10px auto -webkit-focus-ring-color;
     }
   }
+  &-next {
+    width: 120px;
+    display: flex;
+    gap: 5px;
+    padding-left: 40px;
+  }
+  &-back {
+    width: 120px;
+    display: flex;
+    gap: 5px;
+    padding-right: 40px;
+    justify-content: flex-end;
+  }
 }
 
 // ========== settings page =========
@@ -371,5 +391,28 @@ main {
     & button {
       flex: 0 0 100px;
     }
+  }
+}
+
+// ====== LOADER
+
+.loader-image {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s linear 0s infinite;
+  & path {
+    stroke: #1a1a1a;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -141,6 +141,12 @@ export enum RequestTypes {
   GraphQl = 'GraphQL'
 }
 
+export enum GraphQlRequestType {
+  initial = 'initial',
+  next = 'next',
+  previous = 'previous'
+}
+
 export interface RepositorySearchCommonItem {
   id: string | number;
   name: string;

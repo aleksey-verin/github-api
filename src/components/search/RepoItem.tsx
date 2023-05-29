@@ -16,7 +16,6 @@ interface RepoItemProps {
 const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, pushed_at }) => {
   const viewedDate = dayjs(pushed_at).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
   const viewedRepoName = getShortString(repo, 25);
-  console.log(language);
   return (
     <div className="repo-item">
       <div className="repo-item__title">

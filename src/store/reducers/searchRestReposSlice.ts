@@ -18,7 +18,7 @@ const defaultValues = {
 
 interface initialStateTypes {
   resultsRepos: RepositorySearchCommonItem[] | null;
-  totalCountRepos: number;
+  totalCountRepos: number | null;
   params: ParamsSearch;
   numberOfPages: number;
   isLoading: boolean;

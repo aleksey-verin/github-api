@@ -1,10 +1,16 @@
 import {
+  querySearchRepositoriesInitial,
+  querySearchRepositoriesNext,
+  querySearchRepositoriesPrevious
+} from '../api/repositoriesGql';
+import {
+  GraphQlRequestType,
   ParamsSearch,
   RepositoryItem,
   RepositorySearchCommonItem,
   SearchRepositoriesType
 } from '../store/reducers/types/repoType';
-import { ResponseSearch } from '../store/reducers/types/reposGraphQlTypes';
+import { PageInfo, ResponseSearch } from '../store/reducers/types/reposGraphQlTypes';
 
 export const getSearchUrl = (searchValue: string, params: ParamsSearch): URL | void => {
   const _url = new URL('https://api.github.com/search/repositories');
@@ -73,4 +79,62 @@ export function transformUserReposData(response: RepositoryItem[]): RepositorySe
     stargazerCount: item.stargazers_count
   }));
   return resultsRepos;
+}
+
+export function getVariablesByType(
+  searchValue: string,
+  per_request: number,
+  type: GraphQlRequestType,
+  pageInfo: PageInfo
+): variablesForGraphInitialRequest | variablesForGraphNextRequest | variablesForGraphPrevRequest {
+  const initialParams = {
+    variables: { request: searchValue, first: per_request },
+    query: querySearchRepositoriesInitial
+  };
+  const nextParams = {
+    variables: { request: searchValue, first: per_request, after: pageInfo.endCursor },
+    query: querySearchRepositoriesNext
+  };
+  const prevParams = {
+    variables: { request: searchValue, last: per_request, before: pageInfo.startCursor },
+    query: querySearchRepositoriesPrevious
+  };
+  switch (type) {
+    case GraphQlRequestType.initial:
+      return initialParams;
+    case GraphQlRequestType.next:
+      return nextParams;
+    case GraphQlRequestType.previous:
+      return prevParams;
+    default:
+      return initialParams;
+  }
+}
+
+export interface variablesForGraphInitialRequest {
+  variables: { request: string; first: number };
+  query: string;
+}
+export interface variablesForGraphNextRequest {
+  variables: { request: string; first: number; after: string };
+  query: string;
+}
+export interface variablesForGraphPrevRequest {
+  variables: { request: string; last: number; before: string };
+  query: string;
+}
+
+export async function getLanguageForRepo(url: string) {
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      const error = await response.json();
+      console.log(error);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

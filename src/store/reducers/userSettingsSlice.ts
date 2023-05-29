@@ -12,7 +12,7 @@ interface initialStateTypes {
 const initialState = {
   isThemeLight: storageGetItem(storage.theme) || false,
   searchDebounce: 2000,
-  requestType: RequestTypes.REST
+  requestType: RequestTypes.GraphQl
 };
 
 export const userSettingsSlice = createSlice({

@@ -2,42 +2,60 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
 
-import { ResponseSearch } from './types/reposGraphQlTypes';
-import { GraphQLClient } from 'graphql-request';
-import { querySearchRepositoriesFirstRequest } from '../../api/repositoriesGql';
-import { transformGraphQlData } from '../../utils/api-helpers';
-import { RepositorySearchCommonItem } from './types/repoType';
+import { PageInfo, ResponseSearch } from './types/reposGraphQlTypes';
+import { GraphQLClient, Variables } from 'graphql-request';
+import { getVariablesByType, transformGraphQlData } from '../../utils/api-helpers';
+import { GraphQlRequestType, RepositorySearchCommonItem } from './types/repoType';
+import { getNumberOfPages } from '../../utils/helpers';
 
-const defaultValues = {
-  resultsReposGraphQl: null,
-  totalCountRepos: null,
-  paramsGraph: {
-    per_request: 90
-    // page: 1
-  },
-
-  numberOfPages: 0
-};
+// const defaultValues = {
+//   resultsReposGraphQl: null,
+//   totalCountRepos: null,
+//   // paramsGraph: {
+//   //   per_request: 45
+//   //   // page: 1
+//   // },
+//   numberOfPages: 0
+// };
 
 interface initialStateTypes {
   resultsReposGraphQl: RepositorySearchCommonItem[] | null;
-  totalCountRepos: number | null;
+  totalCountReposGraphQl: number | null;
   paramsGraph: {
     per_request: number;
   };
-  numberOfPages: number;
+  pageInfo: PageInfo;
+  pagination: {
+    per_page: number;
+    max_pagination_items: number;
+    current_page: number;
+    numberOfPages: number;
+    global_count_for_request: number;
+  };
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
 }
 
 const initialState = {
-  resultsReposGraphQl: defaultValues.resultsReposGraphQl,
-  totalCountRepos: null,
+  resultsReposGraphQl: null,
+  totalCountReposGraphQl: null,
   paramsGraph: {
-    per_request: defaultValues.paramsGraph.per_request
+    per_request: 45
   },
-  numberOfPages: defaultValues.numberOfPages,
+  pageInfo: {
+    startCursor: '',
+    endCursor: '',
+    hasPreviousPage: false,
+    hasNextPage: false
+  },
+  pagination: {
+    per_page: 9,
+    max_pagination_items: 5,
+    current_page: 1,
+    numberOfPages: 0,
+    global_count_for_request: 1
+  },
   isLoading: false,
   isSuccess: false,
   isError: false
@@ -45,53 +63,80 @@ const initialState = {
 
 export const searchGraphQlRepos = createAsyncThunk<
   ResponseSearch,
-  { searchValue: string; oAuthToken: string; per_request: number },
+  {
+    searchValue: string;
+    oAuthToken: string;
+    per_request: number;
+    type: GraphQlRequestType;
+    pageInfo: PageInfo;
+  },
   {
     dispatch: AppDispatch;
     state: IRootState;
   }
->('searchGraphQlRepos', async ({ searchValue, oAuthToken, per_request }, thunkAPI) => {
-  try {
-    const endpoint = `https://api.github.com/graphql`;
-    const graphQLClient = new GraphQLClient(endpoint, {
-      headers: {
-        authorization: `Bearer ${oAuthToken}`
-      }
-    });
-    const variables = {
-      request: searchValue,
-      first: per_request
-    };
-    // const url = getSearchUrl(searchValue, params);
-    // const headersList = {
-    //   Accept: '*/*',
-    //   Authorization: `Bearer ${oAuthToken}`
-    // };
-    // console.log(url);
-    const data = (await graphQLClient.request(
-      querySearchRepositoriesFirstRequest,
-      variables
-    )) as ResponseSearch;
-    // if (data) {
-    // const searchData = transformGraphQlData(data);
-    console.log(data);
-    return data;
-    // } else {
-    //   // return thunkAPI.rejectWithValue(data);
-    // }
-  } catch (error) {
-    console.log(error);
-    return thunkAPI.rejectWithValue(error);
+>(
+  'searchGraphQlRepos',
+  async ({ searchValue, oAuthToken, per_request, type, pageInfo }, thunkAPI) => {
+    try {
+      const endpoint = `https://api.github.com/graphql`;
+      const graphQLClient = new GraphQLClient(endpoint, {
+        headers: {
+          authorization: `Bearer ${oAuthToken}`
+        }
+      });
+      const variables = getVariablesByType(searchValue, per_request, type, pageInfo);
+      // let variables = {}
+      //   request: searchValue
+      // }
+
+      // const variables = {
+      //   request: searchValue,
+      //   first: per_request
+      // };
+
+      // const url = getSearchUrl(searchValue, params);
+      // const headersList = {
+      //   Accept: '*/*',
+      //   Authorization: `Bearer ${oAuthToken}`
+      // };
+      // console.log(url);
+      const data = (await graphQLClient.request(
+        variables.query,
+        variables.variables as Variables
+      )) as ResponseSearch;
+      // if (data) {
+      // const searchData = transformGraphQlData(data);
+      console.log(data);
+      return data;
+      // } else {
+      //   // return thunkAPI.rejectWithValue(data);
+      // }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 export const searchGraphQlReposSlice = createSlice({
   name: 'searchReposSlice',
   initialState: initialState as initialStateTypes,
   reducers: {
-    // setSearch: (state, { payload }: PayloadAction<string>) => {
-    //   state.search = payload;
-    // },
+    setCurrentPage: (state, { payload }: PayloadAction<number>) => {
+      state.pagination.current_page = payload;
+    },
+    setGlobalCountForRequest: (state, { payload }: PayloadAction<number>) => {
+      state.pagination.global_count_for_request = payload;
+    },
+    resetRequestParamsGraphQl: (state) => {
+      state.pagination.global_count_for_request = initialState.pagination.global_count_for_request;
+      state.pagination.current_page = initialState.pagination.current_page;
+      state.pagination.numberOfPages = initialState.pagination.numberOfPages;
+    },
+    clearResultsGraphQl: (state) => {
+      state.resultsReposGraphQl = initialState.resultsReposGraphQl;
+      state.totalCountReposGraphQl = initialState.totalCountReposGraphQl;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(searchGraphQlRepos.pending, (state) => {
@@ -103,7 +148,12 @@ export const searchGraphQlReposSlice = createSlice({
       searchGraphQlRepos.fulfilled,
       (state, { payload }: PayloadAction<ResponseSearch>) => {
         state.resultsReposGraphQl = transformGraphQlData(payload);
-        state.totalCountRepos = payload.search.repositoryCount;
+        state.totalCountReposGraphQl = payload.search.repositoryCount;
+        state.pagination.numberOfPages = getNumberOfPages(
+          payload.search.repositoryCount,
+          state.pagination.per_page
+        );
+        state.pageInfo = payload.search.pageInfo;
         state.isLoading = false;
         state.isSuccess = true;
       }
@@ -116,12 +166,10 @@ export const searchGraphQlReposSlice = createSlice({
 });
 
 export const selectorSearchGraphQlReposSlice = (state: IRootState) => state.searchGraphQlReposSlice;
-// export const {
-//   setSearch,
-//   clearSearch,
-//   setParamsPage,
-//   resetParamsPage,
-//   setParamsPerPage,
-//   resetParamsPerPage
-// } = searchGraphQlReposSlice.actions;
+export const {
+  setCurrentPage,
+  setGlobalCountForRequest,
+  resetRequestParamsGraphQl,
+  clearResultsGraphQl
+} = searchGraphQlReposSlice.actions;
 export default searchGraphQlReposSlice.reducer;

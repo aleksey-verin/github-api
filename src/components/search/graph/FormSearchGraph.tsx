@@ -1,29 +1,28 @@
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import useDebounce from '../../hooks/useDebounce';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import useDebounce from '../../../hooks/useDebounce';
 import {
   resetParamsPage,
   getResultsRepos,
   selectorSearchReposSlice,
   clearSearchData
-} from '../../store/reducers/searchRestReposSlice';
-import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
-import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
+} from '../../../store/reducers/searchRestReposSlice';
+import { selectorUserSettingsSlice } from '../../../store/reducers/userSettingsSlice';
+import { selectorUserAuth } from '../../../store/reducers/userAuthSlice';
 import {
   clearResultsGraphQl,
   resetRequestParamsGraphQl,
   searchGraphQlRepos,
   selectorSearchGraphQlReposSlice
-} from '../../store/reducers/searchGraphQlReposSlice';
+} from '../../../store/reducers/searchGraphQlReposSlice';
 import {
   clearSearchValue,
   selectorSearchValue,
   setSearchValue
-} from '../../store/reducers/searchValueSlice';
-import { GraphQlRequestType, RequestTypes } from '../../store/reducers/types/repoType';
-import { PageInfo } from '../../store/reducers/types/reposGraphQlTypes';
-import ImgLoader from '../ui/ImgLoader';
+} from '../../../store/reducers/searchValueSlice';
+import { GraphQlRequestType, RequestTypes } from '../../../store/reducers/types/repoType';
+import { PageInfo } from '../../../store/reducers/types/reposGraphQlTypes';
 
 const defaultValue = '';
 
@@ -43,10 +42,7 @@ const FormSearch: FC<FormSearchProps> = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>(search);
   const debouncedValue = useDebounce<string>(searchInputValue, searchDebounce);
 
-  const [loaderRequestButton, setLoaderRequestButton] = useState(false);
-
-  const requestRestApi = async (value: string, token: string | undefined, per_page: number) => {
-    setLoaderRequestButton(true);
+  const requestRestApi = (value: string, token: string | undefined, per_page: number) => {
     dispatch(resetParamsPage());
     dispatch(
       getResultsRepos({
@@ -56,20 +52,19 @@ const FormSearch: FC<FormSearchProps> = () => {
       })
     );
     dispatch(setSearchValue(value));
-    setLoaderRequestButton(false);
   };
 
-  const requestGraphQlApi = async (
+  const requestGraphQlApi = (
     value: string,
     token: string | undefined,
     per_request: number,
     type: GraphQlRequestType,
     pageInfo: PageInfo
   ) => {
-    setLoaderRequestButton(true);
+    console.log('reset must be here');
     dispatch(resetRequestParamsGraphQl());
     if (token) {
-      await dispatch(
+      dispatch(
         searchGraphQlRepos({
           searchValue: value,
           oAuthToken: token,
@@ -82,7 +77,6 @@ const FormSearch: FC<FormSearchProps> = () => {
       console.log('there is no auth token');
     }
     dispatch(setSearchValue(value));
-    setLoaderRequestButton(false);
   };
 
   useEffect(() => {
@@ -147,13 +141,10 @@ const FormSearch: FC<FormSearchProps> = () => {
         placeholder="Enter request.."
         onChange={handleInputValue}
       />
-      <button className="search-button-send">
-        <div>Send Request</div>
-        <div>{loaderRequestButton && <ImgLoader />}</div>
-      </button>
       <button onClick={handleReset} type="reset">
         Clear search
       </button>
+      <button>Send Request</button>
     </form>
   );
 };

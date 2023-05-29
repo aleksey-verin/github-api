@@ -1,16 +1,17 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectorUserSlice } from '../../store/reducers/userReposSlice';
 import MainContent from '../../components/ui/MainContent';
 import dayjs from 'dayjs';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import {
-  clearLanguage,
-  getRepoLanguages,
-  selectorRepoLanguagesSlice
-} from '../../store/reducers/repoLanguagesSlice';
 import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
+import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
+import { RequestTypes } from '../../store/reducers/types/repoType';
+import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
+import { getLanguageForRepo } from '../../utils/api-helpers';
+import { getLangObject, getViewedLanguages } from '../../utils/helpers';
+import { LanguagesGraph } from '../../store/reducers/types/reposGraphQlTypes';
 // import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 // import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
 
@@ -19,41 +20,52 @@ const SingleRepoPage: FC = () => {
   const { id } = useParams();
   const { userRepos, isLoading, isError, isSuccess } = useSelector(selectorUserSlice);
   const { resultsRepos } = useSelector(selectorSearchReposSlice);
-  // const { resultsReposGraphQl } = useSelector(selectorSearchGraphQlReposSlice);
-  // const { requestType } = useSelector(selectorUserSettingsSlice);
+  const { resultsReposGraphQl } = useSelector(selectorSearchGraphQlReposSlice);
+  const { requestType } = useSelector(selectorUserSettingsSlice);
 
   const currentUserRepo = useMemo(
     () => userRepos.find((item) => item.id === Number(id)),
     [id, userRepos]
   );
-  const currentSearchRepo = useMemo(
-    () => resultsRepos?.find((item) => item.id === Number(id)),
-    [id, resultsRepos]
-  );
+  const currentSearchRepo = useMemo(() => {
+    if (requestType === RequestTypes.REST) {
+      return resultsRepos?.find((item) => item.id === id);
+    } else {
+      return resultsReposGraphQl?.find((item) => item.id === id);
+    }
+  }, [id, resultsReposGraphQl, resultsRepos, requestType]);
 
   const currentRepo = currentUserRepo || currentSearchRepo;
-  const {
-    languages,
-    isLoading: isLoadingLanguages,
-    isError: IsErrorLanguages
-  } = useSelector(selectorRepoLanguagesSlice);
 
-  // const viewedLanguages = getViewedLanguages(languages);
+  const [viewedLanguage, setViewedLanguage] = useState('');
+  const [loadingLanguagesData, setLoadingLanguagesData] = useState(false);
+
+  const getLanguageRequest = async (languageUrl: string) => {
+    setLoadingLanguagesData(true);
+    const data = await getLanguageForRepo(languageUrl);
+    const lang = getViewedLanguages(data);
+    setLoadingLanguagesData(false);
+    setViewedLanguage(lang);
+  };
 
   useEffect(() => {
     if (!currentRepo) return;
-    if (currentRepo.languageMain === 'There is no information') return;
-    if (typeof currentRepo.languages === 'string') {
-      dispatch(getRepoLanguages(currentRepo.languages));
-      return () => {
-        dispatch(clearLanguage());
-      };
+    if (currentRepo.languageMain === 'There is no information') {
+      setViewedLanguage(currentRepo.languageMain);
+    } else {
+      if (typeof currentRepo.languages === 'string') getLanguageRequest(currentRepo.languages);
+      else {
+        const languageText = getViewedLanguages(
+          getLangObject(currentRepo.languages as LanguagesGraph)
+        );
+        setViewedLanguage(languageText);
+      }
     }
   }, [currentRepo, dispatch]);
 
   const viewedDate = dayjs(currentRepo?.pushedAt).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
 
-  console.log(languages);
+  // console.log(languages);
 
   return (
     <MainContent>
@@ -99,11 +111,7 @@ const SingleRepoPage: FC = () => {
             </div>
             <div className="single-repo__languages">
               <div>Languages:</div>
-              <div>
-                {isLoadingLanguages && 'Загрузка..'}
-                {IsErrorLanguages && 'Ошибка при загрузке данных'}
-                {languages ? languages : 'There is no languages'}
-              </div>
+              <div>{loadingLanguagesData ? 'Loading languages..' : viewedLanguage}</div>
             </div>
             <div className="single-repo__description">
               <div>Description:</div>

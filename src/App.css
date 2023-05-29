@@ -82,6 +82,12 @@ main {
 .search input {
   flex: 1 0 auto;
 }
+.search-button-send {
+  width: 175px;
+  display: flex;
+  padding-left: 32px;
+  gap: 5px;
+}
 
 .user-repositories {
   display: flex;
@@ -90,6 +96,7 @@ main {
 }
 .user-repositories__title {
   font-size: 18px;
+  height: 27px;
 }
 .user-repositories__title span {
   font-weight: 700;
@@ -311,6 +318,19 @@ main {
   color: #5e66f9;
   background-color: rgba(73, 82, 255, 0.123);
 }
+.pagination-next {
+  width: 120px;
+  display: flex;
+  gap: 5px;
+  padding-left: 40px;
+}
+.pagination-back {
+  width: 120px;
+  display: flex;
+  gap: 5px;
+  padding-right: 40px;
+  justify-content: flex-end;
+}
 
 .settings {
   display: flex;
@@ -342,4 +362,25 @@ main {
 }
 .settings form button {
   flex: 0 0 100px;
+}
+
+.loader-image {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  animation: spin 1s linear 0s infinite;
+}
+.loader-image path {
+  stroke: #1a1a1a;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }/*# sourceMappingURL=App.css.map */
