@@ -12,15 +12,11 @@ import {
 } from '../../../store/reducers/searchGraphQlReposSlice';
 import { PageInfo } from '../../../store/reducers/types/reposGraphQlTypes';
 import { GraphQlRequestType } from '../../../store/reducers/types/repoType';
-import ImgLoader from '../../ui/ImgLoader';
+import ImgLoader from '../../ui/image/ImgLoader';
 
-interface PaginationGraphQLProps {}
-
-const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
+const PaginationGraphQL: FC = () => {
   const dispatch = useAppDispatch();
-
   const { user } = useSelector(selectorUserAuth);
-
   const { search } = useSelector(selectorSearchValue);
   const {
     paramsGraph: { per_request },
@@ -28,11 +24,6 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
     pageInfo,
     isLoading
   } = useSelector(selectorSearchGraphQlReposSlice);
-  // const {
-  //   params,
-  //   numberOfPages,
-  //   isLoading: searchIsLoading
-  // } = useSelector(selectorSearchReposSlice);
   const [loaderNextButton, setLoaderNextButton] = useState(false);
   const [loaderBackButton, setLoaderBackButton] = useState(false);
 
@@ -43,7 +34,6 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
     type: GraphQlRequestType,
     pageInfo: PageInfo
   ) => {
-    // dispatch(resetParamsPage());
     if (token) {
       await dispatch(
         searchGraphQlRepos({
@@ -57,19 +47,9 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
     } else {
       console.log('there is no auth token');
     }
-    // dispatch(setSearchValue(value));
   };
 
   const handlePaginationClick = (page: number) => {
-    // if (searchIsLoading) return;
-    // dispatch(setParamsPage(page));
-    // dispatch(
-    //   getResultsRepos({
-    //     searchValue: search,
-    //     oAuthToken: user?.oauthAccessToken,
-    //     params: { page: page, per_page: params.per_page }
-    //   })
-    // );
     dispatch(setCurrentPage(page));
   };
 
@@ -120,7 +100,6 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
 
   return (
     <div className="pagination">
-      {/* <button>..prev 100</button> */}
       <button
         disabled={current_page === 1}
         onClick={() => handlePrevButton(current_page)}
@@ -137,12 +116,6 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
           {item}
         </button>
       ))}
-      {/* <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>4</button>
-      <button>5</button> */}
-
       <button
         onClick={() => handleNextButton(current_page)}
         disabled={current_page === numberOfPages}
@@ -150,8 +123,6 @@ const PaginationGraphQL: FC<PaginationGraphQLProps> = () => {
         <div>Next</div>
         <div>{loaderNextButton && <ImgLoader />}</div>
       </button>
-
-      {/* <button>next 100..</button> */}
     </div>
   );
 };

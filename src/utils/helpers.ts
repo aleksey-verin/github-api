@@ -1,18 +1,7 @@
 import { LanguagesObject, RepositorySearchCommonItem } from '../store/reducers/types/repoType';
 import { LanguagesGraph } from '../store/reducers/types/reposGraphQlTypes';
 
-export function extractPath(input: string): string {
-  const regex = /^(\/[^/]+)(\/.*)?$/;
-  const match = input.match(regex);
-
-  if (match) {
-    return match[1];
-  }
-
-  return input;
-}
-
-export function getLangObject(langGraph: LanguagesGraph): LanguagesObject {
+export function getLanguageObject(langGraph: LanguagesGraph): LanguagesObject {
   const result: Record<string, number> = {};
 
   for (const item of langGraph.edges) {
@@ -73,29 +62,23 @@ export function getShortString(name: string, amount: number): string {
 
 export function getViewedResultsRepos(
   repos: RepositorySearchCommonItem[],
-  current_page: number, // 2
-  // per_request: number, //81
-  per_page: number, // 9
-  global_count_for_request: number, // 2
-  max_pagination_items: number // 5
+  current_page: number,
+  per_page: number,
+  global_count_for_request: number,
+  max_pagination_items: number
 ): RepositorySearchCommonItem[] {
-  console.log(current_page, per_page, repos);
   const lengthRepos = repos.length;
   const currentPageByOrder = current_page - (global_count_for_request - 1) * max_pagination_items;
   if (lengthRepos <= per_page) return repos;
   const start = per_page * (currentPageByOrder - 1); // 6 * (2 -1) = 6
   const viewedResults = repos.slice(start, start + per_page);
-  // 81
-  // 2
-  // 0, 9, 18,
-  console.log(viewedResults);
   return viewedResults;
 }
 
 export function getPaginationForGraph(
-  max_pagination_items: number, // 5
-  globalCountRequest: number, // 1
-  numberOfPages: number // 7
+  max_pagination_items: number,
+  globalCountRequest: number,
+  numberOfPages: number
 ): Array<number> {
   const listOfNumbers = [];
 
@@ -107,7 +90,6 @@ export function getPaginationForGraph(
   for (let i = start; i <= end; i++) {
     listOfNumbers.push(i);
   }
-  console.log(listOfNumbers);
 
   return listOfNumbers;
 }

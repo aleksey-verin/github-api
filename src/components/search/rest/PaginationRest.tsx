@@ -10,13 +10,9 @@ import { useSelector } from 'react-redux';
 import { selectorUserAuth } from '../../../store/reducers/userAuthSlice';
 import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 
-interface PaginationRestProps {}
-
-const PaginationRest: FC<PaginationRestProps> = () => {
+const PaginationRest: FC = () => {
   const dispatch = useAppDispatch();
-
   const { user } = useSelector(selectorUserAuth);
-
   const { search } = useSelector(selectorSearchValue);
   const {
     params,

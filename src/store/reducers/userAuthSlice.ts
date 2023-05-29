@@ -48,7 +48,6 @@ export const userAuth = createAsyncThunk<
     if (typeSign === userSign.in) {
       const provider = new GithubAuthProvider();
       const response = (await signInWithPopup(auth, provider)) as AuthResponse;
-      console.log(response);
       const { email, oauthAccessToken, displayName, photoUrl, screenName } =
         response._tokenResponse;
       return {

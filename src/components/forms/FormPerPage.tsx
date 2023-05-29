@@ -10,9 +10,7 @@ import {
 import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
 import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
 
-interface FormPerPageProps {}
-
-const FormPerPage: FC<FormPerPageProps> = () => {
+const FormPerPage: FC = () => {
   const dispatch = useAppDispatch();
   const {
     params: { per_page }
@@ -34,7 +32,6 @@ const FormPerPage: FC<FormPerPageProps> = () => {
     setPerPageInputDisabled(true);
     if (perPageInputValue === per_page) return;
     dispatch(setParamsPerPage(perPageInputValue));
-    console.log(perPageInputValue);
     if (search) {
       dispatch(resetParamsPage());
       dispatch(

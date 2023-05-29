@@ -54,7 +54,6 @@ export const getResultsRepos = createAsyncThunk<
         Accept: '*/*',
         Authorization: `Bearer ${oAuthToken}`
       };
-      console.log(url);
       if (!url) return;
       const response = await fetch(url, {
         method: 'GET',

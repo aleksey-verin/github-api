@@ -23,21 +23,17 @@ import {
 } from '../../store/reducers/searchValueSlice';
 import { GraphQlRequestType, RequestTypes } from '../../store/reducers/types/repoType';
 import { PageInfo } from '../../store/reducers/types/reposGraphQlTypes';
-import ImgLoader from '../ui/ImgLoader';
+import ImgLoader from '../ui/image/ImgLoader';
 
 const defaultValue = '';
 
-interface FormSearchProps {}
-
-const FormSearch: FC<FormSearchProps> = () => {
+const FormSearch: FC = () => {
   const dispatch = useAppDispatch();
 
   const { searchDebounce, requestType } = useSelector(selectorUserSettingsSlice);
   const { user, isAuth } = useSelector(selectorUserAuth);
   const { search } = useSelector(selectorSearchValue);
-  // for REST
   const { params } = useSelector(selectorSearchReposSlice);
-  // for GraphQl
   const { paramsGraph, pageInfo } = useSelector(selectorSearchGraphQlReposSlice);
 
   const [searchInputValue, setSearchInputValue] = useState<string>(search);

@@ -6,9 +6,7 @@ import {
   setSearchDebounce
 } from '../../store/reducers/userSettingsSlice';
 
-interface FormDebounceProps {}
-
-const FormDebounce: FC<FormDebounceProps> = () => {
+const FormDebounce: FC = () => {
   const dispatch = useAppDispatch();
   const { searchDebounce } = useSelector(selectorUserSettingsSlice);
 

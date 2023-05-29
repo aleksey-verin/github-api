@@ -70,9 +70,11 @@ npm run dev
 - [React](https://reactjs.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - React Router Dom
-<!-- - Firebase -->
+- Graphql-request
+- Firebase
 - SCSS
-<!-- - dayjs -->
+- dayjs
+- EsLint & Prettier
 
 Deployed with Github Pages.
 

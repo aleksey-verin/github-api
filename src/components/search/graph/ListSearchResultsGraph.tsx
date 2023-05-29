@@ -6,16 +6,13 @@ import { selectorSearchGraphQlReposSlice } from '../../../store/reducers/searchG
 import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 import { getViewedResultsRepos } from '../../../utils/helpers';
 
-interface ListSearchResultsGraphProps {}
-
-const ListSearchResultsGraph: FC<ListSearchResultsGraphProps> = () => {
+const ListSearchResultsGraph: FC = () => {
   const {
     resultsReposGraphQl,
     totalCountReposGraphQl,
     isError: searchIsErrorGraphQl,
     pagination: { current_page, max_pagination_items, per_page, global_count_for_request }
   } = useSelector(selectorSearchGraphQlReposSlice);
-  // const { requestType } = useSelector(selectorUserSettingsSlice);
   const { search } = useSelector(selectorSearchValue);
 
   const [viewedData, setViewedData] = useState<RepositorySearchCommonItem[]>([]);
@@ -32,12 +29,10 @@ const ListSearchResultsGraph: FC<ListSearchResultsGraphProps> = () => {
       )
     );
   }, [resultsReposGraphQl, current_page, per_page, global_count_for_request, max_pagination_items]);
-  console.log(viewedData);
 
   return (
     <section className="user-repositories">
       {searchIsErrorGraphQl && <div>Sorry, error..</div>}
-
       <div className="user-repositories__title">
         {viewedData && (
           <>
@@ -47,7 +42,6 @@ const ListSearchResultsGraph: FC<ListSearchResultsGraphProps> = () => {
           </>
         )}
       </div>
-
       <div className="user-repositories__list">
         {viewedData.map(
           ({ id, name, owner: { login }, stargazerCount, languageMain, pushedAt }) => (

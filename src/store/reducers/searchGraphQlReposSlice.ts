@@ -8,16 +8,6 @@ import { getVariablesByType, transformGraphQlData } from '../../utils/api-helper
 import { GraphQlRequestType, RepositorySearchCommonItem } from './types/repoType';
 import { getNumberOfPages } from '../../utils/helpers';
 
-// const defaultValues = {
-//   resultsReposGraphQl: null,
-//   totalCountRepos: null,
-//   // paramsGraph: {
-//   //   per_request: 45
-//   //   // page: 1
-//   // },
-//   numberOfPages: 0
-// };
-
 interface initialStateTypes {
   resultsReposGraphQl: RepositorySearchCommonItem[] | null;
   totalCountReposGraphQl: number | null;
@@ -85,32 +75,11 @@ export const searchGraphQlRepos = createAsyncThunk<
         }
       });
       const variables = getVariablesByType(searchValue, per_request, type, pageInfo);
-      // let variables = {}
-      //   request: searchValue
-      // }
-
-      // const variables = {
-      //   request: searchValue,
-      //   first: per_request
-      // };
-
-      // const url = getSearchUrl(searchValue, params);
-      // const headersList = {
-      //   Accept: '*/*',
-      //   Authorization: `Bearer ${oAuthToken}`
-      // };
-      // console.log(url);
       const data = (await graphQLClient.request(
         variables.query,
         variables.variables as Variables
       )) as ResponseSearch;
-      // if (data) {
-      // const searchData = transformGraphQlData(data);
-      console.log(data);
       return data;
-      // } else {
-      //   // return thunkAPI.rejectWithValue(data);
-      // }
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);

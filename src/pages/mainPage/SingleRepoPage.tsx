@@ -10,10 +10,8 @@ import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGrap
 import { RequestTypes } from '../../store/reducers/types/repoType';
 import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 import { getLanguageForRepo } from '../../utils/api-helpers';
-import { getLangObject, getViewedLanguages } from '../../utils/helpers';
+import { getLanguageObject, getViewedLanguages } from '../../utils/helpers';
 import { LanguagesGraph } from '../../store/reducers/types/reposGraphQlTypes';
-// import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
-// import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
 
 const SingleRepoPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +54,7 @@ const SingleRepoPage: FC = () => {
       if (typeof currentRepo.languages === 'string') getLanguageRequest(currentRepo.languages);
       else {
         const languageText = getViewedLanguages(
-          getLangObject(currentRepo.languages as LanguagesGraph)
+          getLanguageObject(currentRepo.languages as LanguagesGraph)
         );
         setViewedLanguage(languageText);
       }
@@ -64,8 +62,6 @@ const SingleRepoPage: FC = () => {
   }, [currentRepo, dispatch]);
 
   const viewedDate = dayjs(currentRepo?.pushedAt).format('DD.MM.YYYY HH:mm'); // '25/01/2019'
-
-  // console.log(languages);
 
   return (
     <MainContent>

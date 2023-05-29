@@ -7,14 +7,7 @@ import { selectorSearchReposSlice } from '../../../store/reducers/searchRestRepo
 import { selectorUserSettingsSlice } from '../../../store/reducers/userSettingsSlice';
 import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 
-interface ListSearchResultsProps {
-  // search: string;
-  // resultsRepos: RepositorySearchCommonItem[] | null;
-  // totalCountRepos: number | null;
-  // searchIsError: boolean;
-}
-
-const ListSearchResults: FC<ListSearchResultsProps> = () => {
+const ListSearchResults: FC = () => {
   const {
     resultsRepos: resultsReposRest,
     totalCountRepos: totalCountReposRest,

@@ -5,14 +5,8 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { selectorUserSettingsSlice, setRequestType } from '../../store/reducers/userSettingsSlice';
 import { RequestTypes } from '../../store/reducers/types/repoType';
 
-interface FormRequestTypeProps {}
-
-const FormRequestType: FC<FormRequestTypeProps> = () => {
+const FormRequestType: FC = () => {
   const dispatch = useAppDispatch();
-  // const {
-  //   search,
-  //   params: { per_page }
-  // } = useSelector(selectorSearchReposSlice);
   const { requestType } = useSelector(selectorUserSettingsSlice);
 
   const [requestSelectDisabled, setRequestSelectDisabled] = useState(true);
@@ -28,19 +22,7 @@ const FormRequestType: FC<FormRequestTypeProps> = () => {
     e.preventDefault();
     setRequestSelectDisabled(true);
     if (selectRequestValue === requestType) return;
-
     dispatch(setRequestType(selectRequestValue));
-    // console.log(selectRequestValue);
-    // if (search) {
-    //   dispatch(resetParamsPage());
-    //   dispatch(
-    //     getResultsRepos({
-    //       searchValue: search,
-    //       oAuthToken: user?.oauthAccessToken,
-    //       params: { page: 1, per_page: selectRequestValue }
-    //     })
-    //   );
-    // }
   };
 
   useEffect(() => {

@@ -30,11 +30,7 @@ export const getUserRepos = createAsyncThunk<
     const url = `https://api.github.com/users/${user}/repos`;
     const response = await fetch(url);
     const data = (await response.json()) as RepositoryItem[];
-    // if (response.ok) {
     return transformUserReposData(data);
-    // } else {
-    //   return thunkAPI.rejectWithValue('Error');
-    // }
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);
