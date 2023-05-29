@@ -55,7 +55,7 @@ const FormPerPage: FC<FormPerPageProps> = () => {
 
   return (
     <form onSubmit={handleSaveDebounce}>
-      <label htmlFor="per_page">Number of items on the search page (pcs.)</label>
+      <label htmlFor="per_page">Number of items on the search page (only with REST) (pcs.)</label>
       <input
         id="per_page"
         ref={inputDebounce}
