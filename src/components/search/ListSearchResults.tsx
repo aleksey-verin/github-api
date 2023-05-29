@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import RepoItem from './RepoItem';
-import { RepositorySearchCommonItem, RequestTypes } from '../../store/reducers/types/repoType';
+import { RequestTypes } from '../../store/reducers/types/repoType';
 import { useSelector } from 'react-redux';
 import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
 import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
