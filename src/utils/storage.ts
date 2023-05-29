@@ -6,7 +6,9 @@ export const storage = {
   searchParamsPerPage: 'github-api-app-searchParamsPerPage',
   searchParamsPage: 'github-api-app-searchParamsPage',
   searchPages: 'github-api-app-searchPages',
-  theme: 'github-api-app-theme'
+  searchStoreREST: 'github-api-app-searchStoreREST',
+  searchStoreGraphQL: 'github-api-app-searchStoreGraphQL',
+  settings: 'github-api-app-settings'
 };
 
 export const storageGetItem = (storageItem: string) => {

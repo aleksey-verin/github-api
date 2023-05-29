@@ -7,6 +7,7 @@ import { GraphQLClient, Variables } from 'graphql-request';
 import { getVariablesByType, transformGraphQlData } from '../../utils/api-helpers';
 import { GraphQlRequestType, RepositorySearchCommonItem } from './types/repoType';
 import { getNumberOfPages } from '../../utils/helpers';
+import { storage, storageGetItem } from '../../utils/storage';
 
 interface initialStateTypes {
   resultsReposGraphQl: RepositorySearchCommonItem[] | null;
@@ -27,7 +28,7 @@ interface initialStateTypes {
   isError: boolean;
 }
 
-const initialState = {
+const initialState = storageGetItem(storage.searchStoreGraphQL) ?? {
   resultsReposGraphQl: null,
   totalCountReposGraphQl: null,
   paramsGraph: {

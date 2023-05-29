@@ -25,13 +25,9 @@ store.subscribe(() => {
   storageSetItem(storage.isAuth, store.getState().userAuthSlice.isAuth);
   storageSetItem(storage.userAuth, store.getState().userAuthSlice.user);
   storageSetItem(storage.searchValue, store.getState().searchValueSlice.search);
-  storageSetItem(storage.searchResults, store.getState().searchRestReposSlice.resultsRepos);
-  storageSetItem(
-    storage.searchParamsPerPage,
-    store.getState().searchRestReposSlice.params.per_page
-  );
-  storageSetItem(storage.searchParamsPage, store.getState().searchRestReposSlice.params.page);
-  storageSetItem(storage.searchPages, store.getState().searchRestReposSlice.numberOfPages);
+  storageSetItem(storage.searchStoreREST, store.getState().searchRestReposSlice);
+  storageSetItem(storage.searchStoreGraphQL, store.getState().searchGraphQlReposSlice);
+  storageSetItem(storage.settings, store.getState().userSettingsSlice);
 });
 
 export type IRootState = ReturnType<typeof store.getState>;

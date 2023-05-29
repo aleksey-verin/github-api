@@ -9,8 +9,8 @@ interface initialStateTypes {
   requestType: RequestTypes;
 }
 
-const initialState = {
-  isThemeLight: storageGetItem(storage.theme) || false,
+const initialState = storageGetItem(storage.settings) ?? {
+  isThemeLight: false,
   searchDebounce: 1000,
   requestType: RequestTypes.GraphQl
 };
