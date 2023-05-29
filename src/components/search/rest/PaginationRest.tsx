@@ -1,14 +1,14 @@
 import { FC, useMemo } from 'react';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import {
   setParamsPage,
   getResultsRepos,
   selectorSearchReposSlice
-} from '../../store/reducers/searchRestReposSlice';
-import { getPaginationArray } from '../../utils/helpers';
+} from '../../../store/reducers/searchRestReposSlice';
+import { getPaginationArray } from '../../../utils/helpers';
 import { useSelector } from 'react-redux';
-import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
-import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
+import { selectorUserAuth } from '../../../store/reducers/userAuthSlice';
+import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 
 interface PaginationRestProps {}
 

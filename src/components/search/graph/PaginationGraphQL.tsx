@@ -1,18 +1,18 @@
 import { FC, useMemo, useState } from 'react';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { getPaginationForGraph } from '../../utils/helpers';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { getPaginationForGraph } from '../../../utils/helpers';
 import { useSelector } from 'react-redux';
-import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
-import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
+import { selectorUserAuth } from '../../../store/reducers/userAuthSlice';
+import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 import {
   searchGraphQlRepos,
   selectorSearchGraphQlReposSlice,
   setCurrentPage,
   setGlobalCountForRequest
-} from '../../store/reducers/searchGraphQlReposSlice';
-import { PageInfo } from '../../store/reducers/types/reposGraphQlTypes';
-import { GraphQlRequestType } from '../../store/reducers/types/repoType';
-import ImgLoader from '../ui/ImgLoader';
+} from '../../../store/reducers/searchGraphQlReposSlice';
+import { PageInfo } from '../../../store/reducers/types/reposGraphQlTypes';
+import { GraphQlRequestType } from '../../../store/reducers/types/repoType';
+import ImgLoader from '../../ui/ImgLoader';
 
 interface PaginationGraphQLProps {}
 

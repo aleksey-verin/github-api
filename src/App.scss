@@ -97,6 +97,17 @@ main {
     gap: 5px;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .search {
+    &-button-send {
+      & path {
+        stroke: #fff;
+      }
+    }
+  }
+}
+
 .user-repositories {
   display: flex;
   flex-direction: column;
@@ -414,5 +425,13 @@ main {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loader-image {
+    & path {
+      stroke: #fff;
+    }
   }
 }

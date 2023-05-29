@@ -69,6 +69,7 @@ button:disabled:hover,
 input:disabled:hover,
 select:disabled:hover {
   /* background-color: #646cff; */
+
   border: 1px solid rgba(0, 0, 0, 0.05);
   /* color: blue; */
 }
@@ -102,6 +103,9 @@ select {
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 select:hover {
   border-color: #646cff;
@@ -120,7 +124,15 @@ select:focus-visible {
     color: #747bff;
   }
   button,
-  input {
+  input,
+  select {
     background-color: #1a1a1a;
+  }
+  button:disabled,
+  input:disabled,
+  select:disabled {
+    cursor: inherit;
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 1;
   }
 }

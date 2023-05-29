@@ -33,7 +33,7 @@ const FormSearch: FC<FormSearchProps> = () => {
   const dispatch = useAppDispatch();
 
   const { searchDebounce, requestType } = useSelector(selectorUserSettingsSlice);
-  const { user } = useSelector(selectorUserAuth);
+  const { user, isAuth } = useSelector(selectorUserAuth);
   const { search } = useSelector(selectorSearchValue);
   // for REST
   const { params } = useSelector(selectorSearchReposSlice);
@@ -91,13 +91,17 @@ const FormSearch: FC<FormSearchProps> = () => {
     if (requestType === RequestTypes.REST) {
       requestRestApi(debouncedValue, user?.oauthAccessToken, params.per_page);
     } else {
-      requestGraphQlApi(
-        debouncedValue,
-        user?.oauthAccessToken,
-        paramsGraph.per_request,
-        GraphQlRequestType.initial,
-        pageInfo
-      );
+      if (isAuth) {
+        requestGraphQlApi(
+          debouncedValue,
+          user?.oauthAccessToken,
+          paramsGraph.per_request,
+          GraphQlRequestType.initial,
+          pageInfo
+        );
+      } else {
+        console.log('no auth for graphql request');
+      }
     }
   }, [debouncedValue]);
 
@@ -116,13 +120,17 @@ const FormSearch: FC<FormSearchProps> = () => {
     if (requestType === RequestTypes.REST) {
       requestRestApi(searchInputValue, user?.oauthAccessToken, params.per_page);
     } else {
-      requestGraphQlApi(
-        searchInputValue,
-        user?.oauthAccessToken,
-        paramsGraph.per_request,
-        GraphQlRequestType.initial,
-        pageInfo
-      );
+      if (isAuth) {
+        requestGraphQlApi(
+          searchInputValue,
+          user?.oauthAccessToken,
+          paramsGraph.per_request,
+          GraphQlRequestType.initial,
+          pageInfo
+        );
+      } else {
+        console.log('no auth for graphql request');
+      }
     }
   };
 

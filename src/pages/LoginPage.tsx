@@ -50,7 +50,7 @@ const LoginPage: FC<LoginPageProps> = () => {
         <div>Loading..</div>
       ) : (
         <>
-          <div>Auth with GitHub</div>
+          <div>You can log in using your github account:</div>
           <button onClick={handleGithubLogin}>Login With GutHub</button>
         </>
       )}

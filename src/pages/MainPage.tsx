@@ -6,13 +6,13 @@ import { selectorUserSlice } from '../store/reducers/userReposSlice';
 import { selectorUserAuth } from '../store/reducers/userAuthSlice';
 import FormSearch from '../components/search/FormSearch';
 import ListUserRepo from '../components/search/ListUserRepo';
-import ListSearchResults from '../components/search/ListSearchResults';
-import PaginationRest from '../components/search/PaginationRest';
+import ListSearchResults from '../components/search/rest/ListSearchResults';
+import PaginationRest from '../components/search/rest/PaginationRest';
 import { selectorSearchValue } from '../store/reducers/searchValueSlice';
 // import { selectorSearchGraphQlReposSlice } from '../store/reducers/searchGraphQlReposSlice';
 import { selectorUserSettingsSlice } from '../store/reducers/userSettingsSlice';
 import { RequestTypes } from '../store/reducers/types/repoType';
-import PaginationGraphQL from '../components/search/PaginationGraphQL';
+import PaginationGraphQL from '../components/search/graph/PaginationGraphQL';
 import ListSearchResultsGraph from '../components/search/graph/ListSearchResultsGraph';
 // import PaginationGraphQL from '../components/search/PaginationGraphQL';
 
@@ -36,7 +36,13 @@ const MainPage: FC = () => {
     <MainContent>
       <FormSearch />
       {!search ? (
-        <ListUserRepo user={user} userRepos={userRepos} isLoading={isLoading} isError={isError} />
+        <ListUserRepo
+          user={user}
+          userRepos={userRepos}
+          isLoading={isLoading}
+          isError={isError}
+          requestType={requestType}
+        />
       ) : (
         <>
           {requestType === RequestTypes.REST ? <ListSearchResults /> : <ListSearchResultsGraph />}

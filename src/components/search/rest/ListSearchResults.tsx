@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import RepoItem from './RepoItem';
-import { RequestTypes } from '../../store/reducers/types/repoType';
+import RepoItem from '../RepoItem';
+import { RequestTypes } from '../../../store/reducers/types/repoType';
 import { useSelector } from 'react-redux';
-import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
-import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
-import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
-import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
+import { selectorSearchGraphQlReposSlice } from '../../../store/reducers/searchGraphQlReposSlice';
+import { selectorSearchReposSlice } from '../../../store/reducers/searchRestReposSlice';
+import { selectorUserSettingsSlice } from '../../../store/reducers/userSettingsSlice';
+import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
 
 interface ListSearchResultsProps {
   // search: string;
