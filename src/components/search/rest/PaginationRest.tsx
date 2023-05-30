@@ -16,6 +16,7 @@ const PaginationRest: FC = () => {
   const { user } = useSelector(selectorUserAuth);
   const { search } = useSelector(selectorSearchValue);
   const {
+    totalCountRepos,
     params,
     numberOfPages,
     isLoading: searchIsLoading,
@@ -53,6 +54,8 @@ const PaginationRest: FC = () => {
     () => getPaginationArray(numberOfPages, params.page),
     [numberOfPages, params]
   );
+
+  if (!totalCountRepos) return;
 
   return (
     <div className="pagination-rest">

@@ -19,6 +19,7 @@ const PaginationGraphQL: FC = () => {
   const { user } = useSelector(selectorUserAuth);
   const { search } = useSelector(selectorSearchValue);
   const {
+    totalCountReposGraphQl,
     paramsGraph: { per_request },
     pagination: { max_pagination_items, global_count_for_request, current_page, numberOfPages },
     pageInfo,
@@ -96,6 +97,8 @@ const PaginationGraphQL: FC = () => {
     () => getPaginationForGraph(max_pagination_items, global_count_for_request, numberOfPages),
     [max_pagination_items, global_count_for_request, numberOfPages]
   );
+
+  if (!totalCountReposGraphQl) return;
 
   return (
     <div className="pagination-graph">

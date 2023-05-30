@@ -35,7 +35,7 @@ const ListSearchResults: FC = () => {
       </div>
 
       <div className="user-repositories__list">
-        {resultsRepos?.length &&
+        {!!resultsRepos?.length &&
           resultsRepos?.map(
             ({ id, name, owner: { login }, stargazerCount, languageMain, pushedAt }) => (
               <RepoItem
