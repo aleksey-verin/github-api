@@ -34,25 +34,27 @@ const FormRequestType: FC = () => {
   return (
     <form onSubmit={handleSaveDebounce}>
       <label htmlFor="request">Select the types of request to the server (REST or GraphQl)</label>
-      <select
-        id="request"
-        ref={selectRequestType}
-        disabled={requestSelectDisabled}
-        placeholder="value for per page parameter"
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          setSelectRequestValue(e.target.value as RequestTypes)
-        }
-        value={selectRequestValue}>
-        <option value={RequestTypes.REST}>REST API</option>
-        <option value={RequestTypes.GraphQl}>GraphQl API</option>
-      </select>
-      {requestSelectDisabled ? (
-        <button type="button" onClick={handleEditRequestType}>
-          Edit
-        </button>
-      ) : (
-        <button type="submit">Save</button>
-      )}
+      <div>
+        <select
+          id="request"
+          ref={selectRequestType}
+          disabled={requestSelectDisabled}
+          placeholder="value for per page parameter"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            setSelectRequestValue(e.target.value as RequestTypes)
+          }
+          value={selectRequestValue}>
+          <option value={RequestTypes.REST}>REST API</option>
+          <option value={RequestTypes.GraphQl}>GraphQl API</option>
+        </select>
+        {requestSelectDisabled ? (
+          <button type="button" onClick={handleEditRequestType}>
+            Edit
+          </button>
+        ) : (
+          <button type="submit">Save</button>
+        )}
+      </div>
     </form>
   );
 };

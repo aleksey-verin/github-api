@@ -53,27 +53,29 @@ const FormPerPage: FC = () => {
   return (
     <form onSubmit={handleSaveDebounce}>
       <label htmlFor="per_page">Number of items on the search page (only with REST) (pcs.)</label>
-      <input
-        id="per_page"
-        ref={inputDebounce}
-        disabled={perPageInputDisabled}
-        type="number"
-        placeholder="value for per page parameter"
-        step={3}
-        min={3}
-        max={33}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setPerPageInputValue(Number(e.target.value))
-        }
-        value={perPageInputValue}
-      />
-      {perPageInputDisabled ? (
-        <button type="button" onClick={handleEditDebounce}>
-          Edit
-        </button>
-      ) : (
-        <button type="submit">Save</button>
-      )}
+      <div>
+        <input
+          id="per_page"
+          ref={inputDebounce}
+          disabled={perPageInputDisabled}
+          type="number"
+          placeholder="value for per page parameter"
+          step={3}
+          min={3}
+          max={33}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPerPageInputValue(Number(e.target.value))
+          }
+          value={perPageInputValue}
+        />
+        {perPageInputDisabled ? (
+          <button type="button" onClick={handleEditDebounce}>
+            Edit
+          </button>
+        ) : (
+          <button type="submit">Save</button>
+        )}
+      </div>
     </form>
   );
 };

@@ -35,27 +35,29 @@ const FormDebounce: FC = () => {
   return (
     <form onSubmit={handleSaveDebounce}>
       <label htmlFor="debounce">The speed of sending a search request (debounce) (ms)</label>
-      <input
-        id="debounce"
-        ref={inputDebounce}
-        disabled={debounceInputDisabled}
-        type="number"
-        placeholder="value for debounce"
-        step={100}
-        min={300}
-        max={10000}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setDebounceInputValue(Number(e.target.value))
-        }
-        value={debounceInputValue}
-      />
-      {debounceInputDisabled ? (
-        <button type="button" onClick={handleEditDebounce}>
-          Edit
-        </button>
-      ) : (
-        <button type="submit">Save</button>
-      )}
+      <div>
+        <input
+          id="debounce"
+          ref={inputDebounce}
+          disabled={debounceInputDisabled}
+          type="number"
+          placeholder="value for debounce"
+          step={100}
+          min={300}
+          max={10000}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDebounceInputValue(Number(e.target.value))
+          }
+          value={debounceInputValue}
+        />
+        {debounceInputDisabled ? (
+          <button type="button" onClick={handleEditDebounce}>
+            Edit
+          </button>
+        ) : (
+          <button type="submit">Save</button>
+        )}
+      </div>
     </form>
   );
 };

@@ -152,7 +152,7 @@ const FormSearch: FC = () => {
           placeholder="Enter request.."
           onChange={handleInputValue}
         />
-        <button className="search-button-send">
+        <button className="search-button__send">
           <div>Send Request</div>
           <div>{loaderRequestButton && <ImgLoader />}</div>
         </button>

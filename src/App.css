@@ -145,11 +145,19 @@ main {
 .search div input {
   flex: 1 0 auto;
 }
-.search div-button-send {
+.search-button__send {
   width: 175px;
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding-left: 32px;
   gap: 5px;
+}
+.search-button__send div:first-child {
+  width: auto;
+}
+.search-button__send div:last-child {
+  width: auto;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -463,11 +471,18 @@ main {
   width: 100%;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .settings form label {
-  flex: 0 0 450px;
+  flex: 0 1 50%;
   text-align: end;
+}
+.settings form div {
+  flex: 1 0 auto;
+  min-width: 300px;
+  display: flex;
+  gap: 10px;
 }
 .settings form input {
   flex: 0 1 200px;
@@ -481,6 +496,15 @@ main {
 }
 .settings form button {
   flex: 0 0 100px;
+}
+@media (max-width: 1100px) {
+  .settings form {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .settings form label {
+    text-align: center;
+  }
 }
 
 .loader-image {
