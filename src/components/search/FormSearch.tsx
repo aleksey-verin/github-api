@@ -143,21 +143,23 @@ const FormSearch: FC = () => {
   return (
     <form onSubmit={handleSubmitSearch} className="search">
       <label htmlFor="search">Search through all repositories on github:</label>
-      <input
-        value={searchInputValue}
-        id="search"
-        type="text"
-        autoComplete="false"
-        placeholder="Enter request.."
-        onChange={handleInputValue}
-      />
-      <button className="search-button-send">
-        <div>Send Request</div>
-        <div>{loaderRequestButton && <ImgLoader />}</div>
-      </button>
-      <button onClick={handleReset} type="reset">
-        Clear search
-      </button>
+      <div>
+        <input
+          value={searchInputValue}
+          id="search"
+          type="text"
+          autoComplete="false"
+          placeholder="Enter request.."
+          onChange={handleInputValue}
+        />
+        <button className="search-button-send">
+          <div>Send Request</div>
+          <div>{loaderRequestButton && <ImgLoader />}</div>
+        </button>
+        <button onClick={handleReset} type="reset">
+          Clear search
+        </button>
+      </div>
     </form>
   );
 };
