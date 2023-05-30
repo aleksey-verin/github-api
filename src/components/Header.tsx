@@ -1,23 +1,32 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../routes/routes';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuthSlice';
 import { useAppDispatch } from '../hooks/useAppDispatch';
+import ImgBurger from './ui/image/ImgBurger';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const { isAuth, user } = useSelector(selectorUserAuth);
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
   const handleLogOut = () => {
     dispatch(userAuth(userSign.out));
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuIsOpen(false);
+  };
+
   return (
     <header>
+      <button onClick={() => setMobileMenuIsOpen(!mobileMenuIsOpen)} className="header-burger">
+        <ImgBurger />
+      </button>
       <div className="header-logo">LOGO</div>
-      <nav>
+      <nav className="header-nav__desktop">
         <NavLink to={ROUTES.searchPage}>Search</NavLink>
         <NavLink to={ROUTES.aboutPage}>About</NavLink>
         <NavLink to={ROUTES.settingsPage}>Settings</NavLink>
@@ -34,6 +43,19 @@ const Header: FC = () => {
           </Link>
         )}
       </div>
+      {mobileMenuIsOpen && (
+        <nav className="header-nav__mobile">
+          <NavLink onClick={closeMobileMenu} to={ROUTES.searchPage}>
+            Search
+          </NavLink>
+          <NavLink onClick={closeMobileMenu} to={ROUTES.aboutPage}>
+            About
+          </NavLink>
+          <NavLink onClick={closeMobileMenu} to={ROUTES.settingsPage}>
+            Settings
+          </NavLink>
+        </nav>
+      )}
     </header>
   );
 };

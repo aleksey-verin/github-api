@@ -20,9 +20,8 @@ const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, push
     <div className="repo-item">
       <div className="repo-item__title">
         <div>{viewedRepoName}</div>
-        <div>
-          <Link to={`${ROUTES.searchPage}/${path}`}>More details..</Link>
-        </div>
+        {/* <div>
+        </div> */}
       </div>
       <div className="repo-item__content">
         <p>{`Author: ${author}`}</p>
@@ -30,7 +29,9 @@ const RepoItem: FC<RepoItemProps> = ({ path, repo, author, score, language, push
         <p>{`Main language: ${language}`}</p>
         <p>{`Stars: ${score}`}</p>
       </div>
-      <div className="repo-item__link"></div>
+      <div className="repo-item__link">
+        <Link to={`${ROUTES.searchPage}/${path}`}>More details..</Link>
+      </div>
     </div>
   );
 };
