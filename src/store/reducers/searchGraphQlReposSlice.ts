@@ -132,7 +132,10 @@ export const searchGraphQlReposSlice = createSlice({
       state.resultsReposGraphQl = defaultValues.resultsReposGraphQl;
       state.totalCountReposGraphQl = defaultValues.totalCountReposGraphQl;
       state.pageInfo = defaultValues.pageInfo;
-      state.pagination = defaultValues.pagination;
+      state.pagination.max_pagination_items = defaultValues.pagination.max_pagination_items;
+      state.pagination.current_page = defaultValues.pagination.current_page;
+      state.pagination.numberOfPages = defaultValues.pagination.numberOfPages;
+      state.pagination.global_count_for_request = defaultValues.pagination.global_count_for_request;
     }
   },
   extraReducers: (builder) => {
