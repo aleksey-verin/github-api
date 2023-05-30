@@ -161,12 +161,12 @@ main {
 }
 
 @media (prefers-color-scheme: dark) {
-  .search-button-send path {
+  .search-button__send path {
     stroke: #fff;
   }
 }
 @media (max-width: 940px) {
-  .search-button-send {
+  .search-button__send {
     display: none;
   }
 }

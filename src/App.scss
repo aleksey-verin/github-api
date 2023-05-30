@@ -254,7 +254,7 @@ main {
 
 @media (prefers-color-scheme: dark) {
   .search {
-    &-button-send {
+    &-button__send {
       & path {
         stroke: #fff;
       }
@@ -263,7 +263,7 @@ main {
 }
 @media (max-width: 940px) {
   .search {
-    &-button-send {
+    &-button__send {
       display: none;
     }
   }
