@@ -79,6 +79,7 @@ export const searchRestReposSlice = createSlice({
   reducers: {
     clearSearchData: (state) => {
       state.resultsRepos = defaultValues.resultsRepos;
+      state.totalCountRepos = defaultValues.totalCountRepos;
       state.numberOfPages = defaultValues.numberOfPages;
       state.params.page = defaultValues.params.page;
     },

@@ -127,6 +127,8 @@ export const searchGraphQlReposSlice = createSlice({
     clearResultsGraphQl: (state) => {
       state.resultsReposGraphQl = defaultValues.resultsReposGraphQl;
       state.totalCountReposGraphQl = defaultValues.totalCountReposGraphQl;
+      state.pageInfo = defaultValues.pageInfo;
+      state.pagination = defaultValues.pagination;
     }
   },
   extraReducers: (builder) => {

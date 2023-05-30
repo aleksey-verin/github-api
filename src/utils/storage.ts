@@ -29,3 +29,9 @@ export const storageSetItem = (storageItem: string, value: unknown) => {
     console.log(error);
   }
 };
+
+export const clearLocalStorageData = (storageData: Record<string, string>) => {
+  Object.values(storageData).forEach((value) => {
+    localStorage.removeItem(value);
+  });
+};

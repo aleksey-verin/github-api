@@ -6,14 +6,16 @@ import { useSelector } from 'react-redux';
 import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuthSlice';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import ImgBurger from './ui/image/ImgBurger';
+import { clearLocalStorageData, storage } from '../utils/storage';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const { isAuth, user } = useSelector(selectorUserAuth);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
-  const handleLogOut = () => {
-    dispatch(userAuth(userSign.out));
+  const handleLogOut = async () => {
+    await dispatch(userAuth(userSign.out));
+    clearLocalStorageData(storage);
   };
 
   const closeMobileMenu = () => {
