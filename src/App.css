@@ -1,5 +1,6 @@
 #root {
   margin: 0 auto;
+  min-width: 330px;
 }
 
 .wrapper {
@@ -195,6 +196,7 @@ main {
 .repo-item {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -392,30 +394,135 @@ main {
   border-radius: 8px;
 }
 
-.pagination {
+.pagination-rest {
+  width: 100%;
   justify-content: center;
   display: flex;
   gap: 20px;
 }
-.pagination button {
+.pagination-rest button {
   min-width: 60px;
 }
-.pagination button.active {
+.pagination-rest button.active {
   color: #5e66f9;
   background-color: rgba(73, 82, 255, 0.123);
 }
-.pagination-next {
+@media (max-width: 939px) {
+  .pagination-rest {
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .pagination-rest button {
+    min-width: 50px;
+  }
+}
+@media (max-width: 780px) {
+  .pagination-rest {
+    gap: 5px;
+  }
+  .pagination-rest button {
+    padding: 10px 10px;
+    min-width: 40px;
+  }
+}
+@media (max-width: 550px) {
+  .pagination-rest button {
+    display: none;
+  }
+  .pagination-rest .navigation {
+    display: block;
+    width: inherit;
+  }
+  .pagination-rest .active {
+    display: block;
+  }
+}
+
+.pagination-graph {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+}
+.pagination-graph button {
+  min-width: 60px;
+}
+.pagination-graph button.active {
+  color: #5e66f9;
+  background-color: rgba(73, 82, 255, 0.123);
+}
+.pagination-graph__next {
   width: 120px;
   display: flex;
   gap: 5px;
   padding-left: 40px;
 }
-.pagination-back {
+.pagination-graph__back {
   width: 120px;
   display: flex;
   gap: 5px;
   padding-right: 40px;
   justify-content: flex-end;
+}
+@media (max-width: 720px) {
+  .pagination-graph {
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .pagination-graph button {
+    min-width: 50px;
+  }
+}
+@media (max-width: 610px) {
+  .pagination-graph {
+    gap: 10px;
+  }
+  .pagination-graph button {
+    min-width: 40px;
+  }
+  .pagination-graph__next {
+    width: 80px;
+    padding-left: 15px;
+  }
+  .pagination-graph__back {
+    width: 80px;
+    padding-right: 15px;
+  }
+}
+@media (max-width: 500px) {
+  .pagination-graph button {
+    padding: 10px 10px;
+    min-width: 40px;
+  }
+  .pagination-graph__next {
+    width: 70px;
+    padding-left: 15px;
+  }
+  .pagination-graph__back {
+    width: 70px;
+    padding-right: 15px;
+  }
+}
+@media (max-width: 440px) {
+  .pagination-graph {
+    gap: 10px;
+  }
+  .pagination-graph button {
+    display: none;
+  }
+  .pagination-graph .active {
+    display: block;
+  }
+  .pagination-graph .pagination-graph__next {
+    display: flex;
+    width: inherit;
+    padding-left: 40px;
+  }
+  .pagination-graph .pagination-graph__back {
+    display: flex;
+    width: inherit;
+    padding-right: 40px;
+  }
 }
 
 .settings {

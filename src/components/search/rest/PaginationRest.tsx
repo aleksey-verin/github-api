@@ -38,8 +38,11 @@ const PaginationRest: FC = () => {
   );
 
   return (
-    <div className="pagination">
-      <button disabled={params.page === 1} onClick={() => handlePaginationClick(params.page - 1)}>
+    <div className="pagination-rest">
+      <button
+        className="navigation"
+        disabled={params.page === 1}
+        onClick={() => handlePaginationClick(params.page - 1)}>
         Back
       </button>
       {numbersForPagination.map((item) => (
@@ -52,6 +55,7 @@ const PaginationRest: FC = () => {
         </button>
       ))}
       <button
+        className="navigation"
         onClick={() => handlePaginationClick(params.page + 1)}
         disabled={params.page === numberOfPages}>
         Next

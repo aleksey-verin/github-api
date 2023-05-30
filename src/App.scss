@@ -3,6 +3,7 @@ $color-black: #1f2328;
 
 #root {
   margin: 0 auto;
+  min-width: 330px;
 }
 
 .wrapper {
@@ -229,6 +230,7 @@ main {
   // flex: 0 0 23%;
   // gap: 10px;
   flex-direction: column;
+  justify-content: space-between;
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -439,8 +441,8 @@ main {
 
 // ========== pagination =========
 
-.pagination {
-  // width: 100%;
+.pagination-rest {
+  width: 100%;
   justify-content: center;
   display: flex;
   gap: 20px;
@@ -451,21 +453,128 @@ main {
       background-color: rgba(73, 82, 255, 0.123);
     }
   }
-  &-next {
+  @media (max-width: 939px) {
+    justify-content: space-between;
+    gap: 10px;
+    & button {
+      min-width: 50px;
+    }
+  }
+  @media (max-width: 780px) {
+    gap: 5px;
+    & button {
+      padding: 10px 10px;
+      min-width: 40px;
+    }
+  }
+  @media (max-width: 550px) {
+    & button {
+      display: none;
+    }
+    & .navigation {
+      display: block;
+      width: inherit;
+    }
+    & .active {
+      display: block;
+    }
+  }
+  // &-next {
+  //   width: 120px;
+  //   display: flex;
+  //   gap: 5px;
+  //   padding-left: 40px;
+  // }
+  // &-back {
+  //   width: 120px;
+  //   display: flex;
+  //   gap: 5px;
+  //   padding-right: 40px;
+  //   justify-content: flex-end;
+  // }
+}
+
+.pagination-graph {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+  & button {
+    min-width: 60px;
+    &.active {
+      color: #5e66f9;
+      background-color: rgba(73, 82, 255, 0.123);
+    }
+  }
+  &__next {
     width: 120px;
     display: flex;
     gap: 5px;
     padding-left: 40px;
   }
-  &-back {
+  &__back {
     width: 120px;
     display: flex;
     gap: 5px;
     padding-right: 40px;
     justify-content: flex-end;
   }
+  @media (max-width: 720px) {
+    justify-content: space-between;
+    gap: 10px;
+    & button {
+      min-width: 50px;
+    }
+  }
+  @media (max-width: 610px) {
+    gap: 10px;
+    & button {
+      // padding: 10px 10px;
+      min-width: 40px;
+    }
+    &__next {
+      width: 80px;
+      padding-left: 15px;
+    }
+    &__back {
+      width: 80px;
+      padding-right: 15px;
+    }
+  }
+  @media (max-width: 500px) {
+    & button {
+      padding: 10px 10px;
+      min-width: 40px;
+    }
+    &__next {
+      width: 70px;
+      padding-left: 15px;
+    }
+    &__back {
+      width: 70px;
+      padding-right: 15px;
+    }
+  }
+  @media (max-width: 440px) {
+    gap: 10px;
+    & button {
+      display: none;
+    }
+    & .active {
+      display: block;
+    }
+    & .pagination-graph__next {
+      display: flex;
+      width: inherit;
+      padding-left: 40px;
+    }
+    & .pagination-graph__back {
+      display: flex;
+      width: inherit;
+      padding-right: 40px;
+    }
+  }
 }
-
 // ========== settings page =========
 
 .settings {

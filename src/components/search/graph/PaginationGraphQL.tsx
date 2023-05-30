@@ -99,11 +99,11 @@ const PaginationGraphQL: FC = () => {
   );
 
   return (
-    <div className="pagination">
+    <div className="pagination-graph">
       <button
         disabled={current_page === 1}
         onClick={() => handlePrevButton(current_page)}
-        className="pagination-back">
+        className="pagination-graph__back">
         <div>{loaderBackButton && <ImgLoader />}</div>
         <div>Back</div>
       </button>
@@ -119,7 +119,7 @@ const PaginationGraphQL: FC = () => {
       <button
         onClick={() => handleNextButton(current_page)}
         disabled={current_page === numberOfPages}
-        className="pagination-next">
+        className="pagination-graph__next">
         <div>Next</div>
         <div>{loaderNextButton && <ImgLoader />}</div>
       </button>
