@@ -7,7 +7,12 @@ $color-black: #1f2328;
 }
 
 .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   gap: 20px;
   width: 100%;
@@ -15,16 +20,23 @@ $color-black: #1f2328;
 }
 
 header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 64px;
   flex: 0 0 64px;
   background-color: $color-black;
   font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 0 20px;
   color: #fff;
-  // z-index: -1;
   & nav.header-nav__desktop {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 20px;
     & a {
@@ -37,13 +49,23 @@ header {
     }
   }
   & .header-logo {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100px;
     flex: 0 0 100px;
   }
   & .header-user {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     text-align: right;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
     gap: 20px;
     & button {
@@ -67,6 +89,9 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 30px;
     padding-left: 30px;
@@ -83,10 +108,18 @@ header {
   }
 }
 footer {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 64px;
   flex: 0 0 64px;
   font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   gap: 10px;
   padding: 0 20px;
@@ -94,14 +127,26 @@ footer {
   text-align: center;
 }
 main {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
   flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 20px;
   width: 100%;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
   align-self: center;
   max-width: 1200px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 20px;
 }
@@ -130,11 +175,19 @@ main {
     & .header-burger {
       width: 45px;
       height: 45px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
       justify-content: center;
     }
     & nav.header-nav__mobile {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
     }
   }
@@ -143,28 +196,50 @@ main {
 // ============ SEARCH MAIN PAGE ============
 
 .search {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   gap: 20px;
   & label {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 300px;
     flex: 1 0 300px;
   }
   & div {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 20px;
     & input {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
       flex: 1 0 auto;
     }
   }
   &-button__send {
     width: 175px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     padding-left: 32px;
     gap: 5px;
@@ -195,8 +270,13 @@ main {
 }
 @media (max-width: 800px) {
   .search {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     & label {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
       flex: 1 1 auto;
     }
   }
@@ -204,6 +284,9 @@ main {
 @media (max-width: 430px) {
   .search {
     & div {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
       flex-direction: column;
       & input {
         width: calc(100% - 40px);
@@ -213,7 +296,12 @@ main {
 }
 
 .user-repositories {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   gap: 20px;
   width: 100%;
@@ -225,6 +313,7 @@ main {
   }
   &__list {
     width: 100%;
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
@@ -232,14 +321,26 @@ main {
 }
 
 .repo-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   &__title {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     padding: 5px 10px;
@@ -255,12 +356,17 @@ main {
     }
   }
   &__link {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
     padding: 5px 10px;
-
     & a {
       color: #454eff;
     }
@@ -280,6 +386,7 @@ main {
 }
 
 // ============ SINGLE REPO PAGE ============
+
 .single-title {
   text-align: center;
   & span {
@@ -292,23 +399,36 @@ main {
   border: 1px solid rgba(0, 0, 0, 0.3);
   line-height: 30px;
   &__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 50px;
     & div:first-child {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 200px;
       flex: 0 0 200px;
-      // min-width: 100px;
       background-color: rgba(0, 0, 0, 0.1);
       border-right: 1px solid rgba(0, 0, 0, 0.3);
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
       padding: 10px 20px;
     }
     & div:last-child {
       width: auto;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
       flex: 1 1 auto;
       padding: 10px 20px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
     }
     &-photo {
@@ -332,21 +452,27 @@ main {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       & div:first-child {
         border-right: 1px solid rgba(255, 255, 255, 0.3);
-        // border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       }
     }
   }
   @media (max-width: 850px) {
     &__item {
       & div:first-child {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 100px;
         flex: 0 0 100px;
       }
     }
   }
   @media (max-width: 420px) {
     &__item {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
       flex-direction: column;
       & div:first-child {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
         flex: 1 1 auto;
         border-right: none;
         border-bottom: 1px solid rgba(0, 0, 0, 0.3);
@@ -361,11 +487,16 @@ main {
     }
   }
 }
+
 // ========== pagination =========
 
 .pagination-rest {
   width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 20px;
   & button {
@@ -376,6 +507,8 @@ main {
     }
   }
   @media (max-width: 939px) {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 10px;
     & button {
@@ -405,7 +538,11 @@ main {
 
 .pagination-graph {
   width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 20px;
   & button {
@@ -417,18 +554,26 @@ main {
   }
   &__next {
     width: 120px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 5px;
     padding-left: 40px;
   }
   &__back {
     width: 120px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 5px;
     padding-right: 40px;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
   }
   @media (max-width: 720px) {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 10px;
     & button {
@@ -472,11 +617,15 @@ main {
       display: block;
     }
     & .pagination-graph__next {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
       width: inherit;
       padding-left: 40px;
     }
     & .pagination-graph__back {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
       width: inherit;
       padding-right: 40px;
@@ -486,45 +635,77 @@ main {
 // ========== settings page =========
 
 .settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   gap: 20px;
   & form {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 10px;
     & label {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 1 50%;
       flex: 0 1 50%;
       text-align: end;
     }
     & div {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
       flex: 1 0 auto;
       min-width: 300px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
       gap: 10px;
     }
     & input {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 1 200px;
       flex: 0 1 200px;
       min-width: 70px;
+      -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }
     & select {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 1 200px;
       flex: 0 1 200px;
       min-width: 70px;
+      -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }
     & button {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 100px;
       flex: 0 0 100px;
     }
   }
   @media (max-width: 1100px) {
     & form {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
       flex-direction: column;
+      -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
       & label {
         text-align: center;
@@ -537,21 +718,39 @@ main {
 
 .loader-image {
   display: inline;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   width: 12px;
   height: 12px;
+  -webkit-animation: spin 1s linear 0s infinite;
   animation: spin 1s linear 0s infinite;
   & path {
     stroke: #1a1a1a;
   }
 }
 
-@keyframes spin {
+@-webkit-keyframes spin {
   from {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
