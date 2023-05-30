@@ -4,6 +4,12 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 import { selectorUserSettingsSlice, setRequestType } from '../../store/reducers/userSettingsSlice';
 import { RequestTypes } from '../../store/reducers/types/repoType';
+import { clearSearchValue } from '../../store/reducers/searchValueSlice';
+import {
+  clearResultsGraphQl,
+  resetRequestParamsGraphQl
+} from '../../store/reducers/searchGraphQlReposSlice';
+import { clearSearchData } from '../../store/reducers/searchRestReposSlice';
 
 const FormRequestType: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +24,16 @@ const FormRequestType: FC = () => {
     setRequestSelectDisabled(false);
   };
 
-  const handleSaveDebounce = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSaveRequestType = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setRequestSelectDisabled(true);
     if (selectRequestValue === requestType) return;
     dispatch(setRequestType(selectRequestValue));
+    dispatch(clearSearchValue());
+
+    dispatch(resetRequestParamsGraphQl());
+    dispatch(clearResultsGraphQl());
+    dispatch(clearSearchData());
   };
 
   useEffect(() => {
@@ -32,7 +43,7 @@ const FormRequestType: FC = () => {
   }, [requestSelectDisabled]);
 
   return (
-    <form onSubmit={handleSaveDebounce}>
+    <form onSubmit={handleSaveRequestType}>
       <label htmlFor="request">Select the types of request to the server (REST or GraphQl)</label>
       <div>
         <select
