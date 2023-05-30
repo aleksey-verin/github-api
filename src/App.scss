@@ -80,7 +80,6 @@ header {
         color: #7e85fe;
       }
     }
-    // z-index: 1;
   }
 }
 footer {
@@ -89,6 +88,10 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
+  padding: 0 20px;
+  word-break: normal;
+  text-align: center;
 }
 main {
   flex: 1 1 auto;
@@ -274,12 +277,15 @@ main {
     &__title {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     }
+    &__link {
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
   }
 }
 
 // ============ SINGLE REPO PAGE ============
 .single-title {
-  margin-bottom: 20px;
+  text-align: center;
   & span {
     font-weight: 700;
   }
@@ -288,157 +294,77 @@ main {
   width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  &__name {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr;
-    height: 50px;
-    align-items: center;
+  line-height: 30px;
+  &__item {
+    display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    & div {
-      height: 100%;
+    min-height: 50px;
+    & div:first-child {
+      flex: 0 0 200px;
+      // min-width: 100px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
-      padding: 0 20px;
-      border-right: 1px solid rgba(0, 0, 0, 0.3);
-    }
-    & div:nth-child(odd) {
-      background-color: rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
     }
     & div:last-child {
-      border-right: none;
-    }
-  }
-  &__author {
-    display: grid;
-    grid-template-columns: 4fr 2fr;
-    height: 150px;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  }
-  &__languages {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    min-height: 50px;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    & div {
-      height: 100%;
-      display: flex;
-      align-items: center;
+      width: auto;
+      flex: 1 1 auto;
       padding: 10px 20px;
-      box-sizing: border-box;
-    }
-    & div:first-child {
-      border-right: 1px solid rgba(0, 0, 0, 0.3);
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-  }
-  &__description {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    min-height: 50px;
-    align-items: center;
-    & div {
-      height: 100%;
       display: flex;
       align-items: center;
-      padding: 10px 20px;
-      box-sizing: border-box;
     }
-    & div:first-child {
-      border-right: 1px solid rgba(0, 0, 0, 0.3);
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-  }
-}
-.author {
-  &-info {
-    height: 100%;
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
-
-    &__commit {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      height: 50px;
-      align-items: center;
-      box-sizing: border-box;
-
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-      & div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-      }
-      & div:first-child {
-        border-right: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-    }
-    &__name {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      height: 50px;
-      align-items: center;
-      box-sizing: border-box;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-      & div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-      }
-      & div:first-child {
-        border-right: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-    }
-    &__link {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      align-items: center;
-      box-sizing: border-box;
-
-      height: 50px;
-      & div {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-      }
-      & div:first-child {
-        border-right: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-  &-photo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100%;
-    & div {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-    }
-    & div:first-child {
-      border-right: 1px solid rgba(0, 0, 0, 0.3);
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-    &__photo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    &-photo {
       & img {
+        margin: 10px 0;
         width: 100px;
         height: 100px;
         border-radius: 8px;
       }
     }
+    & a {
+      word-break: break-all;
+    }
+  }
+  &__item:last-child {
+    border-bottom: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    &__item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      & div:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.3);
+        // border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    &__item {
+      & div:first-child {
+        flex: 0 0 100px;
+      }
+    }
+  }
+  @media (max-width: 420px) {
+    &__item {
+      flex-direction: column;
+      & div:first-child {
+        flex: 1 1 auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      &__item {
+        & div:first-child {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
   }
 }
-
 // ========== pagination =========
 
 .pagination-rest {
@@ -479,19 +405,6 @@ main {
       display: block;
     }
   }
-  // &-next {
-  //   width: 120px;
-  //   display: flex;
-  //   gap: 5px;
-  //   padding-left: 40px;
-  // }
-  // &-back {
-  //   width: 120px;
-  //   display: flex;
-  //   gap: 5px;
-  //   padding-right: 40px;
-  //   justify-content: flex-end;
-  // }
 }
 
 .pagination-graph {

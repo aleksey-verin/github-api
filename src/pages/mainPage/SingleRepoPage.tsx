@@ -73,43 +73,41 @@ const SingleRepoPage: FC = () => {
             Details info for repository named <span>{currentRepo?.name}</span>
           </div>
           <div className="single-repo">
-            <div className="single-repo__name">
+            <div className="single-repo__item">
+              <div>Author photo:</div>
+              <div className="single-repo__item-photo">
+                <img src={currentRepo?.owner.avatar_url} alt="" />
+              </div>
+            </div>
+            <div className="single-repo__item">
               <div>Name:</div>
               <div>{currentRepo?.name}</div>
+            </div>
+            <div className="single-repo__item">
               <div>Stars:</div>
               <div>{currentRepo?.stargazerCount}</div>
             </div>
-            <div className="single-repo__author author">
-              <div className="author-info">
-                <div className="author-info__commit">
-                  <div>Last commit:</div>
-                  <div>{viewedDate}</div>
-                </div>
-                <div className="author-info__name">
-                  <div>Author:</div>
-                  <div>{currentRepo?.owner.login}</div>
-                </div>
-                <div className="author-info__link">
-                  <div>Link:</div>
-                  <div>
-                    <a href={currentRepo?.owner.html_url} target="_blank">
-                      {currentRepo?.owner.html_url}
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="author-photo">
-                <div className="author-photo__title">Author photo:</div>
-                <div className="author-photo__photo">
-                  <img src={currentRepo?.owner.avatar_url} alt="" />
-                </div>
+            <div className="single-repo__item">
+              <div>Last commit:</div>
+              <div>{viewedDate}</div>
+            </div>
+            <div className="single-repo__item">
+              <div>Author:</div>
+              <div>{currentRepo?.owner.login}</div>
+            </div>
+            <div className="single-repo__item">
+              <div>Link:</div>
+              <div>
+                <a href={currentRepo?.owner.html_url} target="_blank">
+                  {currentRepo?.owner.html_url}
+                </a>
               </div>
             </div>
-            <div className="single-repo__languages">
+            <div className="single-repo__item">
               <div>Languages:</div>
               <div>{loadingLanguagesData ? 'Loading languages..' : viewedLanguage}</div>
             </div>
-            <div className="single-repo__description">
+            <div className="single-repo__item">
               <div>Description:</div>
               <div>
                 {currentRepo?.description ? currentRepo?.description : 'There is no description'}.
