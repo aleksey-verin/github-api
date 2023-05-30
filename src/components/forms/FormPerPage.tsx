@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import {
@@ -9,18 +9,42 @@ import {
 } from '../../store/reducers/searchRestReposSlice';
 import { selectorUserAuth } from '../../store/reducers/userAuthSlice';
 import { selectorSearchValue } from '../../store/reducers/searchValueSlice';
+import {
+  clearResultsGraphQl,
+  resetRequestParamsGraphQl,
+  searchGraphQlRepos,
+  selectorSearchGraphQlReposSlice,
+  setParamsPerPageGraphQl
+} from '../../store/reducers/searchGraphQlReposSlice';
+import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
+import { GraphQlRequestType, RequestTypes } from '../../store/reducers/types/repoType';
 
 const FormPerPage: FC = () => {
   const dispatch = useAppDispatch();
   const {
     params: { per_page }
   } = useSelector(selectorSearchReposSlice);
+  const {
+    pagination: { per_page: perPageGraph, max_pagination_items },
+    pageInfo
+  } = useSelector(selectorSearchGraphQlReposSlice);
   const { search } = useSelector(selectorSearchValue);
   const { user } = useSelector(selectorUserAuth);
+  const { requestType } = useSelector(selectorUserSettingsSlice);
 
   const [perPageInputDisabled, setPerPageInputDisabled] = useState(true);
-  const [perPageInputValue, setPerPageInputValue] = useState(per_page);
+
+  const [perPageInputValue, setPerPageInputValue] = useState(0);
   const inputDebounce = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (requestType === RequestTypes.REST) {
+      setPerPageInputValue(per_page);
+    }
+    if (requestType === RequestTypes.GraphQl) {
+      setPerPageInputValue(perPageGraph);
+    }
+  }, [requestType, per_page, perPageGraph]);
 
   const handleEditDebounce = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -30,17 +54,37 @@ const FormPerPage: FC = () => {
   const handleSaveDebounce = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setPerPageInputDisabled(true);
-    if (perPageInputValue === per_page) return;
-    dispatch(setParamsPerPage(perPageInputValue));
-    if (search) {
-      dispatch(resetParamsPage());
-      dispatch(
-        getResultsRepos({
-          searchValue: search,
-          oAuthToken: user?.oauthAccessToken,
-          params: { page: 1, per_page: perPageInputValue }
-        })
-      );
+
+    if (requestType === RequestTypes.REST) {
+      if (perPageInputValue === per_page) return;
+      dispatch(setParamsPerPage(perPageInputValue));
+      if (search) {
+        dispatch(resetParamsPage());
+        dispatch(
+          getResultsRepos({
+            searchValue: search,
+            oAuthToken: user?.oauthAccessToken,
+            params: { page: 1, per_page: perPageInputValue }
+          })
+        );
+      }
+    }
+    if (requestType === RequestTypes.GraphQl) {
+      if (perPageInputValue === perPageGraph) return;
+      dispatch(setParamsPerPageGraphQl(perPageInputValue));
+      if (user) {
+        dispatch(resetRequestParamsGraphQl());
+        dispatch(clearResultsGraphQl());
+        dispatch(
+          searchGraphQlRepos({
+            searchValue: search,
+            oAuthToken: user?.oauthAccessToken,
+            per_request: perPageInputValue * max_pagination_items,
+            type: GraphQlRequestType.initial,
+            pageInfo
+          })
+        );
+      }
     }
   };
 
@@ -52,7 +96,7 @@ const FormPerPage: FC = () => {
 
   return (
     <form onSubmit={handleSaveDebounce}>
-      <label htmlFor="per_page">Number of items on the search page (only with REST) (pcs.)</label>
+      <label htmlFor="per_page">Number of items on the search page (pcs.)</label>
       <div>
         <input
           id="per_page"

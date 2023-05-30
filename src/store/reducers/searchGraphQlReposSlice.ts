@@ -119,6 +119,10 @@ export const searchGraphQlReposSlice = createSlice({
     setGlobalCountForRequest: (state, { payload }: PayloadAction<number>) => {
       state.pagination.global_count_for_request = payload;
     },
+    setParamsPerPageGraphQl: (state, { payload }: PayloadAction<number>) => {
+      state.pagination.per_page = payload;
+      state.paramsGraph.per_request = payload * defaultValues.pagination.max_pagination_items;
+    },
     resetRequestParamsGraphQl: (state) => {
       state.pagination.global_count_for_request = defaultValues.pagination.global_count_for_request;
       state.pagination.current_page = defaultValues.pagination.current_page;
@@ -162,6 +166,7 @@ export const selectorSearchGraphQlReposSlice = (state: IRootState) => state.sear
 export const {
   setCurrentPage,
   setGlobalCountForRequest,
+  setParamsPerPageGraphQl,
   resetRequestParamsGraphQl,
   clearResultsGraphQl
 } = searchGraphQlReposSlice.actions;
