@@ -98,7 +98,7 @@ const PaginationGraphQL: FC = () => {
     [max_pagination_items, global_count_for_request, numberOfPages]
   );
 
-  if (!totalCountReposGraphQl) return;
+  if (!totalCountReposGraphQl) return null;
 
   return (
     <div className="pagination-graph">

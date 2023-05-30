@@ -55,7 +55,7 @@ const PaginationRest: FC = () => {
     [numberOfPages, params]
   );
 
-  if (!totalCountRepos) return;
+  if (!totalCountRepos) return null;
 
   return (
     <div className="pagination-rest">
