@@ -27,12 +27,11 @@ const SingleRepoPage: FC = () => {
   );
   const currentSearchRepo = useMemo(() => {
     if (requestType === RequestTypes.REST) {
-      return resultsRepos?.find((item) => item.id === id);
+      return resultsRepos?.find((item) => item.id === Number(id));
     } else {
       return resultsReposGraphQl?.find((item) => item.id === id);
     }
   }, [id, resultsReposGraphQl, resultsRepos, requestType]);
-
   const currentRepo = currentUserRepo || currentSearchRepo;
 
   const [viewedLanguage, setViewedLanguage] = useState('');
