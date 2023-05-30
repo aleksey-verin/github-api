@@ -341,6 +341,20 @@ main {
   color: #5e66f9;
   background-color: rgba(73, 82, 255, 0.123);
 }
+.pagination-rest button:first-child {
+  display: flex;
+  width: 90px;
+  align-items: center;
+  justify-content: right;
+  gap: 5px;
+}
+.pagination-rest button:last-child {
+  display: flex;
+  width: 90px;
+  align-items: center;
+  justify-content: left;
+  gap: 5px;
+}
 @media (max-width: 939px) {
   .pagination-rest {
     justify-content: space-between;

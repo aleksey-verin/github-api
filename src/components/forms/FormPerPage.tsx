@@ -60,9 +60,9 @@ const FormPerPage: FC = () => {
           disabled={perPageInputDisabled}
           type="number"
           placeholder="value for per page parameter"
-          step={3}
-          min={3}
-          max={33}
+          step={4}
+          min={4}
+          max={28}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPerPageInputValue(Number(e.target.value))
           }

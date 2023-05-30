@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import {
   setParamsPage,
@@ -9,6 +9,7 @@ import { getPaginationArray } from '../../../utils/helpers';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth } from '../../../store/reducers/userAuthSlice';
 import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
+import ImgLoader from '../../ui/image/ImgLoader';
 
 const PaginationRest: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,19 +18,35 @@ const PaginationRest: FC = () => {
   const {
     params,
     numberOfPages,
-    isLoading: searchIsLoading
+    isLoading: searchIsLoading,
+    isError
   } = useSelector(selectorSearchReposSlice);
+  const [loaderNextButton, setLoaderNextButton] = useState(false);
+  const [loaderBackButton, setLoaderBackButton] = useState(false);
 
-  const handlePaginationClick = (page: number) => {
+  const loadAnotherPage = async (page: number) => {
     if (searchIsLoading) return;
-    dispatch(setParamsPage(page));
-    dispatch(
+    await dispatch(
       getResultsRepos({
         searchValue: search,
         oAuthToken: user?.oauthAccessToken,
         params: { page: page, per_page: params.per_page }
       })
     );
+    if (!isError) {
+      dispatch(setParamsPage(page));
+    }
+  };
+
+  const handleNavigationNext = async (page: number) => {
+    setLoaderNextButton(true);
+    await loadAnotherPage(page);
+    setLoaderNextButton(false);
+  };
+  const handleNavigationBack = async (page: number) => {
+    setLoaderBackButton(true);
+    await loadAnotherPage(page);
+    setLoaderBackButton(false);
   };
 
   const numbersForPagination = useMemo(
@@ -42,12 +59,13 @@ const PaginationRest: FC = () => {
       <button
         className="navigation"
         disabled={params.page === 1}
-        onClick={() => handlePaginationClick(params.page - 1)}>
-        Back
+        onClick={() => handleNavigationBack(params.page - 1)}>
+        <div>{loaderBackButton && <ImgLoader />}</div>
+        <div>Back</div>
       </button>
       {numbersForPagination.map((item) => (
         <button
-          onClick={() => handlePaginationClick(item)}
+          onClick={() => loadAnotherPage(item)}
           className={item === params.page ? 'active' : ''}
           disabled={item === params.page}
           key={item}>
@@ -56,9 +74,10 @@ const PaginationRest: FC = () => {
       ))}
       <button
         className="navigation"
-        onClick={() => handlePaginationClick(params.page + 1)}
+        onClick={() => handleNavigationNext(params.page + 1)}
         disabled={params.page === numberOfPages}>
-        Next
+        <div>Next</div>
+        <div>{loaderNextButton && <ImgLoader />}</div>
       </button>
     </div>
   );

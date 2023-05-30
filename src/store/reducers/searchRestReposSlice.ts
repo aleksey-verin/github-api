@@ -6,15 +6,15 @@ import { getSearchUrl, transformRESTData } from '../../utils/api-helpers';
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';
 
-// const defaultValues = {
-//   resultsRepos: null,
-//   totalCountRepos: null,
-//   params: {
-//     per_page: 9,
-//     page: 1
-//   },
-//   numberOfPages: 0
-// };
+const defaultValues = {
+  resultsRepos: null,
+  totalCountRepos: null,
+  params: {
+    per_page: 8,
+    page: 1
+  },
+  numberOfPages: 0
+};
 
 interface initialStateTypes {
   resultsRepos: RepositorySearchCommonItem[] | null;
@@ -27,13 +27,13 @@ interface initialStateTypes {
 }
 
 const initialState = storageGetItem(storage.searchStoreREST) ?? {
-  resultsRepos: null,
-  totalCountRepos: null,
+  resultsRepos: defaultValues.resultsRepos,
+  totalCountRepos: defaultValues.totalCountRepos,
   params: {
-    per_page: 9,
-    page: 1
+    per_page: defaultValues.params.per_page,
+    page: defaultValues.params.page
   },
-  numberOfPages: 0,
+  numberOfPages: defaultValues.numberOfPages,
   isLoading: false,
   isSuccess: false,
   isError: false
@@ -78,21 +78,21 @@ export const searchRestReposSlice = createSlice({
   initialState: initialState as initialStateTypes,
   reducers: {
     clearSearchData: (state) => {
-      state.resultsRepos = initialState.resultsRepos;
-      state.numberOfPages = initialState.numberOfPages;
-      state.params.page = initialState.params.page;
+      state.resultsRepos = defaultValues.resultsRepos;
+      state.numberOfPages = defaultValues.numberOfPages;
+      state.params.page = defaultValues.params.page;
     },
     setParamsPage: (state, { payload }: PayloadAction<number>) => {
       state.params.page = payload;
     },
     resetParamsPage: (state) => {
-      state.params.page = initialState.params.page;
+      state.params.page = defaultValues.params.page;
     },
     setParamsPerPage: (state, { payload }: PayloadAction<number>) => {
       state.params.per_page = payload;
     },
     resetParamsPerPage: (state) => {
-      state.params.per_page = initialState.params.per_page;
+      state.params.per_page = defaultValues.params.per_page;
     }
   },
   extraReducers: (builder) => {

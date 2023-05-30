@@ -9,6 +9,27 @@ import { GraphQlRequestType, RepositorySearchCommonItem } from './types/repoType
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';
 
+const defaultValues = {
+  resultsReposGraphQl: null,
+  totalCountReposGraphQl: null,
+  paramsGraph: {
+    per_request: 40
+  },
+  pageInfo: {
+    startCursor: '',
+    endCursor: '',
+    hasPreviousPage: false,
+    hasNextPage: false
+  },
+  pagination: {
+    per_page: 8,
+    max_pagination_items: 5,
+    current_page: 1,
+    numberOfPages: 0,
+    global_count_for_request: 1
+  }
+};
+
 interface initialStateTypes {
   resultsReposGraphQl: RepositorySearchCommonItem[] | null;
   totalCountReposGraphQl: number | null;
@@ -29,10 +50,10 @@ interface initialStateTypes {
 }
 
 const initialState = storageGetItem(storage.searchStoreGraphQL) ?? {
-  resultsReposGraphQl: null,
-  totalCountReposGraphQl: null,
+  resultsReposGraphQl: defaultValues.resultsReposGraphQl,
+  totalCountReposGraphQl: defaultValues.totalCountReposGraphQl,
   paramsGraph: {
-    per_request: 45
+    per_request: defaultValues.paramsGraph.per_request
   },
   pageInfo: {
     startCursor: '',
@@ -41,11 +62,11 @@ const initialState = storageGetItem(storage.searchStoreGraphQL) ?? {
     hasNextPage: false
   },
   pagination: {
-    per_page: 9,
-    max_pagination_items: 5,
-    current_page: 1,
-    numberOfPages: 0,
-    global_count_for_request: 1
+    per_page: defaultValues.pagination.per_page,
+    max_pagination_items: defaultValues.pagination.max_pagination_items,
+    current_page: defaultValues.pagination.current_page,
+    numberOfPages: defaultValues.pagination.numberOfPages,
+    global_count_for_request: defaultValues.pagination.global_count_for_request
   },
   isLoading: false,
   isSuccess: false,
@@ -99,13 +120,13 @@ export const searchGraphQlReposSlice = createSlice({
       state.pagination.global_count_for_request = payload;
     },
     resetRequestParamsGraphQl: (state) => {
-      state.pagination.global_count_for_request = initialState.pagination.global_count_for_request;
-      state.pagination.current_page = initialState.pagination.current_page;
-      state.pagination.numberOfPages = initialState.pagination.numberOfPages;
+      state.pagination.global_count_for_request = defaultValues.pagination.global_count_for_request;
+      state.pagination.current_page = defaultValues.pagination.current_page;
+      state.pagination.numberOfPages = defaultValues.pagination.numberOfPages;
     },
     clearResultsGraphQl: (state) => {
-      state.resultsReposGraphQl = initialState.resultsReposGraphQl;
-      state.totalCountReposGraphQl = initialState.totalCountReposGraphQl;
+      state.resultsReposGraphQl = defaultValues.resultsReposGraphQl;
+      state.totalCountReposGraphQl = defaultValues.totalCountReposGraphQl;
     }
   },
   extraReducers: (builder) => {

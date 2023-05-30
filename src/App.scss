@@ -506,6 +506,20 @@ main {
       background-color: rgba(73, 82, 255, 0.123);
     }
   }
+  & button:first-child {
+    display: flex;
+    width: 90px;
+    align-items: center;
+    justify-content: right;
+    gap: 5px;
+  }
+  & button:last-child {
+    display: flex;
+    width: 90px;
+    align-items: center;
+    justify-content: left;
+    gap: 5px;
+  }
   @media (max-width: 939px) {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;

@@ -44,7 +44,7 @@ const FormSearch: FC = () => {
   const requestRestApi = async (value: string, token: string | undefined, per_page: number) => {
     setLoaderRequestButton(true);
     dispatch(resetParamsPage());
-    dispatch(
+    await dispatch(
       getResultsRepos({
         searchValue: value,
         oAuthToken: token,

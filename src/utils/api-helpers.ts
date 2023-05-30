@@ -37,7 +37,7 @@ export function transformGraphQlData(response: ResponseSearch): RepositorySearch
     description: node.description,
     languageMain: node.languages.edges.length
       ? node.languages.edges[0].node.name
-      : 'There is no information',
+      : "there's no info",
     languages: node.languages,
     pushedAt: node.pushedAt,
     stargazerCount: node.stargazerCount
@@ -49,7 +49,7 @@ export function transformRESTData(response: SearchRepositoriesType): RepositoryS
   const resultsRepos = response.items.map((item) => ({
     id: item.id,
     name: item.name,
-    languageMain: item.language ? item.language : 'There is no information',
+    languageMain: item.language ? item.language : "there's no info",
     languages: item.languages_url,
     pushedAt: item.pushed_at,
     stargazerCount: item.stargazers_count,
@@ -73,7 +73,7 @@ export function transformUserReposData(response: RepositoryItem[]): RepositorySe
       html_url: item.owner.html_url,
       avatar_url: item.owner.avatar_url
     },
-    languageMain: item.language ? item.language : 'There is no information',
+    languageMain: item.language ? item.language : "there's no info",
     languages: item.languages_url,
     pushedAt: item.pushed_at,
     stargazerCount: item.stargazers_count
