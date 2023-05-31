@@ -55,7 +55,9 @@ const PaginationGraphQL: FC = () => {
   };
 
   const handleNextButton = async (currentPage: number) => {
-    if (isLoading || !pageInfo.hasNextPage) return;
+    // if (isLoading || !pageInfo.hasNextPage) return;
+    if (isLoading) return;
+
     if (currentPage % 5 === 0) {
       setLoaderNextButton(true);
       await requestNextOrPrevReposGraphQlApi(

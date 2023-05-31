@@ -311,6 +311,7 @@ main {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  flex: 1 0 auto;
   gap: 20px;
   width: 100%;
   &__title {
