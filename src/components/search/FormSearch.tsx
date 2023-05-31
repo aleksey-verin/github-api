@@ -101,14 +101,15 @@ const FormSearch: FC = () => {
 
   useEffect(() => {
     if (!debouncedValue) return;
-    if (searchInputValue === search) return;
+    const value = debouncedValue.trim();
+    if (value === search) return;
 
     if (requestType === RequestTypes.REST) {
-      requestRestApi(debouncedValue, user?.oauthAccessToken, params.per_page);
+      requestRestApi(value, user?.oauthAccessToken, params.per_page);
     } else {
       if (isAuth) {
         requestGraphQlApi(
-          debouncedValue,
+          value,
           user?.oauthAccessToken,
           paramsGraph.per_request,
           GraphQlRequestType.initial,
@@ -131,15 +132,16 @@ const FormSearch: FC = () => {
 
   const handleSubmitSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchInputValue === search) {
+    const value = searchInputValue.trim();
+    if (value === search) {
       return showNoteSameWordForSearch();
     }
     if (requestType === RequestTypes.REST) {
-      requestRestApi(searchInputValue, user?.oauthAccessToken, params.per_page);
+      requestRestApi(value, user?.oauthAccessToken, params.per_page);
     } else {
       if (isAuth) {
         requestGraphQlApi(
-          searchInputValue,
+          value,
           user?.oauthAccessToken,
           paramsGraph.per_request,
           GraphQlRequestType.initial,

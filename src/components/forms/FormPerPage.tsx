@@ -19,6 +19,7 @@ import {
 import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 import { GraphQlRequestType, RequestTypes } from '../../store/types/repoType';
 import { toast } from 'react-hot-toast';
+import { showNoteSaveParams } from '../../utils/notifications';
 
 const FormPerPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -76,7 +77,7 @@ const FormPerPage: FC = () => {
       if (user) {
         dispatch(resetRequestParamsGraphQl());
         dispatch(clearResultsGraphQl());
-        dispatch(
+        const newRequest = dispatch(
           searchGraphQlRepos({
             searchValue: search,
             oAuthToken: user?.oauthAccessToken,
@@ -85,9 +86,9 @@ const FormPerPage: FC = () => {
             pageInfo
           })
         );
+        showNoteSaveParams(newRequest);
       }
     }
-    toast.success('Successfully saved!');
   };
 
   useEffect(() => {

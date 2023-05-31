@@ -66,3 +66,24 @@ export const showNoteLogin = (promise: Promise<unknown>) => {
     }
   );
 };
+
+export const showNoteSaveParams = (promise: Promise<unknown>) => {
+  toast.promise(
+    promise,
+    {
+      loading: 'Please wait..',
+      success: 'Successfully saved!',
+      error: 'Something went wrong request'
+    },
+    {
+      success: {
+        duration: 1000,
+        icon: '🔥'
+      },
+      error: {
+        duration: 1000,
+        icon: '😢'
+      }
+    }
+  );
+};
