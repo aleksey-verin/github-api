@@ -38,11 +38,13 @@ const Header: FC = () => {
       <button onClick={() => setMobileMenuIsOpen(!mobileMenuIsOpen)} className="header-burger">
         <ImgBurger />
       </button>
-      <div className="header-logo">LOGO</div>
+      <div className="header-logo">
+        <Link to={ROUTES.searchPage}>LOGO</Link>
+      </div>
       <nav className="header-nav__desktop">
         <NavLink to={ROUTES.searchPage}>Search</NavLink>
-        <NavLink to={ROUTES.aboutPage}>About</NavLink>
         <NavLink to={ROUTES.settingsPage}>Settings</NavLink>
+        <NavLink to={ROUTES.aboutPage}>About</NavLink>
       </nav>
       <div className="header-user">
         {isAuth ? (
@@ -61,11 +63,11 @@ const Header: FC = () => {
           <NavLink onClick={closeMobileMenu} to={ROUTES.searchPage}>
             Search
           </NavLink>
-          <NavLink onClick={closeMobileMenu} to={ROUTES.aboutPage}>
-            About
-          </NavLink>
           <NavLink onClick={closeMobileMenu} to={ROUTES.settingsPage}>
             Settings
+          </NavLink>
+          <NavLink onClick={closeMobileMenu} to={ROUTES.aboutPage}>
+            About
           </NavLink>
         </nav>
       )}

@@ -33,6 +33,14 @@ header nav.header-nav__desktop a.active {
 }
 header .header-logo {
   flex: 0 0 100px;
+  cursor: pointer;
+}
+header .header-logo a {
+  display: block;
+  width: 100%;
+}
+header .header-logo a:hover {
+  color: inherit;
 }
 header .header-user {
   flex: 1 1 auto;
@@ -544,4 +552,24 @@ main {
   .loader-image path {
     stroke: #fff;
   }
+}
+.about {
+  max-width: 800px;
+}
+.about p {
+  text-indent: 20px;
+}
+.about p:first-child {
+  margin-bottom: 10px;
+}
+.about ul {
+  -webkit-padding-start: 30px;
+          padding-inline-start: 30px;
+  list-style: circle;
+  -webkit-padding-start: 18px;
+          padding-inline-start: 18px;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
 }/*# sourceMappingURL=App.css.map */
