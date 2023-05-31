@@ -43,7 +43,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-
+  color: inherit;
   background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -96,6 +96,7 @@ select {
   font-family: inherit;
   background-color: #f9f9f9;
   cursor: pointer;
+  color: inherit;
   transition: border-color 0.25s;
   -moz-appearance: none;
   -webkit-appearance: none;
