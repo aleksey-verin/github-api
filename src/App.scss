@@ -508,6 +508,10 @@ main {
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  &__numbers {
+    display: flex;
+    gap: 20px;
+  }
   & button {
     min-width: 60px;
     &.active {
@@ -515,14 +519,14 @@ main {
       background-color: rgba(73, 82, 255, 0.123);
     }
   }
-  & button:first-child {
+  &__back {
     display: flex;
     width: 90px;
     align-items: center;
     justify-content: right;
     gap: 5px;
   }
-  & button:last-child {
+  &__next {
     display: flex;
     width: 90px;
     align-items: center;
@@ -530,31 +534,66 @@ main {
     gap: 5px;
   }
   @media (max-width: 939px) {
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
     gap: 10px;
+    &__numbers {
+      gap: 10px;
+    }
     & button {
       min-width: 50px;
     }
   }
+
   @media (max-width: 780px) {
-    gap: 5px;
-    & button {
-      padding: 10px 10px;
-      min-width: 40px;
+    flex-wrap: wrap;
+    gap: 10px;
+    &__numbers {
+      order: 1;
+      flex: 1 1 90%;
+      height: 40px;
+      justify-content: center;
+      gap: 15px;
+    }
+    &__back {
+      order: 2;
+      flex: 0 0 20%;
+      padding-right: 30px;
+    }
+    &__next {
+      order: 3;
+      flex: 0 0 20%;
+      padding-left: 30px;
     }
   }
-  @media (max-width: 550px) {
-    & button {
-      display: none;
+  @media (max-width: 630px) {
+    &__numbers {
+      gap: 10px;
+      & button {
+        min-width: 40px;
+        padding: 0px 5px;
+      }
     }
-    & .navigation {
-      display: block;
-      width: inherit;
+    &__back {
+      padding-right: 30px;
     }
-    & .active {
-      display: block;
+    &__next {
+      padding-left: 30px;
+    }
+  }
+  @media (max-width: 630px) {
+    &__numbers {
+      gap: 5px;
+      & button {
+        min-width: 25px;
+        padding: 0px 3px;
+      }
+    }
+    &__back {
+      flex: 0 0 30%;
+      padding-right: 20px;
+    }
+    &__next {
+      flex: 0 0 30%;
+      padding-left: 20px;
     }
   }
 }
@@ -568,6 +607,10 @@ main {
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  &__numbers {
+    display: flex;
+    gap: 20px;
+  }
   & button {
     min-width: 60px;
     &.active {
@@ -599,6 +642,9 @@ main {
     -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 10px;
+    &__numbers {
+      gap: 10px;
+    }
     & button {
       min-width: 50px;
     }
@@ -617,41 +663,32 @@ main {
       padding-right: 15px;
     }
   }
-  @media (max-width: 500px) {
-    & button {
-      padding: 10px 10px;
-      min-width: 40px;
-    }
-    &__next {
-      width: 70px;
-      padding-left: 15px;
-    }
-    &__back {
-      width: 70px;
-      padding-right: 15px;
+  @media (max-width: 560px) {
+    &__numbers {
+      button {
+        padding: 5px 5px;
+      }
     }
   }
-  @media (max-width: 440px) {
-    gap: 10px;
-    & button {
-      display: none;
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
+    gap: 20px;
+    &__numbers {
+      order: 1;
+      flex: 1 1 90%;
+      height: 40px;
+      justify-content: center;
+      gap: 15px;
     }
-    & .active {
-      display: block;
+    &__back {
+      order: 2;
+      flex: 1 0 20%;
+      padding-right: 60px;
     }
-    & .pagination-graph__next {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      width: inherit;
-      padding-left: 40px;
-    }
-    & .pagination-graph__back {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      width: inherit;
-      padding-right: 40px;
+    &__next {
+      order: 3;
+      flex: 1 0 20%;
+      padding-left: 60px;
     }
   }
 }

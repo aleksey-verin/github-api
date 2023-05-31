@@ -60,23 +60,25 @@ const PaginationRest: FC = () => {
   return (
     <div className="pagination-rest">
       <button
-        className="navigation"
+        className="pagination-rest__back"
         disabled={params.page === 1}
         onClick={() => handleNavigationBack(params.page - 1)}>
         <div>{loaderBackButton && <ImgLoader />}</div>
         <div>Back</div>
       </button>
-      {numbersForPagination.map((item) => (
-        <button
-          onClick={() => loadAnotherPage(item)}
-          className={item === params.page ? 'active' : ''}
-          disabled={item === params.page}
-          key={item}>
-          {item}
-        </button>
-      ))}
+      <div className="pagination-rest__numbers">
+        {numbersForPagination.map((item) => (
+          <button
+            onClick={() => loadAnotherPage(item)}
+            className={item === params.page ? 'active' : ''}
+            disabled={item === params.page}
+            key={item}>
+            {item}
+          </button>
+        ))}
+      </div>
       <button
-        className="navigation"
+        className="pagination-rest__next"
         onClick={() => handleNavigationNext(params.page + 1)}
         disabled={params.page === numberOfPages}>
         <div>Next</div>

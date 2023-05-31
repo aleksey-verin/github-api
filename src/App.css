@@ -343,6 +343,10 @@ main {
   display: flex;
   gap: 20px;
 }
+.pagination-rest__numbers {
+  display: flex;
+  gap: 20px;
+}
 .pagination-rest button {
   min-width: 60px;
 }
@@ -350,14 +354,14 @@ main {
   color: #5e66f9;
   background-color: rgba(73, 82, 255, 0.123);
 }
-.pagination-rest button:first-child {
+.pagination-rest__back {
   display: flex;
   width: 90px;
   align-items: center;
   justify-content: right;
   gap: 5px;
 }
-.pagination-rest button:last-child {
+.pagination-rest__next {
   display: flex;
   width: 90px;
   align-items: center;
@@ -366,7 +370,9 @@ main {
 }
 @media (max-width: 939px) {
   .pagination-rest {
-    justify-content: space-between;
+    gap: 10px;
+  }
+  .pagination-rest__numbers {
     gap: 10px;
   }
   .pagination-rest button {
@@ -375,29 +381,67 @@ main {
 }
 @media (max-width: 780px) {
   .pagination-rest {
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .pagination-rest button {
-    padding: 10px 10px;
-    min-width: 40px;
+  .pagination-rest__numbers {
+    order: 1;
+    flex: 1 1 90%;
+    height: 40px;
+    justify-content: center;
+    gap: 15px;
+  }
+  .pagination-rest__back {
+    order: 2;
+    flex: 0 0 20%;
+    padding-right: 30px;
+  }
+  .pagination-rest__next {
+    order: 3;
+    flex: 0 0 20%;
+    padding-left: 30px;
   }
 }
-@media (max-width: 550px) {
-  .pagination-rest button {
-    display: none;
+@media (max-width: 630px) {
+  .pagination-rest__numbers {
+    gap: 10px;
   }
-  .pagination-rest .navigation {
-    display: block;
-    width: inherit;
+  .pagination-rest__numbers button {
+    min-width: 40px;
+    padding: 0px 5px;
   }
-  .pagination-rest .active {
-    display: block;
+  .pagination-rest__back {
+    padding-right: 30px;
+  }
+  .pagination-rest__next {
+    padding-left: 30px;
+  }
+}
+@media (max-width: 630px) {
+  .pagination-rest__numbers {
+    gap: 5px;
+  }
+  .pagination-rest__numbers button {
+    min-width: 25px;
+    padding: 0px 3px;
+  }
+  .pagination-rest__back {
+    flex: 0 0 30%;
+    padding-right: 20px;
+  }
+  .pagination-rest__next {
+    flex: 0 0 30%;
+    padding-left: 20px;
   }
 }
 
 .pagination-graph {
   width: 100%;
   justify-content: center;
+  display: flex;
+  gap: 20px;
+}
+.pagination-graph__numbers {
   display: flex;
   gap: 20px;
 }
@@ -426,6 +470,9 @@ main {
     justify-content: space-between;
     gap: 10px;
   }
+  .pagination-graph__numbers {
+    gap: 10px;
+  }
   .pagination-graph button {
     min-width: 50px;
   }
@@ -446,39 +493,32 @@ main {
     padding-right: 15px;
   }
 }
-@media (max-width: 500px) {
-  .pagination-graph button {
-    padding: 10px 10px;
-    min-width: 40px;
-  }
-  .pagination-graph__next {
-    width: 70px;
-    padding-left: 15px;
-  }
-  .pagination-graph__back {
-    width: 70px;
-    padding-right: 15px;
+@media (max-width: 560px) {
+  .pagination-graph__numbers button {
+    padding: 5px 5px;
   }
 }
-@media (max-width: 440px) {
+@media (max-width: 450px) {
   .pagination-graph {
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 20px;
   }
-  .pagination-graph button {
-    display: none;
+  .pagination-graph__numbers {
+    order: 1;
+    flex: 1 1 90%;
+    height: 40px;
+    justify-content: center;
+    gap: 15px;
   }
-  .pagination-graph .active {
-    display: block;
+  .pagination-graph__back {
+    order: 2;
+    flex: 1 0 20%;
+    padding-right: 60px;
   }
-  .pagination-graph .pagination-graph__next {
-    display: flex;
-    width: inherit;
-    padding-left: 40px;
-  }
-  .pagination-graph .pagination-graph__back {
-    display: flex;
-    width: inherit;
-    padding-right: 40px;
+  .pagination-graph__next {
+    order: 3;
+    flex: 1 0 20%;
+    padding-left: 60px;
   }
 }
 

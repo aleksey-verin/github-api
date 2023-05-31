@@ -111,15 +111,17 @@ const PaginationGraphQL: FC = () => {
         <div>{loaderBackButton && <ImgLoader />}</div>
         <div>Back</div>
       </button>
-      {numbersForPagination.map((item) => (
-        <button
-          onClick={() => handlePaginationClick(item)}
-          className={item === current_page ? 'active' : ''}
-          disabled={item === current_page || isLoading}
-          key={item}>
-          {item}
-        </button>
-      ))}
+      <div className="pagination-graph__numbers">
+        {numbersForPagination.map((item) => (
+          <button
+            onClick={() => handlePaginationClick(item)}
+            className={item === current_page ? 'active' : ''}
+            disabled={item === current_page || isLoading}
+            key={item}>
+            {item}
+          </button>
+        ))}
+      </div>
       <button
         onClick={() => handleNextButton(current_page)}
         disabled={current_page === numberOfPages}
