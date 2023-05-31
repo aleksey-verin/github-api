@@ -18,7 +18,6 @@ import {
 } from '../../store/reducers/searchGraphQlReposSlice';
 import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 import { GraphQlRequestType, RequestTypes } from '../../store/types/repoType';
-import { toast } from 'react-hot-toast';
 import { showNoteSaveParams } from '../../utils/notifications';
 
 const FormPerPage: FC = () => {
