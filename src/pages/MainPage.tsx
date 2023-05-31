@@ -9,7 +9,7 @@ import ListSearchResults from '../components/search/rest/ListSearchResults';
 import PaginationRest from '../components/search/rest/PaginationRest';
 import { selectorSearchValue } from '../store/reducers/searchValueSlice';
 import { selectorUserSettingsSlice } from '../store/reducers/userSettingsSlice';
-import { RequestTypes } from '../store/reducers/types/repoType';
+import { RequestTypes } from '../store/types/repoType';
 import PaginationGraphQL from '../components/search/graph/PaginationGraphQL';
 import ListSearchResultsGraph from '../components/search/graph/ListSearchResultsGraph';
 

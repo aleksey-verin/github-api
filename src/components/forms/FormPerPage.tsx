@@ -17,7 +17,8 @@ import {
   setParamsPerPageGraphQl
 } from '../../store/reducers/searchGraphQlReposSlice';
 import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
-import { GraphQlRequestType, RequestTypes } from '../../store/reducers/types/repoType';
+import { GraphQlRequestType, RequestTypes } from '../../store/types/repoType';
+import { toast } from 'react-hot-toast';
 
 const FormPerPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ const FormPerPage: FC = () => {
     setPerPageInputDisabled(false);
   };
 
-  const handleSaveDebounce = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSavePerPage = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setPerPageInputDisabled(true);
 
@@ -86,6 +87,7 @@ const FormPerPage: FC = () => {
         );
       }
     }
+    toast.success('Successfully saved!');
   };
 
   useEffect(() => {
@@ -95,7 +97,7 @@ const FormPerPage: FC = () => {
   }, [perPageInputDisabled]);
 
   return (
-    <form onSubmit={handleSaveDebounce}>
+    <form onSubmit={handleSavePerPage}>
       <label htmlFor="per_page">Number of items on the search page (pcs.)</label>
       <div>
         <input
@@ -106,7 +108,7 @@ const FormPerPage: FC = () => {
           placeholder="value for per page parameter"
           step={4}
           min={4}
-          max={28}
+          max={requestType === RequestTypes.REST ? 28 : 20}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPerPageInputValue(Number(e.target.value))
           }

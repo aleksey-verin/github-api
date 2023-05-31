@@ -1,7 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { ParamsSearch, RepositorySearchCommonItem, SearchRepositoriesType } from './types/repoType';
+import {
+  ParamsSearch,
+  RepositorySearchCommonItem,
+  SearchRepositoriesType
+} from '../types/repoType';
 import { getSearchUrl, transformRESTData } from '../../utils/api-helpers';
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';

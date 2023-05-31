@@ -21,9 +21,15 @@ import {
   selectorSearchValue,
   setSearchValue
 } from '../../store/reducers/searchValueSlice';
-import { GraphQlRequestType, RequestTypes } from '../../store/reducers/types/repoType';
-import { PageInfo } from '../../store/reducers/types/reposGraphQlTypes';
+import { GraphQlRequestType, RequestTypes } from '../../store/types/repoType';
+import { PageInfo } from '../../store/types/reposGraphQlTypes';
 import ImgLoader from '../ui/image/ImgLoader';
+import { toast } from 'react-hot-toast';
+import {
+  showNoteLoginForGraphRequest,
+  showNoteSameWordForSearch,
+  showNoteSearchRequest
+} from '../../utils/notifications';
 
 const defaultValue = '';
 
@@ -44,15 +50,20 @@ const FormSearch: FC = () => {
   const requestRestApi = async (value: string, token: string | undefined, per_page: number) => {
     setLoaderRequestButton(true);
     dispatch(resetParamsPage());
-    await dispatch(
+    const searchData = dispatch(
       getResultsRepos({
         searchValue: value,
         oAuthToken: token,
         params: { page: 1, per_page: per_page }
       })
     );
+    showNoteSearchRequest(
+      searchData,
+      setLoaderRequestButton(false),
+      setLoaderRequestButton(false),
+      value
+    );
     dispatch(setSearchValue(value));
-    setLoaderRequestButton(false);
   };
 
   const requestGraphQlApi = async (
@@ -65,7 +76,7 @@ const FormSearch: FC = () => {
     setLoaderRequestButton(true);
     dispatch(resetRequestParamsGraphQl());
     if (token) {
-      await dispatch(
+      const searchData = dispatch(
         searchGraphQlRepos({
           searchValue: value,
           oAuthToken: token,
@@ -74,16 +85,24 @@ const FormSearch: FC = () => {
           pageInfo
         })
       );
+      showNoteSearchRequest(
+        searchData,
+        setLoaderRequestButton(false),
+        setLoaderRequestButton(false),
+        value
+      );
     } else {
-      console.log('there is no auth token');
+      toast('😔 Something went wrong with authorization', {
+        duration: 3000
+      });
     }
     dispatch(setSearchValue(value));
-    setLoaderRequestButton(false);
   };
 
   useEffect(() => {
     if (!debouncedValue) return;
     if (searchInputValue === search) return;
+
     if (requestType === RequestTypes.REST) {
       requestRestApi(debouncedValue, user?.oauthAccessToken, params.per_page);
     } else {
@@ -96,7 +115,7 @@ const FormSearch: FC = () => {
           pageInfo
         );
       } else {
-        console.log('no auth for graphql request');
+        showNoteLoginForGraphRequest();
       }
     }
   }, [debouncedValue]);
@@ -112,7 +131,9 @@ const FormSearch: FC = () => {
 
   const handleSubmitSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchInputValue === search) return;
+    if (searchInputValue === search) {
+      return showNoteSameWordForSearch();
+    }
     if (requestType === RequestTypes.REST) {
       requestRestApi(searchInputValue, user?.oauthAccessToken, params.per_page);
     } else {
@@ -125,7 +146,7 @@ const FormSearch: FC = () => {
           pageInfo
         );
       } else {
-        console.log('no auth for graphql request');
+        showNoteLoginForGraphRequest();
       }
     }
   };

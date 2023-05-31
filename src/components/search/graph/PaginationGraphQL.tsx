@@ -10,8 +10,8 @@ import {
   setCurrentPage,
   setGlobalCountForRequest
 } from '../../../store/reducers/searchGraphQlReposSlice';
-import { PageInfo } from '../../../store/reducers/types/reposGraphQlTypes';
-import { GraphQlRequestType } from '../../../store/reducers/types/repoType';
+import { PageInfo } from '../../../store/types/reposGraphQlTypes';
+import { GraphQlRequestType } from '../../../store/types/repoType';
 import ImgLoader from '../../ui/image/ImgLoader';
 
 const PaginationGraphQL: FC = () => {

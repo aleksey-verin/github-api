@@ -1,5 +1,5 @@
-import { LanguagesObject, RepositorySearchCommonItem } from '../store/reducers/types/repoType';
-import { LanguagesGraph } from '../store/reducers/types/reposGraphQlTypes';
+import { LanguagesObject, RepositorySearchCommonItem } from '../store/types/repoType';
+import { LanguagesGraph } from '../store/types/reposGraphQlTypes';
 
 export function getLanguageObject(langGraph: LanguagesGraph): LanguagesObject {
   const result: Record<string, number> = {};

@@ -2,10 +2,10 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
 
-import { PageInfo, ResponseSearch } from './types/reposGraphQlTypes';
+import { PageInfo, ResponseSearch } from '../types/reposGraphQlTypes';
 import { GraphQLClient, Variables } from 'graphql-request';
 import { getVariablesByType, transformGraphQlData } from '../../utils/api-helpers';
-import { GraphQlRequestType, RepositorySearchCommonItem } from './types/repoType';
+import { GraphQlRequestType, RepositorySearchCommonItem } from '../types/repoType';
 import { getNumberOfPages } from '../../utils/helpers';
 import { storage, storageGetItem } from '../../utils/storage';
 

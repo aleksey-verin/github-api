@@ -7,6 +7,10 @@ import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuth
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import ImgBurger from './ui/image/ImgBurger';
 import { clearLocalStorageData, storage } from '../utils/storage';
+import { toast } from 'react-hot-toast';
+import { clearSearchValue } from '../store/reducers/searchValueSlice';
+import { clearSearchData } from '../store/reducers/searchRestReposSlice';
+import { clearResultsGraphQl } from '../store/reducers/searchGraphQlReposSlice';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +19,14 @@ const Header: FC = () => {
 
   const handleLogOut = async () => {
     await dispatch(userAuth(userSign.out));
+    toast(`Buy-buy, ${user?.displayName}`, {
+      duration: 3000,
+      icon: '👋'
+    });
     clearLocalStorageData(storage);
+    dispatch(clearSearchValue());
+    dispatch(clearSearchData());
+    dispatch(clearResultsGraphQl());
   };
 
   const closeMobileMenu = () => {

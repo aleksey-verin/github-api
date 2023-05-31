@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 import { selectorUserSettingsSlice, setRequestType } from '../../store/reducers/userSettingsSlice';
-import { RequestTypes } from '../../store/reducers/types/repoType';
+import { RequestTypes } from '../../store/types/repoType';
 import { clearSearchValue } from '../../store/reducers/searchValueSlice';
 import {
   clearResultsGraphQl,
   resetRequestParamsGraphQl
 } from '../../store/reducers/searchGraphQlReposSlice';
 import { clearSearchData } from '../../store/reducers/searchRestReposSlice';
+import { toast } from 'react-hot-toast';
 
 const FormRequestType: FC = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ const FormRequestType: FC = () => {
     dispatch(resetRequestParamsGraphQl());
     dispatch(clearResultsGraphQl());
     dispatch(clearSearchData());
+    toast.success('Successfully saved!');
   };
 
   useEffect(() => {

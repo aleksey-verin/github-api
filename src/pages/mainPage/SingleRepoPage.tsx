@@ -7,11 +7,11 @@ import dayjs from 'dayjs';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { selectorSearchReposSlice } from '../../store/reducers/searchRestReposSlice';
 import { selectorSearchGraphQlReposSlice } from '../../store/reducers/searchGraphQlReposSlice';
-import { RequestTypes } from '../../store/reducers/types/repoType';
+import { RequestTypes } from '../../store/types/repoType';
 import { selectorUserSettingsSlice } from '../../store/reducers/userSettingsSlice';
 import { getLanguageForRepo } from '../../utils/api-helpers';
 import { getLanguageObject, getViewedLanguages } from '../../utils/helpers';
-import { LanguagesGraph } from '../../store/reducers/types/reposGraphQlTypes';
+import { LanguagesGraph } from '../../store/types/reposGraphQlTypes';
 
 const SingleRepoPage: FC = () => {
   const dispatch = useAppDispatch();

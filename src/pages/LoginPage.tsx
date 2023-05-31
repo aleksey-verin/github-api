@@ -3,13 +3,15 @@ import MainContent from '../components/ui/MainContent';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth, userAuth, userSign } from '../store/reducers/userAuthSlice';
+import { showNoteLogin } from '../utils/notifications';
 
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useSelector(selectorUserAuth);
 
   const handleGithubLogin = () => {
-    dispatch(userAuth(userSign.in));
+    const getLogin = dispatch(userAuth(userSign.in));
+    showNoteLogin(getLogin);
   };
 
   return (

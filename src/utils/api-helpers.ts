@@ -9,8 +9,8 @@ import {
   RepositoryItem,
   RepositorySearchCommonItem,
   SearchRepositoriesType
-} from '../store/reducers/types/repoType';
-import { PageInfo, ResponseSearch } from '../store/reducers/types/reposGraphQlTypes';
+} from '../store/types/repoType';
+import { PageInfo, ResponseSearch } from '../store/types/reposGraphQlTypes';
 
 export const getSearchUrl = (searchValue: string, params: ParamsSearch): URL | void => {
   const _url = new URL('https://api.github.com/search/repositories');

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IRootState } from '../store';
 import { storage, storageGetItem } from '../../utils/storage';
-import { RequestTypes } from './types/repoType';
+import { RequestTypes } from '../types/repoType';
 
 interface initialStateTypes {
   isThemeLight: boolean;

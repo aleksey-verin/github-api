@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { getUserRepos } from './store/reducers/userReposSlice';
 import { useSelector } from 'react-redux';
 import { selectorUserAuth } from './store/reducers/userAuthSlice';
+import { toast } from 'react-hot-toast';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ function App() {
   useEffect(() => {
     if (user) {
       dispatch(getUserRepos(user.screenName));
+      toast.success(`Welcome, ${user.displayName}!`);
     }
   }, [dispatch, user]);
 

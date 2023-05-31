@@ -1,9 +1,5 @@
 import { FC } from 'react';
-import {
-  RepositorySearchCommonItem,
-  RequestTypes,
-  UserAuth
-} from '../../store/reducers/types/repoType';
+import { RepositorySearchCommonItem, RequestTypes, UserAuth } from '../../store/types/repoType';
 import RepoItem from './RepoItem';
 
 interface ListUserRepoProps {
@@ -27,8 +23,8 @@ const ListUserRepo: FC<ListUserRepoProps> = ({
         {user
           ? 'List of your repositories:'
           : requestType === RequestTypes.REST
-          ? 'Please log in to the app in order to see your own repositories'
-          : 'Please log in to the app in order to see your own repositories and to search through all repositories on github'}
+          ? 'Please log in to the app if you want to see your own repositories'
+          : 'Please log in to the app if you want to see your own repositories and to search through all repositories on github'}
       </div>
       {isLoading && <div>Loading..</div>}
       {isError && <div>Sorry, error..</div>}

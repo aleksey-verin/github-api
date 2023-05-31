@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AppDispatch, IRootState } from '../store';
-import { RepositoryItem, RepositorySearchCommonItem } from './types/repoType';
+import { RepositoryItem, RepositorySearchCommonItem } from '../types/repoType';
 import { transformUserReposData } from '../../utils/api-helpers';
 
 interface initialStateTypes {

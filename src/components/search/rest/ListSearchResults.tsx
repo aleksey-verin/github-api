@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import RepoItem from '../RepoItem';
-import { RequestTypes } from '../../../store/reducers/types/repoType';
+import { RequestTypes } from '../../../store/types/repoType';
 import { useSelector } from 'react-redux';
 import { selectorSearchGraphQlReposSlice } from '../../../store/reducers/searchGraphQlReposSlice';
 import { selectorSearchReposSlice } from '../../../store/reducers/searchRestReposSlice';
@@ -31,7 +31,13 @@ const ListSearchResults: FC = () => {
       {isError && <div>Sorry, error..</div>}
 
       <div className="user-repositories__title">
-        <span>{totalCountRepos}</span> repositories were found for the query <span>{search}</span>:
+        {totalCountRepos !== null && (
+          <>
+            <span>{totalCountRepos}</span>
+            {` repositories were found for the query `}
+            <span>{totalCountRepos !== null && search}</span>
+          </>
+        )}
       </div>
 
       <div className="user-repositories__list">

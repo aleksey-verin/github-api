@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AppDispatch, IRootState } from '../store';
 import { GithubAuthProvider, UserCredential, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../utils/fireBaseConfig';
-import { UserAuth } from './types/repoType';
+import { UserAuth } from '../types/repoType';
 import { storage, storageGetItem } from '../../utils/storage';
 
 export const userSign = {

@@ -5,6 +5,7 @@ import {
   selectorUserSettingsSlice,
   setSearchDebounce
 } from '../../store/reducers/userSettingsSlice';
+import { toast } from 'react-hot-toast';
 
 const FormDebounce: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const FormDebounce: FC = () => {
     setDebounceInputDisabled(true);
     if (debounceInputValue === searchDebounce) return;
     dispatch(setSearchDebounce(debounceInputValue));
+    toast.success('Successfully saved!');
   };
 
   useEffect(() => {

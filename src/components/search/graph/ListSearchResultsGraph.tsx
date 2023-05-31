@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import RepoItem from '../RepoItem';
-import { RepositorySearchCommonItem } from '../../../store/reducers/types/repoType';
+import { RepositorySearchCommonItem } from '../../../store/types/repoType';
 import { useSelector } from 'react-redux';
 import { selectorSearchGraphQlReposSlice } from '../../../store/reducers/searchGraphQlReposSlice';
 import { selectorSearchValue } from '../../../store/reducers/searchValueSlice';
@@ -34,7 +34,7 @@ const ListSearchResultsGraph: FC = () => {
     <section className="user-repositories">
       {searchIsErrorGraphQl && <div>Sorry, error..</div>}
       <div className="user-repositories__title">
-        {viewedData && (
+        {totalCountReposGraphQl !== null && (
           <>
             <span>{totalCountReposGraphQl}</span>
             {` repositories were found for the query `}
