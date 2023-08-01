@@ -1,4 +1,4 @@
-# App for real estate agents
+# Github API App
 
 ## Summary
 
